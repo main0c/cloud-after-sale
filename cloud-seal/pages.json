@@ -1,0 +1,54 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/workorder/workorder",
+			"style": {
+				"navigationBarTitleText": "工单"
+			}
+		},
+		{
+			"path": "pages/customer/customer",
+			"style": {
+				"navigationBarTitleText": "客户"
+			}
+		},
+		{
+			"path": "pages/sparepart/sparepart",
+			"style": {
+				"navigationBarTitleText": "备件"
+			}
+		},
+		{
+			"path": "pages/workorder/workorderAdd",
+			"style": {
+				"navigationBarTitleText": "新增工单"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar":{
+		"color": "#a7a7a7",
+		"selectedColor":"#62A1EB",
+		"list":[{
+			"pagePath": "pages/workorder/workorder",
+			"text": "工单",
+			"iconPath": "static/tabBar/workorder.png",
+			"selectedIconPath":"static/tabBar/workorder-se.png"
+		},{
+			"pagePath": "pages/customer/customer",
+			"text": "客户",
+			"iconPath": "static/tabBar/customer.png",
+			"selectedIconPath":"static/tabBar/customer-se.png"
+		},{
+			"pagePath": "pages/sparepart/sparepart",
+			"text": "备件",
+			"iconPath": "static/tabBar/sparepart.png",
+			"selectedIconPath":"static/tabBar/sparepart-se.png"
+		}]
+	}
+}
