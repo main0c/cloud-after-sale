@@ -23,7 +23,6 @@
 	-webkit-box-align: center;
 	align-items: center;
 	margin-right: 10px;
-	height: 10px;
 }
 
 .line {
@@ -46,7 +45,6 @@
 	flex-direction: row;
 	-webkit-box-align: center;
 	align-items: center;
-	font-size: 14px;
 	color: #333;
 }
 

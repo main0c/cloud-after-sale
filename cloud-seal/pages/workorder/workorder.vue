@@ -6,7 +6,7 @@
 					<uni-view class="line"></uni-view>
 				</uni-view>
 				<uni-view class="uni-section__content">
-					<uni-text class="distraction"><span>{{bean.title}}</span></uni-text>
+					<uni-text class="uni-list-item__content-title"><span>{{bean.title}}</span></uni-text>
 				</uni-view>
 			</uni-view>
 			<uni-list v-for="(item, index) in bean.list" :key="index">
