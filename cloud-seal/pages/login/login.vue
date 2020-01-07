@@ -111,7 +111,11 @@
 		padding-left: 70upx;
 		padding-right: 70upx;
 	}
-
+	
+	/deep/ .dlbutton uni-view{
+		line-height: 50px;
+	}
+	
 	.tips {
 		color: #999999;
 		font-size: 28upx;

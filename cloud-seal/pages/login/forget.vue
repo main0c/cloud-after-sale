@@ -63,6 +63,13 @@
 				}, 3000)
 			},
 			startRePass() {
+				this.$api.post("login001", {noncestr: Date.now()}).then((res)=>{
+					console.log(res)
+				}).catch((err)=>{
+					console.log('request fail', err);
+				})
+				
+				
 				//重置密码
 				if (this.isRotate) {
 					//判断是否加载中，避免重复点击请求
@@ -98,7 +105,6 @@
 					_this.isRotate = false
 				}, 3000)
 
-
 			}
 		}
 	}
@@ -118,6 +124,14 @@
 		flex-direction: column;
 		padding-left: 70upx;
 		padding-right: 70upx;
+	}
+	
+	/deep/ .cuIcon{
+		line-height: 1;
+	}
+	
+	/deep/ .dlbutton uni-view{
+		line-height: 50px;
 	}
 
 	.tips {
