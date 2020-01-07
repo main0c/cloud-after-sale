@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<view v-for="bean in typeList">
+		<view v-for="(bean, i) in typeList" :key="i">
 			<uni-view class="uni-section">
 				<uni-view class="uni-section__head">
 					<uni-view class="line"></uni-view>
@@ -29,7 +29,7 @@
 			return {
 				title: 'Hello',
 				typeList: [{
-					title: "新增工单1",
+					title: "新增工单",
 					list: [{
 						name: "新增工单",
 						iconPath: "../../static/workordericon/workorder-add.png",
@@ -39,6 +39,57 @@
 						name: "微信报单",
 						iconPath: "../../static/workordericon/workorder-add.png",
 						number: "10",
+						url: "workorderAdd"
+					}]
+				}, {
+					title: "工单状态",
+					list: [{
+						name: "待派工",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderState/workorderState"
+					}, {
+						name: "待接单",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "10",
+						url: "workorderAdd"
+					}, {
+						name: "待签到",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "10",
+						url: "workorderAdd"
+					}, {
+						name: "待完成",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "10",
+						url: "workorderAdd"
+					}, {
+						name: "待评价",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "10",
+						url: "workorderAdd"
+					}, {
+						name: "待审核",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "10",
+						url: "workorderAdd"
+					}]
+				}, {
+					title: "所有工单",
+					list: [{
+						name: "已完成工单",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderAdd"
+					}, {
+						name: "全部待办",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "10",
+						url: "workorderAdd"
+					},  {
+						name: "所有工单",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "",
 						url: "workorderAdd"
 					}]
 				}]

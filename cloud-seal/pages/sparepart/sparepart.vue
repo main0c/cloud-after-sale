@@ -1,52 +1,111 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+		<view v-for="(bean, i) in typeList" :key="i">
+			<uni-view class="uni-section">
+				<uni-view class="uni-section__head">
+					<uni-view class="line"></uni-view>
+				</uni-view>
+				<uni-view class="uni-section__content">
+					<uni-text class="distraction"><span>{{bean.title}}</span></uni-text>
+				</uni-view>
+			</uni-view>
+			<uni-list v-for="(item, index) in bean.list" :key="index">
+				<uni-list-item :title="item.name" :thumb="item.iconPath" show-badge="true" :badge-text="item.number" badge-type="primary"
+				 @click="toPage(item.url)"></uni-list-item>
+			</uni-list>
 		</view>
 	</view>
 </template>
 
 <script>
+	import uniList from "@/components/uni-list/uni-list.vue"
+	import uniListItem from "@/components/uni-list-item/uni-list-item.vue"
 	export default {
+		components: {
+			uniList,
+			uniListItem
+		},
 		data() {
 			return {
-				title: '备件'
+				title: 'Hello',
+				typeList: [{
+					title: "配件申领",
+					list: [{
+						name: "配件申领",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderAdd"
+					}, {
+						name: "待审核配件",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderAdd"
+					}, {
+						name: "已审核配件",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderAdd"
+					}]
+				}, {
+					title: "我的配件",
+					list: [{
+						name: "已申领配件",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderAdd"
+					}, {
+						name: "配件使用历史",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderAdd"
+					}, {
+						name: "我的配件库存",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderAdd"
+					}]
+				}, {
+					title: "配件信息",
+					list: [{
+						name: "配件档案",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderAdd"
+					}, {
+						name: "仓库管理",
+						iconPath: "../../static/workordericon/workorder-add.png",
+						number: "12",
+						url: "workorderAdd"
+					}]
+				}]
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-
+			toPage: function(url) {
+				//navigateTo, redirectTo 只能打开非 tabBar 页面。
+				//switchTab 只能打开 tabBar 页面。
+				uni.navigateTo({
+					url: url
+				});
+			}
 		}
 	}
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+	/deep/ .uni-list-item__container {
+		padding: 8px 15px;
+
 	}
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
+	/deep/ .uni-list-item {
+		border-bottom: 1px #c8c7cc solid;
 	}
 
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+	/deep/ .uni-list-item__icon-img {
+		top: 3px;
 	}
 </style>
