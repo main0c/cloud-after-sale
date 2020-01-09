@@ -6,8 +6,8 @@
 				"navigationBarTitleText": "skyeye",
 				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
 				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
-				"app-plus" : {
-					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
 		},
@@ -17,8 +17,8 @@
 				"navigationBarTitleText": "工单",
 				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
 				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
-				"app-plus" : {
-					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
 		},
@@ -28,8 +28,8 @@
 				"navigationBarTitleText": "客户",
 				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
 				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
-				"app-plus" : {
-					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
 		},
@@ -39,8 +39,8 @@
 				"navigationBarTitleText": "备件",
 				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
 				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
-				"app-plus" : {
-					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
 		},
@@ -50,8 +50,8 @@
 				"navigationBarTitleText": "新增工单",
 				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
 				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
-				"app-plus" : {
-					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
 		},
@@ -61,8 +61,8 @@
 				"navigationBarTitleText": "工单",
 				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
 				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
-				"app-plus" : {
-					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
 		},
@@ -72,46 +72,76 @@
 				"navigationBarTitleText": "找回密码",
 				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
 				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
-				"app-plus" : {
-					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+			}
+		},
+		{
+			"path": "pages/workbench/workbench",
+			"style": {
+				"navigationBarTitleText": "工作台",
+				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
+				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+			}
+		},
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
+				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor":"#62A1EB",
+		"navigationBarTextStyle": "white",
 		"backgroundColor": "#F8F8F8"
 	},
-	"condition" : { //模式配置，仅开发期间生效
+	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [
-			{
-				"name": "", //模式名称
-				"path": "", //启动页面，必选
-				"query": "" //启动参数，在页面的onLoad函数里面得到
-			}
-		]
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
 	},
-	"tabBar":{
+	"tabBar": {
 		"color": "#a7a7a7",
-		"selectedColor":"#62A1EB",
-		"list":[{
+		"selectedColor": "#62A1EB",
+		"list": [{
 			"pagePath": "pages/workorder/workorder",
 			"text": "工单",
 			"iconPath": "static/tabBar/workorder.png",
-			"selectedIconPath":"static/tabBar/workorder-se.png"
-		},{
+			"selectedIconPath": "static/tabBar/workorder-se.png"
+		}, {
 			"pagePath": "pages/customer/customer",
 			"text": "客户",
 			"iconPath": "static/tabBar/customer.png",
-			"selectedIconPath":"static/tabBar/customer-se.png"
-		},{
+			"selectedIconPath": "static/tabBar/customer-se.png"
+		}, {
 			"pagePath": "pages/sparepart/sparepart",
 			"text": "备件",
 			"iconPath": "static/tabBar/sparepart.png",
-			"selectedIconPath":"static/tabBar/sparepart-se.png"
+			"selectedIconPath": "static/tabBar/sparepart-se.png"
+		}, {
+			"pagePath": "pages/workbench/workbench",
+			"text": "工作台",
+			"iconPath": "static/tabBar/workbench.png",
+			"selectedIconPath": "static/tabBar/workbench-se.png"
+		}, {
+			"pagePath": "pages/mine/mine",
+			"text": "我的",
+			"iconPath": "static/tabBar/mine.png",
+			"selectedIconPath": "static/tabBar/mine-se.png"
 		}]
 	}
 }
