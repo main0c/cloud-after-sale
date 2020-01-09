@@ -2,7 +2,6 @@
 .uni-section {
 	position: relative;
 	display: flex;
-	margin-top: 5px;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
 	flex-direction: row;

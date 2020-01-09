@@ -1,14 +1,14 @@
 <template>
 	<view class="content">
 		<view v-for="(bean, i) in typeList" :key="i">
-			<uni-view class="uni-section">
-				<uni-view class="uni-section__head">
-					<uni-view class="line"></uni-view>
-				</uni-view>
-				<uni-view class="uni-section__content">
-					<uni-text class="uni-list-item__content-title"><span>{{bean.title}}</span></uni-text>
-				</uni-view>
-			</uni-view>
+			<view class="uni-section">
+				<view class="uni-section__head">
+					<view class="line"></view>
+				</view>
+				<view class="uni-section__content">
+					<text class="uni-list-item__content-title"><span>{{bean.title}}</span></text>
+				</view>
+			</view>
 			<uni-list v-for="(item, index) in bean.list" :key="index">
 				<uni-list-item :title="item.name" :thumb="item.iconPath" show-badge="true" :badge-text="item.number" badge-type="primary"
 				 @click="toPage(item.url)"></uni-list-item>
@@ -57,7 +57,6 @@
 <style>
 	/deep/ .uni-list-item__container {
 		padding: 8px 15px;
-
 	}
 
 	/deep/ .uni-list-item {
