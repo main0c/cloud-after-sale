@@ -37,7 +37,7 @@
 						url: "workorderAdd"
 					}, {
 						name: "微信报单",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-wechat.png",
 						number: "10",
 						url: "workorderAdd"
 					}]
@@ -45,32 +45,32 @@
 					title: "工单状态",
 					list: [{
 						name: "待派工",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-waitperson.png",
 						number: "12",
 						url: "workorderState/workorderState"
 					}, {
 						name: "待接单",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-recepit.png",
 						number: "10",
 						url: "workorderAdd"
 					}, {
 						name: "待签到",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-sign.png",
 						number: "10",
 						url: "workorderAdd"
 					}, {
 						name: "待完成",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-complate.png",
 						number: "10",
 						url: "workorderAdd"
 					}, {
 						name: "待评价",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-evaluate.png",
 						number: "10",
 						url: "workorderAdd"
 					}, {
 						name: "待审核",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-examine.png",
 						number: "10",
 						url: "workorderAdd"
 					}]
@@ -78,17 +78,17 @@
 					title: "所有工单",
 					list: [{
 						name: "已完成工单",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-success.png",
 						number: "12",
 						url: "workorderAdd"
 					}, {
 						name: "全部待办",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-do.png",
 						number: "10",
 						url: "workorderAdd"
 					},  {
 						name: "所有工单",
-						iconPath: "../../static/workordericon/workorder-add.png",
+						iconPath: "../../static/workordericon/workorder-all.png",
 						number: "",
 						url: "workorderAdd"
 					}]
