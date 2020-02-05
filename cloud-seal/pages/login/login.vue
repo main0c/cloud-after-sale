@@ -113,7 +113,7 @@
 	}
 	
 	/deep/ .dlbutton uni-view{
-		line-height: 50px;
+		line-height: 100upx;
 	}
 	
 	.tips {

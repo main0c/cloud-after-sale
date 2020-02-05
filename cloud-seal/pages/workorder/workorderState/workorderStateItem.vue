@@ -119,7 +119,7 @@
 								listData.push(mockData[i])
 							}
 						} else {
-							let wordArr = ["", "待派工", "待接单"]
+							let wordArr = ["全部", "待派工", "待接单", "待签到", "待完成", "待评价", "待审核"]
 							let word = wordArr[this.i]
 							for (let i = 0; i < mockData.length; i++) {
 								if (mockData[i].pdName.indexOf(word) !== -1) {

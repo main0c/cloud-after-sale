@@ -7,8 +7,8 @@
 	flex-direction: row;
 	-webkit-box-align: center;
 	align-items: center;
-	padding: 0 10px;
-	height: 40px;
+	padding: 0 20upx;
+	height: 70upx;
 	background-color: #f8f8f8;
 	font-weight: 400;
 }
@@ -25,10 +25,10 @@
 }
 
 .line {
-	height: 15px;
+	height: 30upx;
 	background-color: silver;
-	border-radius: 5px;
-	width: 3px;
+	border-radius: 10upx;
+	width: 4upx;
 }
 
 .uni-section__content {

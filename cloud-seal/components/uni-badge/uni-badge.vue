@@ -39,7 +39,7 @@
 </script>
 
 <style lang="scss" scoped>
-	$bage-size: 12px;
+	$bage-size: 24upx;
 	$bage-small: scale(0.8);
 	$bage-height: 40rpx;
 

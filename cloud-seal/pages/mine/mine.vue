@@ -62,6 +62,11 @@
 				</view>
 			</view>
 		</view>
+		
+		<view class="exit-box">
+			<button class="exit-btn" @click="exit()">退出</button>
+		</view>
+		
 	</view>
 </template>
 <script>
@@ -71,6 +76,19 @@
 		},
 		onLoad() {},
 		methods: {
+			exit: function(){
+				uni.showModal({
+				    title: '提示',
+				    content: '确定退出吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+				            uni.reLaunch({
+				            	url: '../login/login',
+				            });
+				        }
+				    }
+				});
+			}
 		}
 	}
 </script>
@@ -214,6 +232,19 @@
 				width: 40upx;
 				height: 40upx;
 			}
+		}
+	}
+	
+	.exit-box{
+		width: 100%;
+		border-top: 20px solid #f1f1f1;
+		border-bottom: 20px solid #f1f1f1;
+		background-color: rgb(241, 241, 241);
+		.exit-btn{
+			width: 90%;
+			height: 90upx;
+			background-color: #FF0000;
+			color: #FFFFFF;
 		}
 	}
 </style>

@@ -2,10 +2,17 @@
 <template>
 	<view class="pd-list">
 		<view class="pd-li" v-for="pd in list" :key="pd.id">
-			<image class="pd-img" :src="pd.pdImg" mode="widthFix" />
-			<view class="pd-name">{{pd.pdName}}</view>
-			<text class="pd-price">{{pd.pdPrice}} 元</text>
-			<text class="pd-sold">已售{{pd.pdSold}}件</text>
+			<view class="pd-order-num">工单号：123213213213213213213213</view>
+			<view class="pd-name">客户名称：{{pd.pdName}}</view>
+			<view class="pd-pro-name">产品名称：{{pd.pdPrice}} 元</view>
+			<view class="pd-pro-type">服务类型：送货</view>
+			<view class="pd-bottom">
+				<text class="pd-state-name">待接单</text>
+				<view class="pd-operator">
+					<button @click="test()">接单</button>
+					<button>派工</button>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -19,6 +26,11 @@
 					return []
 				}
 			}
+		},
+		methods: {
+			test: function(){
+				console.log(1);
+			}
 		}
 	}
 </script>
@@ -27,36 +39,46 @@
 	/*数据列表*/
 	.pd-li {
 		position: relative;
-		height: 160upx;
-		padding: 20upx 16upx 20upx 240upx;
+		height: auto;
+		padding: 20upx 16upx 20upx 16upx;
 		border-bottom: 1upx solid #eee;
 	}
-
-	.pd-li .pd-img {
-		position: absolute !important;
-		/*编译到H5,在list-mescroll-more的案例中需加上!important,解决tab切换过快定位失效的问题*/
-		left: 36upx;
-		top: 20upx;
-		width: 160upx;
-		height: 160upx;
+	
+	.pd-li .pd-order-num{
+		font-size: 30upx;
+		line-height: 40upx;
+		background-color: #DCDCDC;
+		width: calc(100% + 40upx);
+		margin-left: -20upx;
+		padding-left: 20upx;
+		padding-top: 14upx;
+		padding-bottom: 14upx;
 	}
-
-	.pd-li .pd-name {
+	
+	.pd-li .pd-name, .pd-li .pd-pro-name, .pd-li .pd-pro-type {
 		font-size: 26upx;
 		line-height: 40upx;
-		height: 80upx;
-		margin-bottom: 20upx;
+		height: auto;
+		margin-bottom: 16upx;
 		overflow: hidden;
 	}
-
-	.pd-li .pd-price {
-		font-size: 26upx;
-		color: red;
-	}
-
-	.pd-li .pd-sold {
+	
+	.pd-li .pd-bottom .pd-state-name {
 		font-size: 24upx;
-		margin-left: 16upx;
 		color: gray;
+	}
+	
+	.pd-li .pd-bottom .pd-operator{
+		float: right;
+	}
+	
+	.pd-li .pd-bottom .pd-operator button{
+		font-size: 24upx;
+		padding: 10upx 10upx;
+		line-height: 24upx;
+		float: left;
+		margin-right: 10upx;
+		color: cornflowerblue;
+		border-color: cornflowerblue;
 	}
 </style>
