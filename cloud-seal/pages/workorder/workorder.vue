@@ -33,12 +33,12 @@
 					list: [{
 						name: "新增工单",
 						iconPath: "../../static/workordericon/workorder-add.png",
-						number: "12",
+						number: "",
 						url: "workorderAdd"
 					}, {
 						name: "微信报单",
 						iconPath: "../../static/workordericon/workorder-wechat.png",
-						number: "10",
+						number: "",
 						url: "workorderAdd"
 					}]
 				}, {
@@ -47,32 +47,32 @@
 						name: "待派工",
 						iconPath: "../../static/workordericon/workorder-waitperson.png",
 						number: "12",
-						url: "workorderState/workorderState"
+						url: "workorderState/workorderState?type=1"
 					}, {
 						name: "待接单",
 						iconPath: "../../static/workordericon/workorder-recepit.png",
 						number: "10",
-						url: "workorderAdd"
+						url: "workorderState/workorderState?type=2"
 					}, {
 						name: "待签到",
 						iconPath: "../../static/workordericon/workorder-sign.png",
 						number: "10",
-						url: "workorderAdd"
+						url: "workorderState/workorderState?type=3"
 					}, {
 						name: "待完成",
 						iconPath: "../../static/workordericon/workorder-complate.png",
 						number: "10",
-						url: "workorderAdd"
+						url: "workorderState/workorderState?type=4"
 					}, {
 						name: "待评价",
 						iconPath: "../../static/workordericon/workorder-evaluate.png",
 						number: "10",
-						url: "workorderAdd"
+						url: "workorderState/workorderState?type=5"
 					}, {
 						name: "待审核",
 						iconPath: "../../static/workordericon/workorder-examine.png",
 						number: "10",
-						url: "workorderAdd"
+						url: "workorderState/workorderState?type=6"
 					}]
 				}, {
 					title: "所有工单",

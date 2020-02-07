@@ -32,8 +32,11 @@
 		data() {
 			return {
 				tabs: ["全部", "待派工", "待接单", "待签到", "待完成", "待评价", "待审核"],
-				curIndex: 0 // 当前tab的下标
+				curIndex: 0// 当前tab的下标
 			}
+		},
+		onLoad(option) {
+			this.curIndex = option.type * 1;
 		},
 		methods: {
 			// 切换菜单

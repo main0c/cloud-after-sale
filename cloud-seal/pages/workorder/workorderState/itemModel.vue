@@ -47,7 +47,7 @@
 	.pd-li .pd-order-num{
 		font-size: 30upx;
 		line-height: 40upx;
-		background-color: #DCDCDC;
+		background-color: #E8E8E8;
 		width: calc(100% + 40upx);
 		margin-left: -20upx;
 		padding-left: 20upx;
