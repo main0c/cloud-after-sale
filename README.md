@@ -1,37 +1,25 @@
 # cloud-after-sale
 
 #### 介绍
-云售后管理系统手机端
+基于uniapp开发的适用于微信小程序，头条小程序，支付宝小程序，H5端的云售后。目前包括云售后各种功能的静态页面，集成多种自定义插件，[ 微信 + 支付宝 + 百度 + 头条 ] 小程序 + APP + 公众号 + PC + H5 项目代码简洁注释丰富上手容易，适合学习和企业中使用。
 
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+#### 已集成插件
+- [动态标签](https://ext.dcloud.net.cn/plugin?id=316)
+- [文件上传](https://ext.dcloud.net.cn/plugin?id=877)
+- [图片上传](https://ext.dcloud.net.cn/plugin?id=296)
+- [下拉刷新，上拉加载](https://ext.dcloud.net.cn/plugin?id=343)
+- [表单验证](https://ext.dcloud.net.cn/plugin?id=746)
 
 
-#### 码云特技
+#### 项目交流群
+- 项目交流群：(群一(满)：[696070023](http://shang.qq.com/wpa/qunwpa?idkey=e9aace2bf3e05f37ed5f0377c3827c6683d970ac0bcc61b601f70dc861053229))(群二：[836039567](https://shang.qq.com/wpa/qunwpa?idkey=7bb6f29b27f772aadca9c7c4e384f7833c64e9c3c947b5e946c7b303d1fe174a))(群三：[887391486](https://shang.qq.com/wpa/qunwpa?idkey=a65f2e0292eb1048bb13abb7adca302bd83e3465974861ec1f04c2f7fffc4d99))
+- 请不要重复加群，一个群就可以了，把机会留给更多人
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### 效果图
+
+效果图|效果图|效果图|效果图
+-------|-------|-------|-------
+|![输入图片说明](https://images.gitee.com/uploads/images/2020/0210/152434_b36e023c_1541735.png "1.png")|![输入图片说明](https://images.gitee.com/uploads/images/2020/0210/152500_c57e99ec_1541735.png "1.png")|![输入图片说明](https://images.gitee.com/uploads/images/2020/0210/152535_2d3e3249_1541735.png "1.png")|![输入图片说明](https://images.gitee.com/uploads/images/2020/0210/152603_2f610677_1541735.png "1.png")|
+|![输入图片说明](https://images.gitee.com/uploads/images/2020/0210/152629_8ce90e88_1541735.png "1.png")|![输入图片说明](https://images.gitee.com/uploads/images/2020/0210/152657_5a39487c_1541735.png "1.png")|||
+
+
