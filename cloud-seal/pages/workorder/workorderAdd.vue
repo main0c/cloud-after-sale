@@ -224,6 +224,9 @@
 				
 			}
 		},
+		onLoad() {
+			
+		},
 		methods: {
 			
 			deleteImage: function(e){

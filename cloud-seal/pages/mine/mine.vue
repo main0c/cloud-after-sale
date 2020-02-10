@@ -5,9 +5,9 @@
 				<view class="box">
 					<view class="box-hd">
 						<view class="avator">
-							<img src="../../static/needdelete/face.jpg">
+							<img :src="userPhoto">
 						</view>
-						<view class="phone-number">18909XXXX67</view>
+						<view class="phone-number">{{userName}} 【{{jobName}}】</view>
 					</view>
 					<view class="box-bd">
 						<view class="item">
@@ -72,10 +72,40 @@
 <script>
 	export default {
 		data() {
-			return {};
+			return {
+				userPhoto: '',
+				userName: '',
+				jobName: ''
+			};
 		},
-		onLoad() {},
+		onLoad() {
+			//判断缓存中的用户信息是否为空
+			if(uni.getStorageSync("userMation") == null){
+				//获取用户信息
+				this.$api.post("userphone002", {}).then((res)=>{
+					if(res.returnCode == 0){
+						uni.setStorageSync("userMation", res.bean);
+						this.loadMineMation(uni.getStorageSync("userMation"));
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
+			}else{
+				this.loadMineMation(uni.getStorageSync("userMation"));
+			}
+		},
 		methods: {
+			
+			loadMineMation : function(user){
+				this.userPhoto = this.$fileBasePath + user.userPhoto;
+				this.userName = user.userName;
+				this.jobName = user.jobName;
+			},
+			
 			exit: function(){
 				uni.showModal({
 				    title: '提示',

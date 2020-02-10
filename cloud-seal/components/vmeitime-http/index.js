@@ -34,7 +34,9 @@ export default {
 		baseUrl: "http://localhost:8081/",
 		data: {},
 		header: {
-			'Content-Type':'application/x-www-form-urlencoded'
+			'Content-Type':'application/x-www-form-urlencoded',
+			"userToken": uni.getStorageSync("userToken") || '',
+			"requestType": "2"
 		},
 		method: "GET",
 		dataType: "json",
@@ -43,10 +45,6 @@ export default {
 		success() {},
 		fail() {},
 		complete() {}
-	},
-	interceptor: {
-		request: null,
-		response: null
 	},
 	request(options) {
 		if (!options) {
@@ -58,28 +56,38 @@ export default {
 		options.data = options.data || {}
 		options.method = options.method || this.config.method
 		
-		// 数据签名
-		this.interceptor.request = (config) => {
-			config.header = {
-				"userToken": uni.getStorageSync("userToken") || ''
-			}
-		}
-		
-		this.interceptor.response = (response) => {
-			return response;
-		}
-		
 		return new Promise((resolve, reject) => {
 			let _config = null
 
 			options.complete = (response) => {
 				let statusCode = response.statusCode
+				//判断当前登录用户是否超时
+				if('TIMEOUT' === response.header.sessionstatus){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '登录超时,请重新登录.',
+						complete: function(){
+							uni.reLaunch({
+								url: '/pages/login/login',
+							});
+						}
+					});
+					return;
+				}
 				if (statusCode === 200) { //成功
 					//请求成功
 					resolve(response.data);
 				} else {
 					//请求失败
-					reject(response)
+					resolve({
+						bean: "",
+						error: "0",
+						returnCode: -9999,
+						returnMessage: "接口请求失败!",
+						rows: "",
+						total: 0
+					});
 				}
 			}
 

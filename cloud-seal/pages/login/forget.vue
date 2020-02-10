@@ -65,8 +65,6 @@
 			startRePass() {
 				this.$api.post("login001", {noncestr: Date.now()}).then((res)=>{
 					console.log(res)
-				}).catch((err)=>{
-					console.log('request fail', err);
 				})
 				
 				

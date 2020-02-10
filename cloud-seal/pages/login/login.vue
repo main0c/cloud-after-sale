@@ -7,8 +7,8 @@
 			</view>
 			<!-- 主体表单 -->
 			<view class="main">
-				<wInput v-model="phoneData" type="text" maxlength="11" placeholder="用户名"></wInput>
-				<wInput v-model="passData" type="password" maxlength="11" placeholder="密码"></wInput>
+				<wInput v-model="userCode" type="text" maxlength="11" placeholder="用户名"></wInput>
+				<wInput v-model="password" type="password" maxlength="11" placeholder="密码"></wInput>
 			</view>
 			<wButton text="登 录" @click.native="startLogin()"></wButton>
 			<!-- 底部信息 -->
@@ -20,28 +20,26 @@
 </template>
 
 <script>
-	var _this;
 	import wInput from '@/components/watch-login/watch-input.vue' //input
 	import wButton from '@/components/watch-login/watch-button.vue' //button
 
 	export default {
-		data() {
-			return {
-				logoImage: '../../static/login-icon.png',
-				phoneData: '', //用户
-				passData: '' //密码
-			};
-		},
 		components: {
 			wInput,
 			wButton,
 		},
+		data() {
+			return {
+				logoImage: '../../static/login-icon.png',
+				userCode: '', //用户
+				password: '' //密码
+			};
+		},
 		mounted() {
-			_this = this;
 		},
 		methods: {
-			startLogin() {
-				if (this.phoneData.length == "") {
+			startLogin: function(e) {
+				if (this.userCode.length == 0) {
 					uni.showToast({
 						icon: 'none',
 						position: 'bottom',
@@ -49,7 +47,7 @@
 					});
 					return;
 				}
-				if (this.passData.length < 5) {
+				if (this.password.length < 5) {
 					uni.showToast({
 						icon: 'none',
 						position: 'bottom',
@@ -61,17 +59,28 @@
 					title: '登录中'
 				});
 				
-				setTimeout(function() {
-					uni.hideLoading();
-					uni.showToast({
-						icon: 'success',
-						position: 'bottom',
-						title: '登录成功'
-					});
-					uni.reLaunch({
-						url: '../workorder/workorder',
-					});
-				}, 1000)
+				//用户登录
+				this.$api.post("userphone001", {userCode: this.userCode, password: this.password}).then((res)=>{
+					if(res.returnCode == 0){
+						uni.setStorageSync("userToken", res.bean.id);
+						uni.setStorageSync("userMation", res.bean);
+						uni.hideLoading();
+						uni.showToast({
+							icon: 'success',
+							position: 'bottom',
+							title: '登录成功'
+						});
+						uni.reLaunch({
+							url: '../workorder/workorder',
+						});
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
 			}
 		}
 	}
