@@ -28,7 +28,30 @@
 					</view>
 					<view class="content">
 						<input class="uni-input" placeholder="请选择客户" name="customerId" :value="customer.name" />
+						<view class="chooseBtn" @click="chooseCustomerPage">
+							选择
+						</view>
 					</view>
+					<popup-layer ref="popupRef" :direction="'top'" autoHeight="80">
+						<view>
+							<view v-if="customerList.length > 0">
+								<view class="bean-li" v-for="customer in customerList" :key="customer.id">
+									<view class="bean-title">{{customer.name}}</view>
+									<view class="bean-item">联系人：{{customer.contacts}}</view>
+									<view class="bean-item">联系电话：{{customer.mobilePhone}} </view>
+									<view class="bean-item">邮箱：{{customer.email}}</view>
+									<view class="bean-item">QQ：{{customer.qq}}</view>
+									<view class="bean-bottom">
+										<button @click="chooseCustomer(customer.id)">选择</button>
+									</view>
+								</view>
+							</view>
+							<view v-else class="empty-box">
+								<image src="../../static/common/empty.png" class="empty-icon"></image>
+								<view class="empty-tip">~ 空空如也 ~</view>
+							</view>
+						</view>
+					</popup-layer>
 				</view>
 				<view class="uni-form-item">
 					<view class="title">
@@ -43,7 +66,7 @@
 						<view class="must">*</view>联系电话
 					</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请输入联系电话" name="phone" :value="customer.phone" />
+						<input class="uni-input" placeholder="请输入联系电话" name="phone" :value="customer.mobilePhone" />
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -82,6 +105,9 @@
 					<view class="title">产品名称</view>
 					<view class="content">
 						<input class="uni-input" placeholder="请选择产品" name="productName"/>
+						<view class="chooseBtn" @click="chooseCustomer">
+							选择
+						</view>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -129,13 +155,19 @@
 				<view class="uni-form-item">
 					<view class="title">工单接收人</view>
 					<view class="content">
-						
+						<input class="uni-input" placeholder="请选择工单接收人" name="serviceUserId"/>
+						<view class="chooseBtn" @click="chooseCustomer">
+							选择
+						</view>
 					</view>
 				</view>
 				<view class="uni-form-item">
 					<view class="title">工单协助人</view>
 					<view class="content">
-						
+						<input class="uni-input" placeholder="请选择工单协助人" name="cooperationUserId"/>
+						<view class="chooseBtn" @click="chooseCustomer">
+							选择
+						</view>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -159,6 +191,7 @@
 			</form>
 		</view>
 	</view>
+	
 </template>
 
 <script>
@@ -166,32 +199,28 @@
 	import Attachment from '@/components/jin-attachment/jin-attachment.vue'
 	//图片上传
 	import robbyImageUpload from '@/components/robby-image-upload/robby-image-upload.vue'
+	//弹出层
+	import popupLayer from '@/components/popup-layer/popup-layer.vue'
 	
 	export default {
 		components: {
 			Attachment,
-			robbyImageUpload
+			robbyImageUpload,
+			popupLayer
 		},
 		data() {
 			const currentDate = this.getDate({
 				format: true
 			})
 			return {
-				serviceTypeList: [
-					{
-						id:"1",
-						name:"类型1"
-					},
-					{
-						id:"2",
-						name:"类型2"
-					}
-				],//服务类型
+				serviceTypeList: [{id: "", name: "请选择"}],//服务类型
 				typeIndex: 0,//选择的服务类型在集合中的下标
 				
 				declarationTime: currentDate,//报单时间
 				
+				customerList: [],//客户列表
 				customer: {},//已经选择的客户信息，包括客户名称，客户id，联系人，联系电话，邮箱，QQ
+				
 				product: {},//选择的产品信息，包括产品id，产品名称，规格型号，序列号
 				
 				productWarrantyList: [
@@ -226,8 +255,102 @@
 		},
 		onLoad() {
 			
+			//获取服务类型列表
+			this.loadServiceType();
+			
+			//获取紧急程度列表
+			this.loadUrgencyType();
+			
+			//获取处理方式列表
+			this.loadModeType();
+			
+			//加载客户列表数据
+			this.loadCustomerList();
+			
 		},
 		methods: {
+			
+			//加载服务类型列表
+			loadServiceType: function(){
+				this.$api.get("sealseservicetype008", {}).then((res)=>{
+					if(res.returnCode == 0){
+						for(let i = 0; i < res.rows.length; i++){
+							this.serviceTypeList.push(res.rows[i]);
+						}
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
+			},
+			
+			//加载紧急程度列表
+			loadUrgencyType: function(){
+				this.$api.get("sealseserviceurgency008", {}).then((res)=>{
+					if(res.returnCode == 0){
+						for(let i = 0; i < res.rows.length; i++){
+							this.urgencyList.push(res.rows[i]);
+						}
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
+			},
+			
+			//加载处理方式列表
+			loadModeType: function(){
+				this.$api.get("sealseservicemode008", {}).then((res)=>{
+					if(res.returnCode == 0){
+						for(let i = 0; i < res.rows.length; i++){
+							this.modeList.push(res.rows[i]);
+						}
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
+			},
+			
+			//加载客户集合
+			loadCustomerList: function(){
+				this.$api.get("customer007", {}).then((res)=>{
+					if(res.returnCode == 0){
+						this.customerList = res.rows
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
+			},
+			
+			//打开选择客户页面
+			chooseCustomerPage: function(){
+				this.$refs.popupRef.show()
+			},
+			
+			//选择客户
+			chooseCustomer: function(id){
+				for(let i = 0; i < this.customerList.length; i++){
+					if(id == this.customerList[i].id){
+						this.customer = this.customerList[i]
+						break;
+					}
+				}
+				this.$refs.popupRef.close()
+			},
 			
 			deleteImage: function(e){
 				console.log(e)
@@ -304,4 +427,45 @@
 </script>
 
 <style>
+	
+	.bean-li{
+		position: relative;
+		height: auto;
+		padding: 20upx 16upx 20upx 16upx;
+		border-bottom: 1upx solid #eee;
+	}
+	
+	.bean-li .bean-title{
+		font-size: 30upx;
+		line-height: 40upx;
+		background-color: #E8E8E8;
+		padding-left: 20upx;
+		padding-top: 14upx;
+		padding-bottom: 14upx;
+	}
+	
+	.bean-li .bean-item{
+		font-size: 26upx;
+		line-height: 40upx;
+		height: auto;
+		padding-left: 20upx;
+		margin-bottom: 16upx;
+		overflow: hidden;
+	}
+	
+	.bean-li .bean-bottom{
+		float: right;
+		margin-top: -60upx;
+	}
+	
+	.bean-li .bean-bottom button{
+		font-size: 24upx;
+		padding: 10upx 10upx;
+		line-height: 24upx;
+		float: left;
+		margin-right: 10upx;
+		color: cornflowerblue;
+		border-color: cornflowerblue;
+	}
+	
 </style>

@@ -55,7 +55,7 @@ export default {
 		options.url = options.baseUrl + options.url
 		options.data = options.data || {}
 		options.method = options.method || this.config.method
-		
+
 		return new Promise((resolve, reject) => {
 			let _config = null
 

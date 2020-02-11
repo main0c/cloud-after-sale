@@ -49,4 +49,36 @@
 
 /*标题结束*/
 
+/*输入框旁边的选择按钮的样式开始*/
 
+.chooseBtn{
+	position: relative;
+	float: right;
+	margin-top: -52upx;
+	color: #007AFF;
+	margin-right: 20upx;
+}
+
+/*输入框旁边的选择按钮的样式结束*/
+
+/*列表为空时展示的内容的样式开始*/
+
+.empty-box{
+	box-sizing: border-box;
+	width: 100%;
+	padding: 22px;
+	text-align: center;
+}
+
+.empty-box .empty-icon{
+	width: 45%;
+	height: 330upx;
+}
+
+.empty-box .empty-tip{
+	margin-top: 11px;
+	font-size: 13px;
+	color: gray;
+}
+
+/*列表为空时展示的内容的样式结束*/
