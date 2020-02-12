@@ -9,6 +9,7 @@
 - [图片上传](https://ext.dcloud.net.cn/plugin?id=296)
 - [下拉刷新，上拉加载](https://ext.dcloud.net.cn/plugin?id=343)
 - [表单验证](https://ext.dcloud.net.cn/plugin?id=746)
+- [弹出层](https://ext.dcloud.net.cn/plugin?id=254)
 
 
 #### 项目交流群
