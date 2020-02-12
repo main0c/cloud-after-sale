@@ -98,6 +98,39 @@
 					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
+		},
+		{
+			"path": "pages/worker/workerChoose",
+			"style": {
+				"navigationBarTitleText": "选择接收人",
+				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
+				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+			}
+		},
+		{
+			"path": "pages/product/productChoose",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
+				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+			}
+		},
+		{
+			"path": "pages/customer/customerChoose",
+			"style": {
+				"navigationBarTitleText": "选择客户",
+				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
+				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+			}
 		}
 	],
 	"globalStyle": {

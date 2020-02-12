@@ -46,22 +46,22 @@
 					list: [{
 						name: "待接单",
 						iconPath: "../../static/workordericon/workorder-recepit.png",
-						number: "10",
+						number: "",
 						url: "workorderState/workorderState?type=0"
 					}, {
 						name: "待签到",
 						iconPath: "../../static/workordericon/workorder-sign.png",
-						number: "10",
+						number: "",
 						url: "workorderState/workorderState?type=1"
 					}, {
-						name: "待完成",
+						name: "待完工",
 						iconPath: "../../static/workordericon/workorder-complate.png",
-						number: "10",
+						number: "",
 						url: "workorderState/workorderState?type=2"
 					}, {
 						name: "待评价",
 						iconPath: "../../static/workordericon/workorder-evaluate.png",
-						number: "10",
+						number: "",
 						url: "workorderState/workorderState?type=3"
 					}]
 				}, {
@@ -69,22 +69,22 @@
 					list: [{
 						name: "待派工",
 						iconPath: "../../static/workordericon/workorder-waitperson.png",
-						number: "12",
+						number: "",
 						url: "workorderState/workorderState?type=1"
 					}, {
 						name: "待审核",
 						iconPath: "../../static/workordericon/workorder-examine.png",
-						number: "10",
+						number: "",
 						url: "workorderState/workorderState?type=6"
 					}, {
-						name: "已完成工单",
+						name: "已完工工单",
 						iconPath: "../../static/workordericon/workorder-success.png",
-						number: "12",
+						number: "",
 						url: "workorderAdd"
 					}, {
 						name: "全部待办",
 						iconPath: "../../static/workordericon/workorder-do.png",
-						number: "10",
+						number: "",
 						url: "workorderAdd"
 					},  {
 						name: "所有工单",
@@ -96,7 +96,35 @@
 			}
 		},
 		onLoad() {
-
+			this.$api.get("sealservicephone001", {}).then((res)=>{
+				if(res.returnCode == 0){
+					for(let i = 0; i < res.rows.length; i++){
+						let state = res.rows[i].state;
+						let stateNumber = res.rows[i].stateNumber;
+						if(state == 1){//待派工
+							this.typeList[2].list[0].number = stateNumber;
+						}else if(state == 2){//待接单
+							this.typeList[1].list[0].number = stateNumber;
+						}else if(state == 3){//待签单
+							this.typeList[1].list[1].number = stateNumber;
+						}else if(state == 4){//待完工
+							this.typeList[1].list[2].number = stateNumber;
+						}else if(state == 5){//待评价
+							this.typeList[1].list[3].number = stateNumber;
+						}else if(state == 6){//待审核
+							this.typeList[2].list[1].number = stateNumber;
+						}else if(state == 7){//已完工
+							this.typeList[2].list[2].number = stateNumber;
+						}
+					}
+				}else{
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: res.returnMessage
+					});
+				}
+			})
 		},
 		methods: {
 			toPage: function(url) {

@@ -32,26 +32,6 @@
 							选择
 						</view>
 					</view>
-					<popup-layer ref="popupRef" :direction="'top'" autoHeight="80">
-						<view>
-							<view v-if="customerList.length > 0">
-								<view class="bean-li" v-for="customer in customerList" :key="customer.id">
-									<view class="bean-title">{{customer.name}}</view>
-									<view class="bean-item">联系人：{{customer.contacts}}</view>
-									<view class="bean-item">联系电话：{{customer.mobilePhone}} </view>
-									<view class="bean-item">邮箱：{{customer.email}}</view>
-									<view class="bean-item">QQ：{{customer.qq}}</view>
-									<view class="bean-bottom">
-										<button @click="chooseCustomer(customer.id)">选择</button>
-									</view>
-								</view>
-							</view>
-							<view v-else class="empty-box">
-								<image src="../../static/common/empty.png" class="empty-icon"></image>
-								<view class="empty-tip">~ 空空如也 ~</view>
-							</view>
-						</view>
-					</popup-layer>
 				</view>
 				<view class="uni-form-item">
 					<view class="title">
@@ -104,8 +84,8 @@
 				<view class="uni-form-item">
 					<view class="title">产品名称</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请选择产品" name="productName"/>
-						<view class="chooseBtn" @click="chooseCustomer">
+						<input class="uni-input" placeholder="请选择产品" name="productName" :value="product.productName"/>
+						<view class="chooseBtn" @click="chooseProductPage">
 							选择
 						</view>
 					</view>
@@ -113,7 +93,7 @@
 				<view class="uni-form-item">
 					<view class="title">规格型号</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请输入规格型号" name="productNorms"/>
+						<input class="uni-input" placeholder="请输入规格型号" name="productNorms" :value="product.productModel"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -149,14 +129,14 @@
 				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>服务内容</view>
 					<view class="content">
-						<textarea placeholder="请输入服务内容" auto-height name="content"/>
+						<textarea placeholder="请输入服务内容" name="content" style="height: 160upx;"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
 					<view class="title">工单接收人</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请选择工单接收人" name="serviceUserId"/>
-						<view class="chooseBtn" @click="chooseCustomer">
+						<input class="uni-input" placeholder="请选择工单接收人" name="serviceUserId" :value="serviceUser.userName"/>
+						<view class="chooseBtn" @click="chooseServiceUserPage">
 							选择
 						</view>
 					</view>
@@ -199,14 +179,11 @@
 	import Attachment from '@/components/jin-attachment/jin-attachment.vue'
 	//图片上传
 	import robbyImageUpload from '@/components/robby-image-upload/robby-image-upload.vue'
-	//弹出层
-	import popupLayer from '@/components/popup-layer/popup-layer.vue'
 	
 	export default {
 		components: {
 			Attachment,
-			robbyImageUpload,
-			popupLayer
+			robbyImageUpload
 		},
 		data() {
 			const currentDate = this.getDate({
@@ -218,7 +195,6 @@
 				
 				declarationTime: currentDate,//报单时间
 				
-				customerList: [],//客户列表
 				customer: {},//已经选择的客户信息，包括客户名称，客户id，联系人，联系电话，邮箱，QQ
 				
 				product: {},//选择的产品信息，包括产品id，产品名称，规格型号，序列号
@@ -235,6 +211,8 @@
 				
 				modeList: [{id: "", name: "请选择"}],//处理方式
 				modeIndex: 0,//选择的处理方式在集合中的下标
+				
+				serviceUser: [],//工单接收人
 				
 				imageData: [],//图片回显数据
 				imageServerUrl: 'http://localhost:1234/work/uploadWorkPicture',//图片上传地址
@@ -263,9 +241,6 @@
 			
 			//获取处理方式列表
 			this.loadModeType();
-			
-			//加载客户列表数据
-			this.loadCustomerList();
 			
 		},
 		methods: {
@@ -321,42 +296,31 @@
 				})
 			},
 			
-			//加载客户集合
-			loadCustomerList: function(){
-				this.$api.get("customer007", {}).then((res)=>{
-					if(res.returnCode == 0){
-						this.customerList = res.rows
-					}else{
-						uni.showToast({
-							icon: 'none',
-							position: 'bottom',
-							title: res.returnMessage
-						});
-					}
+			//打开选择客户页面
+			chooseCustomerPage: function(){
+				uni.navigateTo({
+					url: '/pages/customer/customerChoose'
 				})
 			},
 			
-			//打开选择客户页面
-			chooseCustomerPage: function(){
-				this.$refs.popupRef.show()
+			//打开选择产品页面
+			chooseProductPage: function(){
+				uni.navigateTo({
+					url: '/pages/product/productChoose'
+				})
 			},
 			
-			//选择客户
-			chooseCustomer: function(id){
-				for(let i = 0; i < this.customerList.length; i++){
-					if(id == this.customerList[i].id){
-						this.customer = this.customerList[i]
-						break;
-					}
-				}
-				this.$refs.popupRef.close()
-			},
-			
-			deleteImage: function(e){
-				console.log(e)
+			//打开选择接收人页面
+			chooseServiceUserPage: function(){
+				uni.navigateTo({
+					url: '/pages/worker/workerChoose'
+				})
 			},
 			
 			addImage: function(e){
+				console.log(e)
+			},
+			deleteImage: function(e){
 				console.log(e)
 			},
 			

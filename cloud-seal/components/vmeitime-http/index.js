@@ -61,21 +61,21 @@ export default {
 
 			options.complete = (response) => {
 				let statusCode = response.statusCode
-				//判断当前登录用户是否超时
-				if('TIMEOUT' === response.header.sessionstatus){
-					uni.showToast({
-						icon: 'none',
-						position: 'bottom',
-						title: '登录超时,请重新登录.',
-						complete: function(){
-							uni.reLaunch({
-								url: '/pages/login/login',
-							});
-						}
-					});
-					return;
-				}
 				if (statusCode === 200) { //成功
+					//判断当前登录用户是否超时
+					if(response.header.sessionstatus && 'TIMEOUT' === response.header.sessionstatus){
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: '登录超时,请重新登录.',
+							complete: function(){
+								uni.reLaunch({
+									url: '/pages/login/login',
+								});
+							}
+						});
+						return;
+					}
 					//请求成功
 					resolve(response.data);
 				} else {
@@ -84,7 +84,7 @@ export default {
 						bean: "",
 						error: "0",
 						returnCode: -9999,
-						returnMessage: "接口请求失败!",
+						returnMessage: "请求失败!",
 						rows: "",
 						total: 0
 					});

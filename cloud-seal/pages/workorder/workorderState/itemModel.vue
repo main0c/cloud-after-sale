@@ -7,7 +7,7 @@
 			<view class="pd-pro-name">产品名称：{{pd.productName}} </view>
 			<view class="pd-pro-type">服务类型：{{pd.serviceTypeName}}</view>
 			<view class="pd-bottom">
-				<text class="pd-state-name">待接单</text>
+				<text class="pd-state-name">{{pd.stateName}}</text>
 				<view class="pd-operator">
 					<button @click="test()">接单</button>
 					<button>派工</button>
