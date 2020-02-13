@@ -67,30 +67,30 @@
 				}, {
 					title: "所有工单",
 					list: [{
+						name: "所有工单",
+						iconPath: "../../static/workordericon/workorder-all.png",
+						number: "",
+						url: "workAllorderState/workAllorderState?type=0"
+					}, {
 						name: "待派工",
 						iconPath: "../../static/workordericon/workorder-waitperson.png",
 						number: "",
-						url: "workorderState/workorderState?type=1"
+						url: "workAllorderState/workAllorderState?type=1"
+					}, {
+						name: "待评价",
+						iconPath: "../../static/workordericon/workorder-evaluate.png",
+						number: "",
+						url: "workAllorderState/workAllorderState?type=2"
 					}, {
 						name: "待审核",
 						iconPath: "../../static/workordericon/workorder-examine.png",
 						number: "",
-						url: "workorderState/workorderState?type=6"
+						url: "workAllorderState/workAllorderState?type=3"
 					}, {
-						name: "已完工工单",
+						name: "已完工",
 						iconPath: "../../static/workordericon/workorder-success.png",
 						number: "",
-						url: "workorderAdd"
-					}, {
-						name: "全部待办",
-						iconPath: "../../static/workordericon/workorder-do.png",
-						number: "",
-						url: "workorderAdd"
-					},  {
-						name: "所有工单",
-						iconPath: "../../static/workordericon/workorder-all.png",
-						number: "",
-						url: "workorderAdd"
+						url: "workAllorderState/workAllorderState?type=4"
 					}]
 				}]
 			}
@@ -102,7 +102,7 @@
 						let state = res.rows[i].state;
 						let stateNumber = res.rows[i].stateNumber;
 						if(state == 1){//待派工
-							this.typeList[2].list[0].number = stateNumber;
+							this.typeList[2].list[1].number = stateNumber;
 						}else if(state == 2){//待接单
 							this.typeList[1].list[0].number = stateNumber;
 						}else if(state == 3){//待签单
@@ -112,9 +112,9 @@
 						}else if(state == 5){//待评价
 							this.typeList[1].list[3].number = stateNumber;
 						}else if(state == 6){//待审核
-							this.typeList[2].list[1].number = stateNumber;
+							this.typeList[2].list[3].number = stateNumber;
 						}else if(state == 7){//已完工
-							this.typeList[2].list[2].number = stateNumber;
+							this.typeList[2].list[4].number = stateNumber;
 						}
 					}
 				}else{
