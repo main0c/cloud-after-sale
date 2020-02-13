@@ -153,7 +153,7 @@
 				<view class="uni-form-item">
 					<view class="title">相关照片</view>
 					<view class="content">
-						<robby-image-upload v-model="imageData" @delete="deleteImage" @add="addImage" :server-url-delete-image="imageUrlDelete"
+						<robby-image-upload v-model="imageData" @add="addImage"
 							:server-url="imageServerUrl" :form-data="imageformData" :show-upload-progress="true"></robby-image-upload>
 					</view>
 				</view>
@@ -214,19 +214,19 @@
 				
 				serviceUser: [],//工单接收人
 				
-				imageData: [],//图片回显数据
-				imageServerUrl: 'http://localhost:1234/work/uploadWorkPicture',//图片上传地址
-				imageUrlDelete: 'http://localhost:1234/work/uploadWorkPicture',//图片删除地址
+				imageData: [],//图片回显数据数组：[{0: "/images/upload/order/1581591580676.png"}]
+				imageServerUrl: this.$api.config.baseUrl + 'common003',//图片上传地址
 				imageLimit: 10,
 				imageformData: {
-					userId: 2
+					type: 14
 				},//图片上传时传递的参数
 				
-				fileData: [],//附件回显数据
-				fileServerUrl: 'http://localhost:1234/work/uploadWorkPicture',//附件上传地址
+				fileData: [],//附件回显数据fileName: "客户档案.png",id: "d6c44d88357441a8b1c7788329d91b37",url: "/images/upload/enclosurefile/300b878c5c6744f2b48e6bc40beefd11/1581591367754.png"
+				fileServerUrl: this.$api.config.baseUrl + 'sysenclosure011',//附件上传地址
 				fileLimit: 10,
 				fileformData: {
-					userId: 2
+					"userToken": uni.getStorageSync("userToken") || '',
+					"requestType": "2"
 				},//附件上传时传递的参数
 				
 			}
@@ -320,9 +320,6 @@
 			addImage: function(e){
 				console.log(e)
 			},
-			deleteImage: function(e){
-				console.log(e)
-			},
 			
 			//服务类型变化事件
 			bindServiceTypeChange: function(e) {
@@ -382,7 +379,7 @@
 				  return false
 				}
 			},
-			formReset: function(e) {
+			formReset: function(e) {console.log(this.fileData)
 				console.log('清空数据')
 			}
 		}

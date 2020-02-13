@@ -3,14 +3,14 @@
 		<view class="imgs">
 			<!-- images -->
 			<view class="single" v-for="(item, key) in list" :key="key" v-if="item.type == 'image'">
-				<image :src="item.url" mode="aspectFit" @click="previewImg(item.url)" />
+				<image :src="basePath + item.url" mode="aspectFit" @click="previewImg(basePath + item.url)" />
 				<progress :percent="item.process" activeColor="#67C23A" :backgroundColor="item.process == 100 || item.process == undefined ? '#67C23A' : '#F56C6C'"
 				 stroke-width="3" v-if="mode == 'create' && showProcess" />
 				<view class="del" @click="deleteItem(key)">×</view>
 			</view>
 			<!-- file -->
 			<view class="file" v-for="(item, key) in list" :key="key" v-if="item.type == 'file'">
-				<view class="noImg" @click="downLoad(item.url)" @longpress="deleteItem(key)">{{ item.fileName }}</view>
+				<view class="noImg" @click="downLoad(basePath + item.url)" @longpress="deleteItem(key)">{{ item.fileName }}</view>
 				<progress :percent="item.process" activeColor="#67C23A" :backgroundColor="item.process == 100 || item.process == undefined ? '#67C23A' : '#F56C6C'"
 				 stroke-width="3" v-if="mode == 'create' && showProcess" />
 				<view class="del" @tap="deleteItem(key)">×</view>
@@ -60,7 +60,10 @@
 			}
 		},
 		data() {
-			return {};
+			return {
+				//图片访问基础路径
+				basePath: this.$fileBasePath,
+			};
 		},
 		methods: {
 			previewImg(url) {
@@ -78,7 +81,7 @@
 							uni.showLoading({
 								title: '下载中,请稍后'
 							});
-							console.log(url);
+							console.log(url)
 							uni.downloadFile({
 								url: url,
 								success: res => {
@@ -101,7 +104,6 @@
 									});
 								},
 								fail: res => {
-									console.log(res);
 									uni.hideLoading();
 									uni.showToast({
 										title: '下载失败',
@@ -112,11 +114,7 @@
 
 							setTimeout(function() {
 								uni.hideLoading();
-							}, 20000);
-
-							// downloadTask.onProgressUpdate((res) => {
-							//     console.log('下载中,进度' +  res.progress)
-							// });
+							}, 3000);
 						}
 					}
 				});
@@ -170,7 +168,7 @@
 
 				if (!canUploadFile) {
 					var temps = await uni.chooseImage({
-						count: this.limit == null || this.limit - this.list.length > 9 ? 9 : 9 - limit,
+						count: this.limit == null || this.limit - this.list.length > 9 ? 9 : 9 - this.limit,
 						sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 						sourceType: ['album'] //从相册选择
 					});
@@ -186,7 +184,7 @@
 					})
 					if (res[1].tapIndex == 0) {
 						var temps = await uni.chooseImage({
-							count: this.limit == null || this.limit - this.list.length > 9 ? 9 : 9 - limit,
+							count: this.limit == null || this.limit - this.list.length > 9 ? 9 : 9 - this.limit,
 							sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 							sourceType: ['album'] //从相册选择
 						});
@@ -199,7 +197,7 @@
 						//微信从客户端选择文件
 						var temps = await new Promise((resolve, reject) => {
 							wx.chooseMessageFile({
-								count: this.limit == null || this.limit - this.list.length > 9 ? 9 : 9 - limit,
+								count: this.limit == null || this.limit - this.list.length > 9 ? 9 : 9 - this.limit,
 								type: 'file',
 								success(res) {
 									// tempFilePath可以作为img标签的src属性显示图片
@@ -241,19 +239,31 @@
 						process: 0
 					});
 					this.$forceUpdate();
-
+					
 					var uploadTask = await uni.uploadFile({
 						url: this.uploadFileUrl,
 						filePath: path,
 						name: this.fileKeyName,
-						headers: this.header,
+						header: this.header,
 						success: res => {
 							// 上传完成后处理
 							this.$emit('uploadSuccess', res);
 							if (res.statusCode == 200) {
-								this.$set(this.list[index], 'process', 100);
-								this.$emit('update:attachmentList', this.list);
-								this.$forceUpdate();
+								var jsonData = JSON.parse(res.data);
+								if(jsonData.returnCode == 0){
+									this.$set(this.list[index], 'process', 100);
+									this.$set(this.list[index], 'fileName', jsonData.bean.name);
+									this.$set(this.list[index], 'url', jsonData.bean.fileAddress);
+									this.$set(this.list[index], 'id', jsonData.bean.id);
+									this.$emit('update:attachmentList', this.list);
+									this.$forceUpdate();
+								}else{
+									uni.showToast({
+										icon: 'none',
+										position: 'bottom',
+										title: jsonData.returnMessage
+									});
+								}
 							} else {
 
 							}

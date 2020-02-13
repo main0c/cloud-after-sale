@@ -3,7 +3,7 @@
 	<view class="imageUploadContainer">
 		<view class="imageUploadList">
 			<view class="imageItem" v-bind:key="index" v-for="(path,index) in imageListData">
-				<image :src="path" :class="{'dragging':isDragging(index)}" draggable="true" @tap="previewImage" :data-index="index"
+				<image :src="basePath + path" :class="{'dragging':isDragging(index)}" draggable="true" @tap="previewImage" :data-index="index"
 				 @touchstart="start" @touchmove.stop.prevent="move" @touchend="stop"></image>
 				<view v-if="isShowDel" class="imageDel" @tap="deleteImage" :data-index="index">x</view>
 			</view>
@@ -21,6 +21,8 @@
 		],
 		data() {
 			return {
+				//图片访问基础路径
+				basePath: this.$fileBasePath,
 				imageBasePos: {
 					x0: -1,
 					y0: -1,
@@ -142,29 +144,34 @@
 										name: keyname,
 										success: function(res) {
 											if (res.statusCode === 200) {
-												if (_self.isDestroyed) {
-													return
-												}
-
-												completeImages++
-
-												if (_self.showUploadProgress) {
+												var jsonData = JSON.parse(res.data);
+												if(jsonData.returnCode == 0){
+													if (_self.isDestroyed) {
+														return
+													}
+													
+													completeImages++
+													if (_self.showUploadProgress) {
+														uni.showToast({
+															title: '上传进度：' + completeImages + '/' + imagePathArr.length,
+															icon: 'none',
+															mask: false,
+															duration: 500
+														});
+													}
+													resolve(jsonData.bean)
+												}else{
 													uni.showToast({
-														title: '上传进度：' + completeImages + '/' + imagePathArr.length,
 														icon: 'none',
-														mask: false,
-														duration: 500
+														position: 'bottom',
+														title: jsonData.returnMessage
 													});
 												}
-												console.log('success to upload image: ' + res.data)
-												resolve(res.data)
 											} else {
-												console.log('fail to upload image:' + res.data)
 												reject('fail to upload image:' + remoteUrlIndex)
 											}
 										},
 										fail: function(res) {
-											console.log('fail to upload image:' + res)
 											reject('fail to upload image:' + remoteUrlIndex)
 										}
 									})
@@ -174,9 +181,8 @@
 								if (_self.isDestroyed) {
 									return
 								}
-
 								for (let i = 0; i < result.length; i++) {
-									_self.imageList.push(result[i])
+									_self.imageList.push(result[i].picUrl)
 								}
 
 								_self.$emit('add', {
