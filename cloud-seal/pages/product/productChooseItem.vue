@@ -38,43 +38,4 @@
 </script>
 
 <style>
-	.bean-li{
-		position: relative;
-		height: auto;
-		padding: 20upx 16upx 20upx 16upx;
-		border-bottom: 1upx solid #eee;
-	}
-	
-	.bean-li .bean-title{
-		font-size: 30upx;
-		line-height: 40upx;
-		background-color: #E8E8E8;
-		padding-left: 20upx;
-		padding-top: 14upx;
-		padding-bottom: 14upx;
-	}
-	
-	.bean-li .bean-item{
-		font-size: 26upx;
-		line-height: 40upx;
-		height: auto;
-		padding-left: 20upx;
-		margin-bottom: 16upx;
-		overflow: hidden;
-	}
-	
-	.bean-li .bean-bottom{
-		float: right;
-		margin-top: -60upx;
-	}
-	
-	.bean-li .bean-bottom button{
-		font-size: 24upx;
-		padding: 10upx 10upx;
-		line-height: 24upx;
-		float: left;
-		margin-right: 10upx;
-		color: cornflowerblue;
-		border-color: cornflowerblue;
-	}
 </style>

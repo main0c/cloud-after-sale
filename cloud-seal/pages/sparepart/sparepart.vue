@@ -35,17 +35,7 @@
 						iconPath: "../../static/workordericon/workorder-add.png",
 						number: "12",
 						url: "workorderAdd"
-					}, {
-						name: "待审核配件",
-						iconPath: "../../static/workordericon/workorder-add.png",
-						number: "12",
-						url: "workorderAdd"
-					}, {
-						name: "已审核配件",
-						iconPath: "../../static/workordericon/workorder-add.png",
-						number: "12",
-						url: "workorderAdd"
-					}]
+					},]
 				}, {
 					title: "我的配件",
 					list: [{

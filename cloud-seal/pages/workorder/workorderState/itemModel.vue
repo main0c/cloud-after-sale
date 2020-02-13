@@ -35,49 +35,4 @@
 </script>
 
 <style>
-	/*数据列表*/
-	.pd-li {
-		position: relative;
-		height: auto;
-		padding: 20upx 16upx 20upx 16upx;
-		border-bottom: 1upx solid #eee;
-	}
-	
-	.pd-li .pd-order-num{
-		font-size: 30upx;
-		line-height: 40upx;
-		background-color: #E8E8E8;
-		width: calc(100% + 40upx);
-		margin-left: -20upx;
-		padding-left: 20upx;
-		padding-top: 14upx;
-		padding-bottom: 14upx;
-	}
-	
-	.pd-li .pd-name, .pd-li .pd-pro-name, .pd-li .pd-pro-type {
-		font-size: 26upx;
-		line-height: 40upx;
-		height: auto;
-		margin-bottom: 16upx;
-		overflow: hidden;
-	}
-	
-	.pd-li .pd-bottom .pd-state-name {
-		font-size: 24upx;
-		color: gray;
-	}
-	
-	.pd-li .pd-bottom .pd-operator{
-		float: right;
-	}
-	
-	.pd-li .pd-bottom .pd-operator button{
-		font-size: 24upx;
-		padding: 10upx 10upx;
-		line-height: 24upx;
-		float: left;
-		margin-right: 10upx;
-		color: cornflowerblue;
-		border-color: cornflowerblue;
-	}
 </style>
