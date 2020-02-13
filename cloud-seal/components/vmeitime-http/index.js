@@ -75,6 +75,13 @@ export default {
 							}
 						});
 						return;
+					}else if(response.header.sessionstatus && 'NOAUTHPOINT' === response.header.sessionstatus){
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: '您不具备该权限.'
+						});
+						return;
 					}
 					//请求成功
 					resolve(response.data);

@@ -100,21 +100,42 @@
 		},
 		methods: {
 			
+			//加载我的信息
 			loadMineMation : function(user){
 				this.userPhoto = this.$fileBasePath + user.userPhoto;
 				this.userName = user.userName;
 				this.jobName = user.jobName;
 			},
 			
+			//退出
 			exit: function(){
+				var _this = this;
 				uni.showModal({
 				    title: '提示',
 				    content: '确定退出吗？',
 				    success: function (res) {
 				        if (res.confirm) {
-				            uni.reLaunch({
-				            	url: '../login/login',
-				            });
+							//发起退出请求
+							_this.$api.post("userphone003", {}).then((res)=>{
+								if(res.returnCode == 0){
+									let userToken = uni.getStorageSync("userToken");
+									//移除菜单信息
+									uni.removeStorageSync("userMenu:" + userToken);
+									//移除用户信息
+									uni.removeStorageSync("userMation");
+									//移除token信息
+									uni.removeStorageSync("userToken");
+									uni.reLaunch({
+										url: '../login/login',
+									});
+								}else{
+									uni.showToast({
+										icon: 'none',
+										position: 'bottom',
+										title: res.returnMessage
+									});
+								}
+							})
 				        }
 				    }
 				});

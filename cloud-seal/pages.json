@@ -23,9 +23,9 @@
 			}
 		},
 		{
-			"path": "pages/customer/customer",
+			"path": "pages/customer/customerList",
 			"style": {
-				"navigationBarTitleText": "客户",
+				"navigationBarTitleText": "客户档案",
 				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
 				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
 				"app-plus": {
@@ -166,11 +166,6 @@
 			"text": "工单",
 			"iconPath": "static/tabBar/workorder.png",
 			"selectedIconPath": "static/tabBar/workorder-se.png"
-		}, {
-			"pagePath": "pages/customer/customer",
-			"text": "客户",
-			"iconPath": "static/tabBar/customer.png",
-			"selectedIconPath": "static/tabBar/customer-se.png"
 		}, {
 			"pagePath": "pages/sparepart/sparepart",
 			"text": "备件",

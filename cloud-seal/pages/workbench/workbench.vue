@@ -1,10 +1,10 @@
 <template>
 	<view class="content">
 		<view class="service" v-for="(bean, i) in menuList" :key="i">
-			<view class="service-title">{{bean.name}}</view>
+			<view class="service-title">{{bean.title}}</view>
 			<view class="icons">
-				<view class="user-item" @click="toMyMore(item.url)" v-for="(item, j) in bean.list" :key="j">
-					<img :src="item.img" class="list-icon">
+				<view class="user-item" @click="toMyMore(item.url)" v-for="(item, j) in bean.childs" :key="j">
+					<img :src="basePath + item.logo" class="list-icon">
 					<view class="list-title">{{item.title}}</view>
 				</view>
 			</view>
@@ -16,154 +16,44 @@
 	export default {
 		data() {
 			return {
-				menuList: [{
-						name: '我的服务',
-						list: [{
-								img: '../../static/needdelete/icon_journal.png',
-								title: '工作日志',
-								url: '../../pages/journal/journal'
-							},
-							{
-								img: '../../static/needdelete/icon_holiday.png',
-								title: '节假日',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_attendance.png',
-								title: '考勤',
-								url: '../../pages/attendance/attendance'
-							},
-							{
-								img: '../../static/needdelete/icon_note.png',
-								title: '便签',
-								url: '../../pages/memo/memo'
-							},
-							{
-								img: '../../static/needdelete/icon_holiday.png',
-								title: '会议室',
-								url: '../../pages/conference/conference'
-							},
-							{
-								img: '../../static/needdelete/icon_notes.png',
-								title: '笔记',
-								url: '../../pages/notes/notes'
-							},
-							{
-								img: '../../static/needdelete/icon_file.png',
-								title: '文件管理',
-								url: '../../pages/file/file'
-							}
-						],
-					},
-					{
-						name: '人事管理',
-						list: [{
-								img: '../../static/needdelete/icon_journal.png',
-								title: '工作日志',
-								url: '../../pages/journal/journal'
-							},
-							{
-								img: '../../static/needdelete/icon_holiday.png',
-								title: '节假日',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_attendance.png',
-								title: '考勤',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_note.png',
-								title: '便签',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_holiday.png',
-								title: '日程安排',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_notes.png',
-								title: '笔记',
-								url: ''
-							}
-						],
-					},
-					{
-						name: '人事管理',
-						list: [{
-								img: '../../static/needdelete/icon_journal.png',
-								title: '工作日志',
-								url: '../../pages/journal/journal'
-							},
-							{
-								img: '../../static/needdelete/icon_holiday.png',
-								title: '节假日',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_attendance.png',
-								title: '考勤',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_note.png',
-								title: '便签',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_holiday.png',
-								title: '日程安排',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_notes.png',
-								title: '笔记',
-								url: ''
-							}
-						],
-					},
-					{
-						name: '人事管理',
-						list: [{
-								img: '../../static/needdelete/icon_journal.png',
-								title: '工作日志',
-								url: '../../pages/journal/journal'
-							},
-							{
-								img: '../../static/needdelete/icon_holiday.png',
-								title: '节假日',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_attendance.png',
-								title: '考勤',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_note.png',
-								title: '便签',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_holiday.png',
-								title: '日程安排',
-								url: ''
-							},
-							{
-								img: '../../static/needdelete/icon_notes.png',
-								title: '笔记',
-								url: ''
-							}
-						],
-					}
-				]
+				//图片访问基础路径
+				basePath: this.$fileBasePath,
+				//菜单集合
+				menuList: []
 			};
 		},
-		onLoad() {},
+		onLoad() {
+			//获取用户token
+			let userToken = uni.getStorageSync("userToken");
+			//获取用户菜单信息
+			if(uni.getStorageSync("userMenu:" + userToken) == null || uni.getStorageSync("userMenu:" + userToken) == ''){
+				this.loadThisUserMenuAuth(userToken)
+			}else{
+				this.menuList = uni.getStorageSync("userMenu:" + userToken)
+			}
+		},
 		methods: {
+			
+			//获取权限信息
+			loadThisUserMenuAuth: function(userToken){
+				this.$api.get("userphone006", {}).then((res)=>{
+					if(res.returnCode == 0){
+						uni.setStorageSync("userMenu:" + userToken, res.rows)
+						this.menuList = res.rows
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
+			},
+			
 			toMyMore: function(url) {
-				console.log(url);
+				uni.navigateTo({
+					url: "/" + url
+				});
 			}
 		}
 	}

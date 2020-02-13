@@ -100,7 +100,7 @@
 				if(res.returnCode == 0){
 					for(let i = 0; i < res.rows.length; i++){
 						let state = res.rows[i].state;
-						let stateNumber = res.rows[i].stateNumber;
+						let stateNumber = res.rows[i].stateNumber + "";
 						if(state == 1){//待派工
 							this.typeList[2].list[1].number = stateNumber;
 						}else if(state == 2){//待接单
