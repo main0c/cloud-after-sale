@@ -70,7 +70,7 @@
 						<view class="must">*</view>所在地区
 					</view>
 					<view class="content">
-
+						<pickerAddress @change="addressChooseChange">{{txt}}</pickerAddress>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -179,11 +179,14 @@
 	import Attachment from '@/components/jin-attachment/jin-attachment.vue'
 	//图片上传
 	import robbyImageUpload from '@/components/robby-image-upload/robby-image-upload.vue'
+	//地区选择
+	import pickerAddress from '@/components/pickerAddress/pickerAddress.vue'
 	
 	export default {
 		components: {
 			Attachment,
-			robbyImageUpload
+			robbyImageUpload,
+			pickerAddress
 		},
 		data() {
 			const currentDate = this.getDate({
@@ -229,6 +232,9 @@
 					"requestType": "2"
 				},//附件上传时传递的参数
 				
+				//地区选咋相关参数
+				txt: '选择地址',
+				txtData: []
 			}
 		},
 		onLoad() {
@@ -357,9 +363,19 @@
 				} else if (type === 'end') {
 					year = year + 2;
 				}
-				month = month > 9 ? month : '0' + month;;
+				month = month > 9 ? month : '0' + month;
 				day = day > 9 ? day : '0' + day;
 				return `${year}-${month}-${day}`;
+			},
+			
+			//省市区三级联动选择
+			addressChooseChange(data) {
+				var s = "";
+				for(let i = 0; i < data.data.length; i++){
+					s += data.data[i].name + ' ';
+				}
+				this.txt = s
+				this.txtData = data.data
 			},
 			
 			//提交
