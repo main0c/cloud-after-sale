@@ -2,10 +2,22 @@
 	<view class="pd-list">
 		<view class="bean-li" v-for="bean in list" :key="bean.id">
 			<view class="bean-title">{{bean.name}}</view>
-			<view class="bean-item">联系人：{{bean.contacts}}</view>
-			<view class="bean-item">联系电话：{{bean.mobilePhone}} </view>
-			<view class="bean-item">邮箱：{{bean.email}}</view>
-			<view class="bean-item">QQ：{{bean.qq}}</view>
+			<view class="bean-item">
+				<text class="left-content">联系人：</text>
+				<text class="right-content">{{bean.contacts}}</text>
+			</view>
+			<view class="bean-item">
+				<text class="left-content">联系电话：</text>
+				<text class="right-content">{{bean.mobilePhone}}</text>
+			</view>
+			<view class="bean-item">
+				<text class="left-content">邮箱：</text>
+				<text class="right-content">{{bean.email}}</text>
+			</view>
+			<view class="bean-item">
+				<text class="left-content">QQ：</text>
+				<text class="right-content">{{bean.qq}}</text>
+			</view>
 			<view class="bean-bottom">
 				<button @click="chooseCustomer(bean.id)">选择</button>
 			</view>

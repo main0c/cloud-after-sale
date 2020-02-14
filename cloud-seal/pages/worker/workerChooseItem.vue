@@ -2,9 +2,18 @@
 	<view class="pd-list">
 		<view class="bean-li" v-for="bean in list" :key="bean.id">
 			<view class="bean-title">{{bean.userName}}</view>
-			<view class="bean-item">地址：{{bean.addDetail}}</view>
-			<view class="bean-item">工单数：{{bean.orderNumber}}个</view>
-			<view class="bean-item">状态：{{bean.stateName}}</view>
+			<view class="bean-item">
+				<text class="left-content">地址：</text>
+				<text class="right-content">{{bean.addDetail}}</text>
+			</view>
+			<view class="bean-item">
+				<text class="left-content">工单数：</text>
+				<text class="right-content">{{bean.orderNumber}}个</text>
+			</view>
+			<view class="bean-item">
+				<text class="left-content">状态：</text>
+				<text class="right-content">{{bean.stateName}}</text>
+			</view>
 			<view class="bean-bottom">
 				<button @click="chooseServiceUser(bean.id)">选择</button>
 			</view>

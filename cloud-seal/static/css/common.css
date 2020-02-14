@@ -111,6 +111,20 @@
 	overflow: hidden;
 }
 
+.pd-li .pd-order-num .left-content,
+.pd-li .pd-name .left-content,
+.pd-li .pd-pro-name .left-content,
+.pd-li .pd-pro-type .left-content{
+	
+}
+
+.pd-li .pd-order-num .right-content,
+.pd-li .pd-name .right-content,
+.pd-li .pd-pro-name .right-content,
+.pd-li .pd-pro-type .right-content{
+	
+}
+
 .pd-li .pd-bottom .pd-state-name {
 	font-size: 24upx;
 	color: gray;
@@ -155,6 +169,14 @@
 	padding-left: 20upx;
 	margin-bottom: 16upx;
 	overflow: hidden;
+}
+
+.bean-li .bean-item .left-content{
+	
+}
+
+.bean-li .bean-item .right-content{
+	
 }
 
 .bean-li .bean-bottom{

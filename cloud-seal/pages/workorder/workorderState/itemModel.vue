@@ -1,10 +1,22 @@
 <template>
 	<view class="pd-list">
 		<view class="pd-li" v-for="pd in list" :key="pd.id">
-			<view class="pd-order-num">工单号：{{pd.orderNum}}</view>
-			<view class="pd-name">客户名称：{{pd.customerName}}</view>
-			<view class="pd-pro-name">产品名称：{{pd.productName}} </view>
-			<view class="pd-pro-type">服务类型：{{pd.serviceTypeName}}</view>
+			<view class="pd-order-num">
+				<text class="left-content">工单号：</text>
+				<text class="right-content">{{pd.orderNum}}</text>
+			</view>
+			<view class="pd-name">
+				<text class="left-content">客户名称：</text>
+				<text class="right-content">{{pd.customerName}}</text>
+			</view>
+			<view class="pd-pro-name">
+				<text class="left-content">产品名称：</text>
+				<text class="right-content">{{pd.productName}}</text>
+			</view>
+			<view class="pd-pro-type">
+				<text class="left-content">服务类型：</text>
+				<text class="right-content">{{pd.serviceTypeName}}</text>
+			</view>
 			<view class="pd-bottom">
 				<text class="pd-state-name">{{pd.stateName}}</text>
 				<view class="pd-operator">

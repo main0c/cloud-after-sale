@@ -39,11 +39,6 @@
 				}, {
 					title: "我的配件",
 					list: [{
-						name: "已申领配件",
-						iconPath: "../../static/workordericon/workorder-add.png",
-						number: "12",
-						url: "workorderAdd"
-					}, {
 						name: "配件使用历史",
 						iconPath: "../../static/workordericon/workorder-add.png",
 						number: "12",

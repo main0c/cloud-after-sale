@@ -2,8 +2,14 @@
 	<view class="pd-list">
 		<view class="bean-li" v-for="bean in list" :key="bean.id">
 			<view class="bean-title">{{bean.productName}}</view>
-			<view class="bean-item">所属组：{{bean.groupName}}</view>
-			<view class="bean-item">规格型号：{{bean.productModel}} </view>
+			<view class="bean-item">
+				<text class="left-content">所属组：</text>
+				<text class="right-content">{{bean.groupName}}</text>
+			</view>
+			<view class="bean-item">
+				<text class="left-content">规格型号：</text>
+				<text class="right-content">{{bean.productModel}}</text>
+			</view>
 			<view class="bean-bottom">
 				<button @click="chooseProduct(bean.id)">选择</button>
 			</view>
