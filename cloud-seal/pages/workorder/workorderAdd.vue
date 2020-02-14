@@ -340,7 +340,7 @@
 			//打开选择接收人页面
 			chooseServiceUserPage: function(){
 				uni.navigateTo({
-					url: '/pages/worker/workerChoose'
+					url: '/pages/worker/workerChoose?backParam=serviceUser'
 				})
 			},
 			

@@ -1,6 +1,6 @@
 <template>
 	<mescroll-body ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback">
-		<WorkerChooseItem :list="serviceUserList"></WorkerChooseItem>
+		<WorkerChooseItem :list="serviceUserList" :backParam="backParam"></WorkerChooseItem>
 	</mescroll-body>
 </template>
 
@@ -17,9 +17,13 @@
 		data() {
 			return {
 				serviceUserList: [],//工单接收人列表
+				backParam: 'serviceUser'//数据要返回时赋值的对象,默认为serviceUser
 			}
 		},
-		onLoad() {
+		onLoad(option) {
+			if(option.backParam != '' && option.backParam != null && option.backParam != undefined){
+				this.backParam = option.backParam;
+			}
 		},
 		methods: {
 			/**
