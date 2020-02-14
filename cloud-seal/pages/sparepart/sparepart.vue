@@ -37,19 +37,6 @@
 						url: "workorderAdd"
 					},]
 				}, {
-					title: "我的配件",
-					list: [{
-						name: "配件使用历史",
-						iconPath: "../../static/workordericon/workorder-add.png",
-						number: "12",
-						url: "workorderAdd"
-					}, {
-						name: "我的配件库存",
-						iconPath: "../../static/workordericon/workorder-add.png",
-						number: "12",
-						url: "workorderAdd"
-					}]
-				}, {
 					title: "配件信息",
 					list: [{
 						name: "配件档案",
