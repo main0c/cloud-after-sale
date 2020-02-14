@@ -135,7 +135,7 @@
 				<view class="uni-form-item">
 					<view class="title">工单接收人</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请选择工单接收人" name="serviceUserId" :value="serviceUser.userName"/>
+						<robby-tags v-model="serviceUser" defaultText="请选择工单接收人"></robby-tags>
 						<view class="chooseBtn" @click="chooseServiceUserPage">
 							选择
 						</view>
@@ -144,8 +144,8 @@
 				<view class="uni-form-item">
 					<view class="title">工单协助人</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请选择工单协助人" name="cooperationUserId"/>
-						<view class="chooseBtn" @click="chooseCustomer">
+						<robby-tags v-model="tagList" defaultText="请选择工单协助人"></robby-tags>
+						<view class="chooseBtn" @click="chooseServiceXzUserPage">
 							选择
 						</view>
 					</view>
@@ -181,12 +181,15 @@
 	import robbyImageUpload from '@/components/robby-image-upload/robby-image-upload.vue'
 	//地区选择
 	import pickerAddress from '@/components/pickerAddress/pickerAddress.vue'
+	//标签-此处用于工单协助人选择
+	import robbyTags from '@/components/robby-tags/robby-tags.vue'
 	
 	export default {
 		components: {
 			Attachment,
 			robbyImageUpload,
-			pickerAddress
+			pickerAddress,
+			robbyTags
 		},
 		data() {
 			const currentDate = this.getDate({
@@ -234,7 +237,25 @@
 				
 				//地区选咋相关参数
 				txt: '选择地址',
-				txtData: []
+				txtData: [],
+				
+				//工单协作人
+				tagList: [{
+					id: '1',
+					name: '建筑'
+				}, {
+					id: '2',
+					name: '工程'
+				}, {
+					id: '3',
+					name: '艺术'
+				}, {
+					id: '3',
+					name: '艺术'
+				}, {
+					id: '3',
+					name: '艺术'
+				}]
 			}
 		},
 		onLoad() {
@@ -323,6 +344,13 @@
 				})
 			},
 			
+			//打开选择协助人页面
+			chooseServiceXzUserPage: function(){
+				uni.navigateTo({
+					url: '/pages/worker/workerChoose'
+				})
+			},
+			
 			addImage: function(e){
 				console.log(e)
 			},
@@ -395,7 +423,7 @@
 				  return false
 				}
 			},
-			formReset: function(e) {console.log(this.fileData)
+			formReset: function(e) {console.log(this.tagList)
 				console.log('清空数据')
 			}
 		}
