@@ -12,7 +12,7 @@
 			</view>
 			<view class="bean-item">
 				<text class="left-content">状态：</text>
-				<text class="right-content">{{bean.stateName}}</text>
+				<text :class="[bean.orderNumber > 0 ? 'right-content pg' : 'right-content kx']">{{bean.stateName}}</text>
 			</view>
 			<view class="bean-bottom">
 				<button @click="chooseServiceUser(bean.id)">选择</button>
@@ -57,4 +57,11 @@
 </script>
 
 <style>
+	.pg{
+		color: #FF0000;
+	}
+	
+	.kx{
+		color: #1AAD19;
+	}
 </style>
