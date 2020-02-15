@@ -17,4 +17,6 @@
 	@import url("/static/css/uni.css");
 	/*自己的样式文件*/
 	@import url("/static/css/common.css");
+	/*树组件*/
+	@import url("components/ly-tree/ly-tree.css");
 </style>

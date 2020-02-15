@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view>
-			<form @submit="formSubmit" @reset="formReset">
+			<form @submit="formSubmit">
 				<view class="uni-form-item">
 					<view class="title">
 						<view class="must">*</view>服务类型
@@ -144,7 +144,7 @@
 				<view class="uni-form-item">
 					<view class="title">工单协助人</view>
 					<view class="content">
-						<robby-tags v-model="tagList" defaultText="请选择工单协助人"></robby-tags>
+						<robby-tags v-model="userList" defaultText="请选择工单协助人"></robby-tags>
 						<view class="chooseBtn" @click="chooseServiceXzUserPage">
 							选择
 						</view>
@@ -153,8 +153,7 @@
 				<view class="uni-form-item">
 					<view class="title">相关照片</view>
 					<view class="content">
-						<robby-image-upload v-model="imageData" @add="addImage"
-							:server-url="imageServerUrl" :form-data="imageformData" :show-upload-progress="true"></robby-image-upload>
+						<robby-image-upload v-model="imageData" :server-url="imageServerUrl" :form-data="imageformData" :show-upload-progress="true"></robby-image-upload>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -166,7 +165,6 @@
 				</view>
 				<view class="uni-btn-v">
 					<button form-type="submit">提交</button>
-					<button type="default" form-type="reset">取消</button>
 				</view>
 			</form>
 		</view>
@@ -240,22 +238,7 @@
 				txtData: [],
 				
 				//工单协作人
-				tagList: [{
-					id: '1',
-					name: '建筑'
-				}, {
-					id: '2',
-					name: '工程'
-				}, {
-					id: '3',
-					name: '艺术'
-				}, {
-					id: '3',
-					name: '艺术'
-				}, {
-					id: '3',
-					name: '艺术'
-				}]
+				userList: []
 			}
 		},
 		onLoad() {
@@ -347,12 +330,8 @@
 			//打开选择协助人页面
 			chooseServiceXzUserPage: function(){
 				uni.navigateTo({
-					url: '/pages/worker/workerChoose'
+					url: '/pages/user/userChoose/userChooseState?backParam=userList'
 				})
-			},
-			
-			addImage: function(e){
-				console.log(e)
 			},
 			
 			//服务类型变化事件
@@ -422,9 +401,6 @@
 				  })
 				  return false
 				}
-			},
-			formReset: function(e) {console.log(this.tagList)
-				console.log('清空数据')
 			}
 		}
 	}
@@ -432,45 +408,4 @@
 </script>
 
 <style>
-	
-	.bean-li{
-		position: relative;
-		height: auto;
-		padding: 20upx 16upx 20upx 16upx;
-		border-bottom: 1upx solid #eee;
-	}
-	
-	.bean-li .bean-title{
-		font-size: 30upx;
-		line-height: 40upx;
-		background-color: #E8E8E8;
-		padding-left: 20upx;
-		padding-top: 14upx;
-		padding-bottom: 14upx;
-	}
-	
-	.bean-li .bean-item{
-		font-size: 26upx;
-		line-height: 40upx;
-		height: auto;
-		padding-left: 20upx;
-		margin-bottom: 16upx;
-		overflow: hidden;
-	}
-	
-	.bean-li .bean-bottom{
-		float: right;
-		margin-top: -60upx;
-	}
-	
-	.bean-li .bean-bottom button{
-		font-size: 24upx;
-		padding: 10upx 10upx;
-		line-height: 24upx;
-		float: left;
-		margin-right: 10upx;
-		color: cornflowerblue;
-		border-color: cornflowerblue;
-	}
-	
 </style>
