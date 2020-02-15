@@ -27,7 +27,7 @@
 						客户
 					</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请选择客户" name="customerId" :value="customer.name" />
+						<input class="uni-input" placeholder="请选择客户" name="customerName" :value="customer.name" />
 						<view class="chooseBtn" @click="chooseCustomerPage">
 							选择
 						</view>
@@ -379,7 +379,9 @@
 			addressChooseChange(data) {
 				var s = "";
 				for(let i = 0; i < data.data.length; i++){
-					s += data.data[i].name + ' ';
+					if(data.data[i].name != undefined){
+						s += data.data[i].name + ' ';
+					}
 				}
 				this.txt = s
 				this.txtData = data.data
@@ -388,20 +390,112 @@
 			//提交
 			formSubmit: function(e) {
 				let loginRules = [
-					{name: 'tel', required: true, type: 'phone', errmsg: '请输入正确的手机号'},
-					{name: 'pwd', type: 'required', errmsg: '请输入密码'},
-					{name: 'pwd', type: 'pwd', errmsg: '密码须是6～16位字符'},
-					{name: 'pwd2', type: 'eq', eqName: 'pwd', required: true, errmsg: '两次输入密码不一致'},
+					{name: 'contacts', required: true, errmsg: '请输入联系人'},
+					{name: 'phone', required: true, type: 'phone', max: 11, errmsg: '请输入正确的手机号'},
+					{name: 'addressDetailed', required: true, errmsg: '请输入详细地址'},
+					{name: 'content', required: true, errmsg: '请输入服务内容'}
 				]
-				let valLoginRes = this.$validate.validate(e.detail, loginRules)
-				if (!valLoginRes.isOk) {
-				  uni.showToast({
-					icon: 'none',
-					title: valLoginRes.errmsg
-				  })
-				  return false
+				if(this.typeIndex == 0){
+					uni.showToast({icon: 'none', title: '请选择服务类型'})
+					return false
 				}
-			}
+				
+				if(this.declarationTime == '' || this.declarationTime == null){
+					uni.showToast({icon: 'none', title: '请选择报单时间'})
+					return false
+				}
+				
+				if(this.urgencyIndex == 0){
+					uni.showToast({icon: 'none', title: '请选择紧急程度'})
+					return false
+				}
+				
+				if(this.modeIndex == 0){
+					uni.showToast({icon: 'none', title: '请选择处理方式'})
+					return false
+				}
+				
+				if(this.txtData.length == 0){
+					uni.showToast({icon: 'none', title: '请选择地区'})
+					return false
+				}
+				
+				let valLoginRes = this.$validate.validate(e.detail.value, loginRules)
+				if (!valLoginRes.isOk) {
+					uni.showToast({icon: 'none', title: valLoginRes.errmsg})
+					return false
+				}
+				
+				var params = {
+					typeId: this.serviceTypeList[this.typeIndex].id,//服务类型，不可为空
+					declarationTime: this.declarationTime,//报单时间，不可为空
+					customerId: this.customer.id,//客户-可为空
+					customerName: e.detail.value.customerName,//客户名称-可为空
+					contacts: e.detail.value.contacts,//联系人，不可为空
+					phone: e.detail.value.phone,//联系电话，不可为空
+					email: e.detail.value.email,//联系邮箱，不可为空
+					qq: e.detail.value.qq,//联系QQ，不可为空
+					provinceId: this.txtData[0].id != undefined ? this.txtData[0].id : '',//省，不可为空
+					cityId: this.txtData[1].id != undefined ? this.txtData[1].id : '',//市，可为空
+					areaId: this.txtData[2].id != undefined ? this.txtData[2].id : '',//区县，可为空
+					townshipId: '',//乡镇，可为空
+					addressDetailed: e.detail.value.addressDetailed,//详细地址，不可为空
+					productId: this.product.id,//产品id，可为空
+					productName: e.detail.value.productName,//产品名称，可为空
+					productNorms: e.detail.value.productModel,//规格型号，可为空
+					productSerialNum: e.detail.value.productSerialNum,//序列号，可为空
+					productWarranty: this.productWarrantyList[this.productWarrantyIndex].id,//质保类型，可为空
+					urgencyId: this.urgencyList[this.urgencyIndex].id,//紧急程度，不可为空
+					modeId: this.modeList[this.modeIndex].id,//处理方式，不可为空
+					content: e.detail.value.content,//服务内容，不可为空
+					serviceUserId: "",//工单接收人，可为空
+					cooperationUserId: "",//工单协助人，可为空
+					sheetPicture: '',//相关照片，可为空
+					enclosureInfo: ""//附件，可为空
+				};
+				
+				//工单接收人
+				params.serviceUserId = this.serviceUser.length > 0 && this.serviceUser[0].id != undefined ? serviceUser[0].id : '';
+				
+				//工单协助人
+				var cooperationUserId = "";
+				for(var i = 0; i < this.userList.length; i++){
+					cooperationUserId += this.userList[i].id + ',';
+				}
+				params.cooperationUserId = cooperationUserId;
+				
+				//相关照片
+				var sheetPicture = "";
+				for(var i = 0; i < this.imageData.length; i++){
+					sheetPicture += this.imageData[i] + ',';
+				}
+				params.sheetPicture = sheetPicture;
+				
+				//附件
+				var enclosureInfo = "";
+				for(var i = 0; i < this.fileData.length; i++){
+					enclosureInfo += this.fileData[i].id + ',';
+				}
+				params.enclosureInfo = enclosureInfo;
+				
+				this.$api.post("sealseservice011", params).then((res)=>{
+					if(res.returnCode == 0){
+						uni.showToast({
+							icon: 'success',
+							position: 'bottom',
+							title: '工单填报成功。'
+						});
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
+				
+			},
+			
 		}
 	}
 	

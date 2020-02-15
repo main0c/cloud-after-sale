@@ -32,7 +32,7 @@ export default {
 		}
 		for (let rule of rules) {
 			// rule: {name:'', type:'', errmsg:'', min:1, max:2, eq:'', required:Boolean, regex:''}
-			if (!rule || !rule.name || !rule.type) {
+			if (!rule || !rule.name) {
 				continue
 			}
 			
