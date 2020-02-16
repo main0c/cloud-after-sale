@@ -107,7 +107,7 @@
 	font-size: 26upx;
 	line-height: 40upx;
 	height: auto;
-	margin-bottom: 16upx;
+	margin-bottom: 8upx;
 	overflow: hidden;
 }
 
@@ -115,14 +115,14 @@
 .pd-li .pd-name .left-content,
 .pd-li .pd-pro-name .left-content,
 .pd-li .pd-pro-type .left-content{
-	
+	color: #999;
 }
 
 .pd-li .pd-order-num .right-content,
 .pd-li .pd-name .right-content,
 .pd-li .pd-pro-name .right-content,
 .pd-li .pd-pro-type .right-content{
-	
+	color: #555;
 }
 
 .pd-li .pd-bottom .pd-state-name {
@@ -135,16 +135,28 @@
 	right: 0px;
 	bottom: 30upx;
 }
-/****************第二套开始***************/
+
 .pd-li .pd-bottom .pd-operator button{
 	font-size: 24upx;
 	padding: 10upx 10upx;
 	line-height: 24upx;
 	float: left;
 	margin-right: 10upx;
-	color: cornflowerblue;
-	border-color: cornflowerblue;
+	color: #1E9FFF;
+	border: 1px solid #1E9FFF;
 }
+
+.pd-li .pd-bottom .pd-operator .normor{
+	color: #009C82;
+	border: 1px solid #009C82;
+}
+
+.pd-li .pd-bottom .pd-operator .danger{
+	color: #E04B28;
+	border: 1px solid #E04B28;
+}
+
+/****************第二套开始***************/
 
 .bean-li{
 	position: relative;
@@ -167,16 +179,16 @@
 	line-height: 40upx;
 	height: auto;
 	padding-left: 20upx;
-	margin-bottom: 16upx;
+	margin-bottom: 8upx;
 	overflow: hidden;
 }
 
 .bean-li .bean-item .left-content{
-	
+	color: #999;
 }
 
 .bean-li .bean-item .right-content{
-	
+	color: #555;
 }
 
 .bean-li .bean-bottom{

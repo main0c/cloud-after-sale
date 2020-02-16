@@ -3,7 +3,7 @@
 		<view class="pd-li" v-for="pd in list" :key="pd.id">
 			<view class="pd-order-num">
 				<text class="left-content">单号：</text>
-				<text class="right-content">{{pd.applyNum}}</text>
+				<text class="">{{pd.applyNum}}</text>
 			</view>
 			<view class="pd-name">
 				<text class="left-content">所属工单：</text>

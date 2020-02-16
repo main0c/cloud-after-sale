@@ -442,7 +442,7 @@
 					addressDetailed: e.detail.value.addressDetailed,//详细地址，不可为空
 					productId: this.product.id,//产品id，可为空
 					productName: e.detail.value.productName,//产品名称，可为空
-					productNorms: e.detail.value.productModel,//规格型号，可为空
+					productNorms: e.detail.value.productNorms,//规格型号，可为空
 					productSerialNum: e.detail.value.productSerialNum,//序列号，可为空
 					productWarranty: this.productWarrantyList[this.productWarrantyIndex].id,//质保类型，可为空
 					urgencyId: this.urgencyList[this.urgencyIndex].id,//紧急程度，不可为空
