@@ -32,7 +32,9 @@
 			}
 		},
 		onLoad(option) {
-			this.curIndex = option.type * 1;
+			if(option.type != undefined){
+				this.curIndex = option.type * 1;
+			}
 		},
 		methods: {
 			// 切换菜单
@@ -45,7 +47,7 @@
 
 <style>
 	.top-warp{
-		z-index: 9990;
+		z-index: 998;
 		position: fixed;
 		top: --window-top; /* css变量 */
 		left: 0;

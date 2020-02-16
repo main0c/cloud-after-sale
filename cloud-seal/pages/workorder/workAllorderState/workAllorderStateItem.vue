@@ -5,7 +5,8 @@
 		<mescroll-uni top="60" :down="downOption" @down="downCallback" :up="upOption" @up="upCallback" @emptyclick="emptyClick"
 		 @init="mescrollInit">
 			<!-- 数据列表 -->
-			<pd-list :list="dataList"></pd-list>
+			<!-- v-on:ToRefresh  子组件通过_this.$emit("ToRefresh")调用父组件方法 -->
+			<pd-list :list="dataList" v-on:ToRefresh="refresh()"></pd-list>
 		</mescroll-uni>
 	</view>
 </template>
@@ -86,6 +87,11 @@
 					//联网失败的回调,隐藏下拉刷新的状态
 					mescroll.endErr();
 				})
+			},
+			
+			//子组件主动刷新页面数据
+			refresh: function(){
+				this.mescroll.triggerDownScroll()
 			},
 
 			/*联网加载列表数据

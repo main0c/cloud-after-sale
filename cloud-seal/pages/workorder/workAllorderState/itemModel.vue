@@ -32,7 +32,7 @@
 					<button @click="test()" v-if="pd.state == 4 || pd.state == 5">情况反馈</button>
 					<button @click="test()" v-if="pd.state == 6">审核</button>
 					<button @click="test()" v-if="pd.state == 1 || pd.state == 2" class="normor">编辑</button>
-					<button @click="test()" v-if="pd.state == 1 || pd.state == 2" class="danger">删除</button>
+					<button @click="deleteRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="danger">删除</button>
 				</view>
 			</view>
 		</view>
@@ -52,7 +52,39 @@
 		methods: {
 			test: function(){
 				console.log(1);
+			},
+			
+			//删除工单
+			deleteRow: function(id){
+				var _this = this;
+				uni.showModal({
+				    title: '提示',
+				    content: '确定删除该工单吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+							_this.$api.post("sealseservice020", {rowId: id}).then((res)=>{
+								if(res.returnCode == 0){
+									uni.showToast({
+										icon: 'success',
+										position: 'bottom',
+										title: '删除成功',
+										complete:function(){
+											_this.$emit("ToRefresh")
+										}
+									});
+								}else{
+									uni.showToast({
+										icon: 'none',
+										position: 'bottom',
+										title: res.returnMessage
+									});
+								}
+							})
+				        }
+				    }
+				});
 			}
+			
 		}
 	}
 </script>
