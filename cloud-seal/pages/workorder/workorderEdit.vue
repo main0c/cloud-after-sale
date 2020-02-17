@@ -241,8 +241,8 @@
 				userList: []
 			}
 		},
-		onLoad() {
-			
+		onLoad(options) {
+			console.log(options)
 			//获取服务类型列表
 			this.loadServiceType();
 			

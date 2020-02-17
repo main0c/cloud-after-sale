@@ -203,7 +203,17 @@
 	line-height: 24upx;
 	float: left;
 	margin-right: 10upx;
-	color: cornflowerblue;
-	border-color: cornflowerblue;
+	color: #1E9FFF;
+	border: 1px solid #1E9FFF;
+}
+
+.bean-li .bean-bottom .normor{
+	color: #009C82;
+	border: 1px solid #009C82;
+}
+
+.bean-li .bean-bottom .danger{
+	color: #E04B28;
+	border: 1px solid #E04B28;
 }
 /*数据列表样式结束*/

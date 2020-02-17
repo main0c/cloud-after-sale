@@ -12,17 +12,6 @@
 			}
 		},
 		{
-			"path": "pages/workorder/workorder",
-			"style": {
-				"navigationBarTitleText": "工单",
-				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
-				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
-				"app-plus": {
-					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
-				}
-			}
-		},
-		{
 			"path": "pages/customer/customerList",
 			"style": {
 				"navigationBarTitleText": "客户档案",
@@ -37,6 +26,17 @@
 			"path": "pages/workorder/workorderAdd",
 			"style": {
 				"navigationBarTitleText": "新增工单",
+				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
+				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+			}
+		},
+		{
+			"path": "pages/workorder/workorderEdit",
+			"style": {
+				"navigationBarTitleText": "编辑工单",
 				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
 				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
 				"app-plus": {
@@ -192,6 +192,17 @@
 					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
 				}
 			}
+		},
+		{
+			"path": "pages/workorder/workMyWriteorder/workMyWriteorder",
+			"style": {
+				"navigationBarTitleText": "我提交的工单",
+				"disableScroll": true, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
+				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+			}
 		}
 	],
 	"globalStyle": {
@@ -215,11 +226,6 @@
 		"color": "#a7a7a7",
 		"selectedColor": "#62A1EB",
 		"list": [{
-			"pagePath": "pages/workorder/workorder",
-			"text": "工单",
-			"iconPath": "static/tabBar/workorder.png",
-			"selectedIconPath": "static/tabBar/workorder-se.png"
-		}, {
 			"pagePath": "pages/workbench/workbench",
 			"text": "工作台",
 			"iconPath": "static/tabBar/workbench.png",
