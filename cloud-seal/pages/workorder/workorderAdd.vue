@@ -435,9 +435,9 @@
 					phone: e.detail.value.phone,//联系电话，不可为空
 					email: e.detail.value.email,//联系邮箱，不可为空
 					qq: e.detail.value.qq,//联系QQ，不可为空
-					provinceId: this.txtData[0].id != undefined ? this.txtData[0].id : '',//省，不可为空
-					cityId: this.txtData[1].id != undefined ? this.txtData[1].id : '',//市，可为空
-					areaId: this.txtData[2].id != undefined ? this.txtData[2].id : '',//区县，可为空
+					provinceId: this.txtData[0] && this.txtData[0].id ? this.txtData[0].id : '',//省，不可为空
+					cityId: this.txtData[1] && this.txtData[1].id ? this.txtData[1].id : '',//市，可为空
+					areaId: this.txtData[2] && this.txtData[2].id ? this.txtData[2].id : '',//区县，可为空
 					townshipId: '',//乡镇，可为空
 					addressDetailed: e.detail.value.addressDetailed,//详细地址，不可为空
 					productId: this.product.id,//产品id，可为空
@@ -455,7 +455,7 @@
 				};
 				
 				//工单接收人
-				params.serviceUserId = this.serviceUser.length > 0 && this.serviceUser[0].id != undefined ? serviceUser[0].id : '';
+				params.serviceUserId = this.serviceUser.length > 0 && this.serviceUser[0].id != undefined ? this.serviceUser[0].id : '';
 				
 				//工单协助人
 				var cooperationUserId = "";
@@ -485,9 +485,11 @@
 							position: 'bottom',
 							title: '工单填报成功。',
 							success:function(){
-								uni.navigateTo({
-									url: 'workMyWriteorder/workMyWriteorder'
-								});
+								setTimeout(function(){
+									uni.navigateTo({
+										url: 'workMyWriteorder/workMyWriteorder'
+									});
+								}, 2000)
 							}
 						});
 					}else{

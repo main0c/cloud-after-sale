@@ -71,7 +71,7 @@
 							title: '登录成功'
 						});
 						uni.reLaunch({
-							url: '../workorder/workorder',
+							url: '../workbench/workbench',
 						});
 					}else{
 						uni.showToast({

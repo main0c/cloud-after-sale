@@ -78,7 +78,7 @@
 						<view class="must">*</view>详细地址
 					</view>
 					<view class="content">
-						<textarea placeholder="请输入详细地址" auto-height name="addressDetailed"/>
+						<textarea placeholder="请输入详细地址" auto-height name="addressDetailed" :value="addressDetailed"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -99,7 +99,7 @@
 				<view class="uni-form-item">
 					<view class="title">序列号</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请输入序列号" name="productSerialNum"/>
+						<input class="uni-input" placeholder="请输入序列号" name="productSerialNum" :value="productSerialNum"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -129,7 +129,7 @@
 				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>服务内容</view>
 					<view class="content">
-						<textarea placeholder="请输入服务内容" name="content" style="height: 160upx;"/>
+						<textarea placeholder="请输入服务内容" name="content" style="height: 160upx;" :value="content"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -238,19 +238,133 @@
 				txtData: [],
 				
 				//工单协作人
-				userList: []
+				userList: [],
+				
+				//工单id
+				rowId: '',
+				//工单信息
+				rowMation: {},
+				//产品序列号
+				productSerialNum: '',
+				//服务内容
+				content: '',
+				//详细地址
+				addressDetailed: ''
 			}
 		},
 		onLoad(options) {
-			console.log(options)
-			//获取服务类型列表
-			this.loadServiceType();
+			if(!options.id){
+				uni.showToast({
+					icon: 'none',
+					position: 'bottom',
+					title: '缺少工单id',
+					success:function(){
+						setTimeout(function(){
+							uni.navigateBack()
+						}, 2000)
+					}
+				});
+			}
 			
-			//获取紧急程度列表
-			this.loadUrgencyType();
+			//工单id赋值
+			this.rowId = options.id;
 			
-			//获取处理方式列表
-			this.loadModeType();
+			//获取工单信息
+			this.$api.get("sealseservice012", {rowId: this.rowId}).then((res)=>{
+				if(res.returnCode == 0){
+					this.rowMation = res.bean;
+					
+					//报单时间赋值
+					this.declarationTime = res.bean.declarationTime.substring(0, 10)
+					
+					//客户赋值
+					this.customer = {
+						id: res.bean.customerId,
+						name: res.bean.customerName,
+						contacts: res.bean.contacts,
+						mobilePhone: res.bean.phone,
+						email: res.bean.email,
+						qq: res.bean.qq
+					};
+					
+					//产品赋值
+					this.product = {
+						id: res.bean.productId,
+						productName: res.bean.productName,
+						productModel: res.bean.productNorms
+					};
+					this.productSerialNum = res.bean.productSerialNum;
+					
+					//服务内容
+					this.content = res.bean.content
+					//详细地址
+					this.addressDetailed = res.bean.addressDetailed
+					//质保类型
+					for(let i = 0; i < this.productWarrantyList.length; i++){
+						if(this.productWarrantyList[i].id == res.bean.productWarranty){
+							this.productWarrantyIndex = i;
+						}
+					}
+					//工单接收人
+					this.serviceUser = res.bean.serviceUserId;
+					//工单协助人
+					this.userList = res.bean.cooperationUserId;
+					//相关图片
+					for(let i = 0; i < res.bean.sheetPicture.split(',').length; i++){
+						if(res.bean.sheetPicture.split(',')[i]){
+							this.imageData.push(res.bean.sheetPicture.split(',')[i]);
+						}
+					}
+					//附件
+					for(let i = 0; i < res.bean.enclosureInfo.length; i++){
+						this.fileData.push({
+							id: res.bean.enclosureInfo[i].id,
+							fileName: res.bean.enclosureInfo[i].name,
+							url: res.bean.enclosureInfo[i].fileAddress,
+							type: 'file'
+						});
+					}
+					//地区
+					var s = "";
+					if(res.bean.provinceId){
+						this.txtData[0] = {
+							id: res.bean.provinceId,
+							name: res.bean.addressProvince
+						}
+						s += res.bean.addressProvince + ' '
+					}
+					if(res.bean.cityId){
+						this.txtData[1] = {
+							id: res.bean.cityId,
+							name: res.bean.addressCity
+						}
+						s += res.bean.addressCity + ' '
+					}
+					if(res.bean.areaId){
+						this.txtData[2] = {
+							id: res.bean.areaId,
+							name: res.bean.addressArea
+						}
+						s += res.bean.addressArea + ' '
+					}
+					this.txt = s
+					
+					//获取服务类型列表
+					this.loadServiceType();
+					
+					//获取紧急程度列表
+					this.loadUrgencyType();
+					
+					//获取处理方式列表
+					this.loadModeType();
+				}else{
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: res.returnMessage
+					});
+				}
+			})
 			
 		},
 		methods: {
@@ -261,6 +375,9 @@
 					if(res.returnCode == 0){
 						for(let i = 0; i < res.rows.length; i++){
 							this.serviceTypeList.push(res.rows[i]);
+							if(res.rows[i].id == this.rowMation.typeId){
+								this.typeIndex = i + 1;
+							}
 						}
 					}else{
 						uni.showToast({
@@ -278,6 +395,9 @@
 					if(res.returnCode == 0){
 						for(let i = 0; i < res.rows.length; i++){
 							this.urgencyList.push(res.rows[i]);
+							if(res.rows[i].id == this.rowMation.urgencyId){
+								this.urgencyIndex = i + 1;
+							}
 						}
 					}else{
 						uni.showToast({
@@ -295,6 +415,9 @@
 					if(res.returnCode == 0){
 						for(let i = 0; i < res.rows.length; i++){
 							this.modeList.push(res.rows[i]);
+							if(res.rows[i].id == this.rowMation.modeId){
+								this.modeIndex = i + 1;
+							}
 						}
 					}else{
 						uni.showToast({
@@ -435,9 +558,9 @@
 					phone: e.detail.value.phone,//联系电话，不可为空
 					email: e.detail.value.email,//联系邮箱，不可为空
 					qq: e.detail.value.qq,//联系QQ，不可为空
-					provinceId: this.txtData[0].id != undefined ? this.txtData[0].id : '',//省，不可为空
-					cityId: this.txtData[1].id != undefined ? this.txtData[1].id : '',//市，可为空
-					areaId: this.txtData[2].id != undefined ? this.txtData[2].id : '',//区县，可为空
+					provinceId: this.txtData[0] && this.txtData[0].id ? this.txtData[0].id : '',//省，不可为空
+					cityId: this.txtData[1] && this.txtData[1].id ? this.txtData[1].id : '',//市，可为空
+					areaId: this.txtData[2] && this.txtData[2].id ? this.txtData[2].id : '',//区县，可为空
 					townshipId: '',//乡镇，可为空
 					addressDetailed: e.detail.value.addressDetailed,//详细地址，不可为空
 					productId: this.product.id,//产品id，可为空
@@ -451,11 +574,12 @@
 					serviceUserId: "",//工单接收人，可为空
 					cooperationUserId: "",//工单协助人，可为空
 					sheetPicture: '',//相关照片，可为空
-					enclosureInfo: ""//附件，可为空
+					enclosureInfo: "",//附件，可为空
+					rowId: this.rowId//工单id
 				};
 				
 				//工单接收人
-				params.serviceUserId = this.serviceUser.length > 0 && this.serviceUser[0].id != undefined ? serviceUser[0].id : '';
+				params.serviceUserId = this.serviceUser.length > 0 && this.serviceUser[0].id != undefined ? this.serviceUser[0].id : '';
 				
 				//工单协助人
 				var cooperationUserId = "";
@@ -478,16 +602,16 @@
 				}
 				params.enclosureInfo = enclosureInfo;
 				
-				this.$api.post("sealseservice011", params).then((res)=>{
+				this.$api.post("sealseservice015", params).then((res)=>{
 					if(res.returnCode == 0){
 						uni.showToast({
 							icon: 'success',
 							position: 'bottom',
-							title: '工单填报成功。',
+							title: '工单修改成功。',
 							success:function(){
-								uni.navigateTo({
-									url: 'workMyWriteorder/workMyWriteorder'
-								});
+								setTimeout(function(){
+									uni.navigateBack()
+								}, 2000)
 							}
 						});
 					}else{

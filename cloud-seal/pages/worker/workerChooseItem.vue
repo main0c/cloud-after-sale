@@ -44,7 +44,7 @@
 						var pages = getCurrentPages();
 						var prevPage = pages[pages.length - 2];  //上一个页面
 						prevPage._data[this.backParam] = [{
-							id: this.list[i].id,
+							id: this.list[i].userId,
 							name: this.list[i].userName
 						}];
 						uni.navigateBack()
@@ -58,10 +58,10 @@
 
 <style>
 	.pg{
-		color: #FF0000;
+		color: #FF0000 !important;
 	}
 	
 	.kx{
-		color: #1AAD19;
+		color: #1AAD19 !important;
 	}
 </style>
