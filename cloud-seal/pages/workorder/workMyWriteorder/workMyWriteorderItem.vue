@@ -1,6 +1,6 @@
 <template>
 	<view class="pd-list">
-		<view class="bean-li" v-for="bean in list" :key="bean.id">
+		<view class="bean-li" v-for="bean in list" :key="bean.id" @click="rowDetails(bean.id)">
 			<view class="bean-title">
 				<text class="left-content">工单号：</text>
 				<text class="">{{bean.orderNum}}</text>
@@ -43,6 +43,13 @@
 			}
 		},
 		methods: {
+			
+			//工单详情
+			rowDetails: function(id){
+				uni.navigateTo({
+					url: '/pages/workorder/workorderDetail?id=' + id
+				})
+			},
 			
 			//编辑工单
 			editRow: function(id){
