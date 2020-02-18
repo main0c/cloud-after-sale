@@ -51,25 +51,26 @@
 					</view>
 				</view>
 				<view class="uni-form-item">
-					<view class="title"><view class="must">*</view>工单接收人</view>
+					<view class="title"><view class="must">*</view>预约时间</view>
 					<view class="content">
-						<robby-tags v-model="serviceUser" defaultText="请选择工单接收人"></robby-tags>
-						<view class="chooseBtn" @click="chooseServiceUserPage">
-							选择
-						</view>
+						<picker mode="date" @change="bindDateChange" style="width: 40%; float: left;">
+							<view class="uni-input" v-if="subscribeTime != ''">{{subscribeTime}}</view>
+							<view class="uni-input" v-else>年-月-日</view>
+						</picker>
+						<picker mode="time" @change="bindDateChange2" style="width: 40%; float: left;">
+							<view class="uni-input" v-if="subscribeTime2 != ''">{{subscribeTime2}}</view>
+							<view class="uni-input" v-else>时:分</view>
+						</picker>
 					</view>
 				</view>
 				<view class="uni-form-item">
-					<view class="title">工单协助人</view>
+					<view class="title">签收备注</view>
 					<view class="content">
-						<robby-tags v-model="userList" defaultText="请选择工单协助人"></robby-tags>
-						<view class="chooseBtn" @click="chooseServiceXzUserPage">
-							选择
-						</view>
+						<textarea placeholder="请输入备注" name="remark" style="height: 160upx;"/>
 					</view>
 				</view>
 				<view class="uni-btn-v">
-					<button form-type="submit">派工</button>
+					<button form-type="submit">接单</button>
 				</view>
 			</form>
 		</view>
@@ -78,19 +79,14 @@
 </template>
 
 <script>
-	//标签-此处用于工单协助人选择
-	import robbyTags from '@/components/robby-tags/robby-tags.vue'
 	
 	export default {
-		components: {
-			robbyTags
-		},
 		data() {
 			return {
-				//工单接收人
-				serviceUser: [],
-				//工单协作人
-				userList: [],
+				//预约开始时间 年月日
+				subscribeTime: '',
+				//预约开始时间 时分
+				subscribeTime2: '',
 				//工单id
 				rowId: '',
 				//工单信息
@@ -115,7 +111,7 @@
 			this.rowId = options.id;
 			
 			//获取工单信息
-			this.$api.get("sealseservice013", {rowId: this.rowId}).then((res)=>{
+			this.$api.get("sealseservice016", {rowId: this.rowId}).then((res)=>{
 				if(res.returnCode == 0){
 					this.rowMation = res.bean;
 				}else{
@@ -129,47 +125,37 @@
 			
 		},
 		methods: {
-			//打开选择接收人页面
-			chooseServiceUserPage: function(){
-				uni.navigateTo({
-					url: '/pages/worker/workerChoose?backParam=serviceUser'
-				})
+			
+			//预约开始时间 年月日
+			bindDateChange: function(e) {
+				this.subscribeTime = e.target.value
 			},
 			
-			//打开选择协助人页面
-			chooseServiceXzUserPage: function(){
-				uni.navigateTo({
-					url: '/pages/user/userChoose/userChooseState?backParam=userList'
-				})
+			//预约开始时间 时分
+			bindDateChange2: function(e) {
+				this.subscribeTime2 = e.target.value
 			},
 			
 			//提交
 			formSubmit: function(e) {
-				if(this.serviceUser.length == 0 || !this.serviceUser[0].id){
-					uni.showToast({icon: 'none', title: '请选择接收人'})
+				if(this.subscribeTime == '' || this.subscribeTime == null
+					|| this.subscribeTime2 == '' || this.subscribeTime2 == null){
+					uni.showToast({icon: 'none', title: '请选择预约时间'})
 					return false
-				}
-				//工单接收人
-				var serviceUserId = this.serviceUser.length > 0 && this.serviceUser[0].id != undefined ? this.serviceUser[0].id : '';
-				
-				//工单协助人
-				var cooperationUserId = "";
-				for(var i = 0; i < this.userList.length; i++){
-					cooperationUserId += this.userList[i].id + ',';
 				}
 				
 				var params = {
-					serviceUserId: serviceUserId,//工单接收人，可为空
-					cooperationUserId: cooperationUserId,//工单协助人，可为空
+					remark: e.detail.value.remark,//备注
+					subscribeTime: this.subscribeTime + ' ' + this.subscribeTime2 + ':00',//预约开始时间
 					rowId: this.rowId//工单id
 				};
 				
-				this.$api.post("sealseservice014", params).then((res)=>{
+				this.$api.post("sealseservice017", params).then((res)=>{
 					if(res.returnCode == 0){
 						uni.showToast({
 							icon: 'success',
 							position: 'bottom',
-							title: '派工成功。',
+							title: '接单成功。',
 							success:function(){
 								setTimeout(function(){
 									uni.navigateBack()

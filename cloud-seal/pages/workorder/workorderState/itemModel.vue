@@ -24,7 +24,7 @@
 			<view class="pd-bottom">
 				<text class="pd-state-name">{{pd.stateName}}</text>
 				<view class="pd-operator">
-					<button @click.native.stop="test()" v-if="pd.state == 2">接单</button>
+					<button @click.native.stop="rowReceipt(pd.id)" v-if="pd.state == 2">接单</button>
 					<button @click.native.stop="test()" v-if="pd.state == 3">签到</button>
 					<button @click.native.stop="test()" v-if="pd.state == 4">完工</button>
 					<button @click.native.stop="test()" v-if="pd.state == 5">评价</button>
@@ -50,6 +50,13 @@
 		methods: {
 			test: function(){
 				console.log(1);
+			},
+			
+			//接单
+			rowReceipt: function(id){
+				uni.navigateTo({
+					url: '/pages/workorder/workorderReceipt?id=' + id
+				})
 			},
 			
 			//工单详情
