@@ -24,15 +24,15 @@
 			<view class="pd-bottom">
 				<text class="pd-state-name">{{pd.stateName}}</text>
 				<view class="pd-operator">
-					<button @click.native.stop="rowWorder(pd.id)" v-if="pd.state == 1">派工</button>
-					<button @click.native.stop="rowReceipt(pd.id)" v-if="pd.state == 2">接单</button>
-					<button @click.native.stop="test()" v-if="pd.state == 3">签到</button>
-					<button @click.native.stop="test()" v-if="pd.state == 4">完工</button>
-					<button @click.native.stop="test()" v-if="pd.state == 5">评价</button>
-					<button @click.native.stop="test()" v-if="pd.state == 4 || pd.state == 5">情况反馈</button>
-					<button @click.native.stop="test()" v-if="pd.state == 6">审核</button>
-					<button @click.native.stop="editRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="normor">编辑</button>
-					<button @click.native.stop="deleteRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="danger">删除</button>
+					<button @click.stop="rowWorder(pd.id)" v-if="pd.state == 1">派工</button>
+					<button @click.stop="rowReceipt(pd.id)" v-if="pd.state == 2">接单</button>
+					<button @click.stop="test()" v-if="pd.state == 3">签到</button>
+					<button @click.stop="test()" v-if="pd.state == 4">完工</button>
+					<button @click.stop="test()" v-if="pd.state == 5">评价</button>
+					<button @click.stop="test()" v-if="pd.state == 4 || pd.state == 5">情况反馈</button>
+					<button @click.stop="test()" v-if="pd.state == 6">审核</button>
+					<button @click.stop="editRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="normor">编辑</button>
+					<button @click.stop="deleteRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="danger">删除</button>
 				</view>
 			</view>
 		</view>

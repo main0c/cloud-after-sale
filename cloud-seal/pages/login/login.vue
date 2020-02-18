@@ -8,7 +8,7 @@
 			<!-- 主体表单 -->
 			<view class="main">
 				<wInput v-model="userCode" type="text" maxlength="11" placeholder="用户名"></wInput>
-				<wInput v-model="password" type="password" maxlength="11" placeholder="密码"></wInput>
+				<wInput v-model="password" type="password" maxlength="11" placeholder="密码" isShowPass></wInput>
 			</view>
 			<wButton text="登 录" @click.native="startLogin()"></wButton>
 			<!-- 底部信息 -->
@@ -31,8 +31,8 @@
 		data() {
 			return {
 				logoImage: '../../static/login-icon.png',
-				userCode: '', //用户
-				password: '' //密码
+				userCode: 'zhugeliang', //用户
+				password: '123456' //密码
 			};
 		},
 		mounted() {
@@ -56,7 +56,8 @@
 					return;
 				}
 				uni.showLoading({
-					title: '登录中'
+					title: '登录中',
+					mask: true
 				});
 				
 				//用户登录
@@ -70,6 +71,7 @@
 							position: 'bottom',
 							title: '登录成功'
 						});
+						uni.hideToast()
 						uni.reLaunch({
 							url: '../workbench/workbench',
 						});
@@ -123,6 +125,12 @@
 	
 	/deep/ .dlbutton uni-view{
 		line-height: 100upx;
+	}
+	
+	/deep/ .cuIcon{
+		width: 20px;
+		height: 20px;
+		margin-top: -10upx;
 	}
 	
 	.tips {

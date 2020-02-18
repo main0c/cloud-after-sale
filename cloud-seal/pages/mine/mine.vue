@@ -5,21 +5,21 @@
 				<view class="box">
 					<view class="box-hd">
 						<view class="avator">
-							<img :src="userPhoto">
+							<image :src="userPhoto" class="avator-img"></image>
 						</view>
 						<view class="phone-number">{{userName}} 【{{jobName}}】</view>
 					</view>
 					<view class="box-bd">
 						<view class="item">
-							<view class="icon"><img src="../../static/mine/message.png"></view>
+							<view class="icon"><image src="../../static/mine/message.png" class="icon-img"></image></view>
 							<view class="text">我的通知</view>
 						</view>
 						<view class="item">
-							<view class="icon"><img src="../../static/mine/calendar.png"></view>
+							<view class="icon"><image src="../../static/mine/calendar.png" class="icon-img"></image></view>
 							<view class="text">公司年历</view>
 						</view>
 						<view class="item">
-							<view class="icon"><img src="../../static/mine/question.png"></view>
+							<view class="icon"><image src="../../static/mine/question.png" class="icon-img"></image></view>
 							<view class="text">问卷调查</view>
 						</view>
 					</view>
@@ -186,9 +186,9 @@
 				margin-top: -80upx;
 				overflow: hidden;
 
-				img {
-					width: 100%;
-					height: 100%;
+				.avator-img {
+					width: 160upx;
+					height: 160upx;
 				}
 			}
 
@@ -221,9 +221,9 @@
 					width: 60upx;
 					height: 60upx;
 
-					img {
-						width: 100%;
-						height: 100%;
+					.icon-img {
+						width: 60upx;
+						height: 60upx;
 					}
 				}
 
