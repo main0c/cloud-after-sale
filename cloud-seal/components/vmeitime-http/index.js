@@ -100,6 +100,7 @@ export default {
 
 			_config = Object.assign({}, this.config, options)
 			_config.requestId = new Date().getTime()
+			_config.header.userToken = uni.getStorageSync("userToken") || ''
 
 			//发起请求
 			uni.request(_config);
