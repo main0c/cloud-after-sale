@@ -78,6 +78,17 @@
 			}
 		},
 		{
+			"path": "pages/product/productDetail",
+			"style": {
+				"navigationBarTitleText": "产品详情",
+				"disableScroll": false, // 禁止滚动, 解决scroll-view在Android小程序卡顿的问题
+				// "enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"app-plus": {
+					"bounce": "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+			}
+		},
+		{
 			"path": "pages/sparepart/sparepartExamine/sparepartExamine",
 			"style": {
 				"navigationBarTitleText": "申领单审核",
