@@ -1,6 +1,6 @@
 <template>
 	<view class="pd-list">
-		<view class="bean-li" v-for="bean in list" :key="bean.id">
+		<view class="bean-li" v-for="bean in list" :key="bean.id" @click="rowDetails(bean.id)">
 			<view class="bean-title">{{bean.name}}</view>
 			<view class="bean-item">
 				<text class="left-content">联系人：</text>
@@ -19,7 +19,7 @@
 				<text class="right-content">{{bean.qq}}</text>
 			</view>
 			<view class="bean-bottom">
-				<button @click="chooseCustomer(bean.id)">选择</button>
+				<button @click.stop="chooseCustomer(bean.id)">选择</button>
 			</view>
 		</view>
 	</view>
@@ -46,7 +46,15 @@
 						break;
 					}
 				}
-			}
+			},
+			
+			//客户详情
+			rowDetails: function(id){
+				uni.navigateTo({
+					url: '/pages/customer/customerDetail?id=' + id
+				})
+			},
+			
 		}
 	}
 </script>

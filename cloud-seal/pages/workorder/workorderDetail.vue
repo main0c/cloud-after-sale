@@ -392,10 +392,7 @@
 					navTarget: "#item9",
 				}],
 				
-				rowMation: {},//工单信息
-				imageData: [], //图片回显数据数组：[{0: "/images/upload/order/1581591580676.png"}]
-
-				fileData: [], //附件回显数据fileName: "客户档案.png",id: "d6c44d88357441a8b1c7788329d91b37",url: "/images/upload/enclosurefile/300b878c5c6744f2b48e6bc40beefd11/1581591367754.png"
+				rowMation: {}//工单信息
 			}
 		},
 		onPageScroll: function(e) {
