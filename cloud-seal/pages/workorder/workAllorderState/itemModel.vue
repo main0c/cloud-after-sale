@@ -1,6 +1,6 @@
 <template>
 	<view class="pd-list">
-		<view class="pd-li" v-for="pd in list" :key="pd.id">
+		<view class="pd-li" v-for="pd in list" :key="pd.id" @click="rowDetails(pd.id)">
 			<view class="pd-order-num">
 				<text class="left-content">工单号：</text>
 				<text class="">{{pd.orderNum}}</text>
@@ -24,15 +24,15 @@
 			<view class="pd-bottom">
 				<text class="pd-state-name">{{pd.stateName}}</text>
 				<view class="pd-operator">
-					<button @click="test()" v-if="pd.state == 1">派工</button>
-					<button @click="test()" v-if="pd.state == 2">接单</button>
-					<button @click="test()" v-if="pd.state == 3">签到</button>
-					<button @click="test()" v-if="pd.state == 4">完工</button>
-					<button @click="test()" v-if="pd.state == 5">评价</button>
-					<button @click="test()" v-if="pd.state == 4 || pd.state == 5">情况反馈</button>
-					<button @click="test()" v-if="pd.state == 6">审核</button>
-					<button @click="test()" v-if="pd.state == 1 || pd.state == 2" class="normor">编辑</button>
-					<button @click="deleteRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="danger">删除</button>
+					<button @click.native.stop="test()" v-if="pd.state == 1">派工</button>
+					<button @click.native.stop="test()" v-if="pd.state == 2">接单</button>
+					<button @click.native.stop="test()" v-if="pd.state == 3">签到</button>
+					<button @click.native.stop="test()" v-if="pd.state == 4">完工</button>
+					<button @click.native.stop="test()" v-if="pd.state == 5">评价</button>
+					<button @click.native.stop="test()" v-if="pd.state == 4 || pd.state == 5">情况反馈</button>
+					<button @click.native.stop="test()" v-if="pd.state == 6">审核</button>
+					<button @click.native.stop="editRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="normor">编辑</button>
+					<button @click.native.stop="deleteRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="danger">删除</button>
 				</view>
 			</view>
 		</view>
@@ -52,6 +52,20 @@
 		methods: {
 			test: function(){
 				console.log(1);
+			},
+			
+			//工单详情
+			rowDetails: function(id){
+				uni.navigateTo({
+					url: '/pages/workorder/workorderDetail?id=' + id
+				})
+			},
+			
+			//编辑工单
+			editRow: function(id){
+				uni.navigateTo({
+					url: '/pages/workorder/workorderEdit?id=' + id
+				})
 			},
 			
 			//删除工单

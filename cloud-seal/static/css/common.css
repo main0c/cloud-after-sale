@@ -216,4 +216,53 @@
 	color: #E04B28;
 	border: 1px solid #E04B28;
 }
+
+/****************第三套开始***************/
+.item-box{
+	margin: 20upx 10upx;
+	border-left: 8upx solid #1E9FFF;
+	padding: 6upx 10upx;
+	display: flex;
+	flex-direction: column;
+}
+
+.item-box .item-line{
+	float: left;
+	width: 100%;
+}
+
+.item-box .item-line .line-left{
+	padding: 0px 16upx;
+	width: calc(25% - 30upx);
+	float: left;
+}
+
+.item-box .item-line .line-right{
+	padding: 0px 0px;
+	width: 75%;
+	float: left;
+}
+
 /*数据列表样式结束*/
+
+/*表单自定义属性开始*/
+
+.uni-form-title{
+	color: #6379bb;
+	padding: 6upx 10upx;
+	border-bottom: 1px solid #6379bb;
+}
+
+.uni-form-image{
+	width: 120upx;
+	height: 120upx;
+	float: left;
+}
+
+.uni-form-file{
+	width: 100%;
+	font-size: 26upx;
+	color: #999;
+}
+
+/*表单自定义属性结束*/

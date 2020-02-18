@@ -25,8 +25,8 @@
 				<text class="left-content">{{bean.stateName}}</text>
 			</view>
 			<view class="bean-bottom">
-				<button @click="editRow(bean.id)" v-if="bean.state == 1 || bean.state == 2" class="normor">编辑</button>
-				<button @click="deleteRow(bean.id)" v-if="bean.state == 1 || bean.state == 2" class="danger">删除</button>
+				<button @click.native.stop="editRow(bean.id)" v-if="bean.state == 1 || bean.state == 2" class="normor">编辑</button>
+				<button @click.native.stop="deleteRow(bean.id)" v-if="bean.state == 1 || bean.state == 2" class="danger">删除</button>
 			</view>
 		</view>
 	</view>
