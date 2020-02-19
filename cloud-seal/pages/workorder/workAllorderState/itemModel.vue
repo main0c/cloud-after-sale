@@ -26,7 +26,7 @@
 				<view class="pd-operator">
 					<button @click.stop="rowWorder(pd.id)" v-if="pd.state == 1">派工</button>
 					<button @click.stop="rowReceipt(pd.id)" v-if="pd.state == 2">接单</button>
-					<button @click.stop="test()" v-if="pd.state == 3">签到</button>
+					<button @click.stop="rowSignIn(pd.id)" v-if="pd.state == 3">签到</button>
 					<button @click.stop="test()" v-if="pd.state == 4">完工</button>
 					<button @click.stop="test()" v-if="pd.state == 5">评价</button>
 					<button @click.stop="test()" v-if="pd.state == 4 || pd.state == 5">情况反馈</button>
@@ -52,6 +52,13 @@
 		methods: {
 			test: function(){
 				console.log(1);
+			},
+			
+			//签到
+			rowSignIn: function(id){
+				uni.navigateTo({
+					url: '/pages/workorder/workorderSignin?id=' + id
+				})
 			},
 			
 			//接单

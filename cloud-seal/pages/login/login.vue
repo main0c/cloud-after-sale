@@ -31,7 +31,7 @@
 		data() {
 			return {
 				logoImage: '../../static/login-icon.png',
-				userCode: 'zhugeliang', //用户
+				userCode: 'chendonggua', //用户
 				password: '123456' //密码
 			};
 		},

@@ -216,7 +216,7 @@ form {
 	float: left;
 }
 
-.uni-form-item .title .must {
+.must {
 	color: #FF0000;
 	width: auto;
 	float: left;
