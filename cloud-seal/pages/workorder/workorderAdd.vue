@@ -486,7 +486,7 @@
 							title: '工单填报成功。',
 							success:function(){
 								setTimeout(function(){
-									uni.navigateTo({
+									uni.redirectTo({
 										url: 'workMyWriteorder/workMyWriteorder'
 									});
 								}, 2000)

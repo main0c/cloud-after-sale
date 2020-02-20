@@ -454,13 +454,13 @@
 			
 			//服务费变化事件
 			coverCostChange: function(e){
-				this.coverCost = e.detail.value
+				this.coverCost = e.detail.value * 1
 				this.comItemPrice();
 			},
 			
 			//其他费变化事件
 			otherCostChange: function(e){
-				this.otherCost = e.detail.value
+				this.otherCost = e.detail.value * 1
 				this.comItemPrice();
 			},
 			
@@ -525,6 +525,15 @@
 					if(this.sparePartList[i].mation.number > this.sparePartList[i].mation.currentTock){
 						uni.showToast({icon: 'none', title: '超过库存数量'})
 						return false
+					}
+					
+					for(let j = 0; j < parts.length; j++){
+						var item = parts[j]
+						if(item.mUnitId === this.sparePartList[i].mation.unitList[this.sparePartList[i].mation.defaultIndex].id
+							&& item.materialId === this.sparePartList[i].mation.id) {
+							uni.showToast({icon: 'none', title: '一张单中不允许出现相同的配件信息，且单位不能重复.'});
+							return false;
+						}
 					}
 					parts.push({
 						materialId: this.sparePartList[i].mation.id,

@@ -34,6 +34,7 @@
 				}
 			}
 		},
+		
 		methods: {
 			chooseSparePart: function(id){
 				for(let i = 0; i < this.list.length; i++){
