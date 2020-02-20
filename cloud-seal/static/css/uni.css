@@ -229,6 +229,10 @@ form {
 	float: left;
 }
 
+.uni-form-item .content textarea{
+	width: 100%;
+}
+
 .uni-form-item .content uni-slider {
 	margin: 0px 15px;
 }
