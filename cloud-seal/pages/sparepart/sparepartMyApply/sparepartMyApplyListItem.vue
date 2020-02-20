@@ -1,6 +1,6 @@
 <template>
 	<view class="pd-list">
-		<view class="bean-li" v-for="bean in list" :key="bean.id">
+		<view class="bean-li" v-for="bean in list" :key="bean.id" @click="rowDetail(bean.materialId)">
 			<view class="bean-title">{{bean.materialName}}</view>
 			<view class="bean-item">
 				<text class="left-content">单位：</text>
@@ -37,6 +37,14 @@
 			}
 		},
 		methods: {
+			
+			//配件详情
+			rowDetail: function(id){
+				uni.navigateTo({
+					url: '/pages/sparepart/sparepartDetail?id=' + id
+				})
+			}
+			
 		}
 	}
 </script>

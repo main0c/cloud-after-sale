@@ -60,7 +60,7 @@
 			//配件详情
 			rowDetail: function(id){
 				uni.navigateTo({
-					url: '/pages/product/productDetail?id=' + id
+					url: '/pages/sparepart/sparepartDetail?id=' + id
 				})
 			}
 			
