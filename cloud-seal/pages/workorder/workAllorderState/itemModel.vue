@@ -30,7 +30,7 @@
 					<button @click.stop="rowComplate(pd.id)" v-if="pd.state == 4">完工</button>
 					<button @click.stop="rowEvaluate(pd.id)" v-if="pd.state == 5">评价</button>
 					<button @click.stop="rowFeedBack(pd.id)" v-if="pd.state == 4 || pd.state == 5">情况反馈</button>
-					<button @click.stop="test()" v-if="pd.state == 6">审核</button>
+					<button @click.stop="rowExamine(pd.id)" v-if="pd.state == 6">审核</button>
 					<button @click.stop="editRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="normor">编辑</button>
 					<button @click.stop="deleteRow(pd.id)" v-if="pd.state == 1 || pd.state == 2" class="danger">删除</button>
 				</view>
@@ -50,8 +50,35 @@
 			}
 		},
 		methods: {
-			test: function(){
-				console.log(1);
+			//审核
+			rowExamine: function(id){
+				var _this = this;
+				uni.showModal({
+				    title: '提示',
+				    content: '确定审核该工单吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+							_this.$api.post("sealseservice038", {rowId: id}).then((res)=>{
+								if(res.returnCode == 0){
+									uni.showToast({
+										icon: 'success',
+										position: 'bottom',
+										title: '审核成功',
+										complete:function(){
+											_this.$emit("ToRefresh")
+										}
+									});
+								}else{
+									uni.showToast({
+										icon: 'none',
+										position: 'bottom',
+										title: res.returnMessage
+									});
+								}
+							})
+				        }
+				    }
+				});
 			},
 			
 			//评价
