@@ -10,7 +10,7 @@ import validate from '@/components/form-validate/ys-validate.js'
 Vue.prototype.$validate = validate
 
 //系统文件访问基础路径
-Vue.prototype.$fileBasePath = "http://192.168.1.8:8081/"
+Vue.prototype.$fileBasePath = "http://localhost:8081/"
 
 // 注册全局组件
 import MescrollBody from "@/components/mescroll-uni/mescroll-body.vue"
