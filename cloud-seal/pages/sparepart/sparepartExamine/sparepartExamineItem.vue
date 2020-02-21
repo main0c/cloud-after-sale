@@ -87,6 +87,11 @@
 					mescroll.endErr();
 				})
 			},
+			
+			//子组件主动刷新页面数据
+			refresh: function(){
+				this.mescroll.triggerDownScroll()
+			},
 
 			/*联网加载列表数据
 			在您的实际项目中,请参考官方写法: http://www.mescroll.com/uni.html#tagUpCallback

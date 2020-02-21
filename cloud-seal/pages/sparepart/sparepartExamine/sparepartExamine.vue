@@ -7,9 +7,9 @@
 			</view>
 		</view>
 		<!-- 待审核 -->
-		<sparepart-examine-item :i="0" :index="curIndex"></sparepart-examine-item>
+		<sparepart-examine-item :i="0" :index="curIndex" ref="item0"></sparepart-examine-item>
 		<!-- 已审核 -->
-		<sparepart-examine-item :i="1" :index="curIndex"></sparepart-examine-item>
+		<sparepart-examine-item :i="1" :index="curIndex" ref="item1"></sparepart-examine-item>
 	</view>
 </template>
 
@@ -32,7 +32,13 @@
 			// 切换菜单
 			changeTab (i) {
 				this.curIndex = i
+			},
+			
+			//刷新待审核模块
+			refreshItemZero: function(){
+				this.$refs.item0.refresh()
 			}
+			
 		}
 	}
 </script>

@@ -1,6 +1,6 @@
 <template>
 	<view class="pd-list">
-		<view class="pd-li" v-for="pd in list" :key="pd.id">
+		<view class="pd-li" v-for="pd in list" :key="pd.id" @click="rowDetail(pd.id)">
 			<view class="pd-order-num">
 				<text class="left-content">单号：</text>
 				<text class="">{{pd.applyNum}}</text>
@@ -24,8 +24,7 @@
 			<view class="pd-bottom">
 				<text class="pd-state-name">{{pd.stateName}}</text>
 				<view class="pd-operator">
-					<button @click="test()">接单</button>
-					<button>派工</button>
+					<button @click.stop="rowExamine(pd.id)" v-if="pd.state == 0">审核</button>
 				</view>
 			</view>
 		</view>
@@ -43,9 +42,21 @@
 			}
 		},
 		methods: {
-			test: function(){
-				console.log(1);
+			
+			//审核
+			rowExamine: function(id){
+				uni.navigateTo({
+					url: '/pages/sparepart/sparepartExamine/sparepartExaminePage?id=' + id
+				})
+			},
+			
+			//申领单详情
+			rowDetail: function(id){
+				uni.navigateTo({
+					url: '/pages/sparepart/sparepartOrderDetail?id=' + id
+				})
 			}
+			
 		}
 	}
 </script>
