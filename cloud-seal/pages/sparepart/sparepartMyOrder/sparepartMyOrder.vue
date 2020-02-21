@@ -35,7 +35,7 @@
 			// 切换菜单
 			changeTab (i) {
 				this.curIndex = i
-			}
+			},
 		}
 	}
 </script>

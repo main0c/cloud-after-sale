@@ -7,13 +7,13 @@
 			</view>
 		</view>
 		<!-- 待接单 -->
-		<mescroll-item :i="0" :index="curIndex"></mescroll-item>
+		<mescroll-item :i="0" :index="curIndex" ref="receipt"></mescroll-item>
 		<!-- 待签到 -->
-		<mescroll-item :i="1" :index="curIndex"></mescroll-item>
+		<mescroll-item :i="1" :index="curIndex" ref="signIn"></mescroll-item>
 		<!-- 待完工 -->
-		<mescroll-item :i="2" :index="curIndex"></mescroll-item>
+		<mescroll-item :i="2" :index="curIndex" ref="complate"></mescroll-item>
 		<!-- 待评价 -->
-		<mescroll-item :i="3" :index="curIndex"></mescroll-item>
+		<mescroll-item :i="3" :index="curIndex" ref="evaluate"></mescroll-item>
 	</view>
 </template>
 
@@ -38,7 +38,28 @@
 			// 切换菜单
 			changeTab (i) {
 				this.curIndex = i
+			},
+			
+			//接单操作时，刷新待接单
+			refreshReceipt: function(){
+				this.$refs.receipt.refresh()
+			},
+			
+			//签到操作时，刷新待签到
+			refreshSignIn: function(){
+				this.$refs.signIn.refresh()
+			},
+			
+			//完工操作时，刷新待完工
+			refreshComplate: function(){
+				this.$refs.complate.refresh()
+			},
+			
+			//评价操作时，刷新待评价
+			refreshEvaluate: function(){
+				this.$refs.evaluate.refresh()
 			}
+			
 		}
 	}
 </script>

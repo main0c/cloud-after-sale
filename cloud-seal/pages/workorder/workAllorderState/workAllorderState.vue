@@ -7,11 +7,11 @@
 			</view>
 		</view>
 		<!-- 所有工单 -->
-		<mescroll-item :i="0" :index="curIndex"></mescroll-item>
+		<mescroll-item :i="0" :index="curIndex" ref="allOrder"></mescroll-item>
 		<!-- 待派工 -->
-		<mescroll-item :i="1" :index="curIndex"></mescroll-item>
+		<mescroll-item :i="1" :index="curIndex" ref="worker"></mescroll-item>
 		<!-- 待评价 -->
-		<mescroll-item :i="2" :index="curIndex"></mescroll-item>
+		<mescroll-item :i="2" :index="curIndex" ref="evaluate"></mescroll-item>
 		<!-- 待审核 -->
 		<mescroll-item :i="3" :index="curIndex"></mescroll-item>
 		<!-- 已完工 -->
@@ -40,7 +40,33 @@
 			// 切换菜单
 			changeTab (i) {
 				this.curIndex = i
+			},
+			
+			//接单操作时，刷新待接单
+			refreshReceipt: function(){
+				this.$refs.allOrder.refresh()
+			},
+			
+			//签到操作时，刷新待签到
+			refreshSignIn: function(){
+				this.$refs.allOrder.refresh()
+			},
+			
+			//完工操作时，刷新待完工
+			refreshComplate: function(){
+				this.$refs.allOrder.refresh()
+			},
+			
+			//评价操作时，刷新待评价
+			refreshEvaluate: function(){
+				this.$refs.evaluate.refresh()
+			},
+			
+			//派工操作时，刷新待派工
+			refreshWorker: function(){
+				this.$refs.worker.refresh()
 			}
+			
 		}
 	}
 </script>

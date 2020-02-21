@@ -170,6 +170,10 @@
 							title: '评价成功。',
 							success:function(){
 								setTimeout(function(){
+									//刷新待评价列表并返回
+									var pages = getCurrentPages();
+									var prevPage = pages[pages.length - 2];  //上一个页面
+									prevPage.refreshEvaluate()
 									uni.navigateBack();
 								}, 2000)
 							}

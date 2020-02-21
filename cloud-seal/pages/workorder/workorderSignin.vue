@@ -241,6 +241,10 @@
 							title: '签到成功。',
 							success:function(){
 								setTimeout(function(){
+									//刷新待签到列表并返回
+									var pages = getCurrentPages();
+									var prevPage = pages[pages.length - 2];  //上一个页面
+									prevPage.refreshSignIn()
 									uni.navigateBack()
 								}, 2000)
 							}
