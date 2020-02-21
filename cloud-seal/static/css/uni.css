@@ -84,6 +84,10 @@ form {
 	overflow-x: hidden;
 }
 
+uni-page-body{
+	overflow-x: hidden;
+}
+
 .uni-padding-wrap {
 	width: 690upx;
 	padding: 0 30upx;

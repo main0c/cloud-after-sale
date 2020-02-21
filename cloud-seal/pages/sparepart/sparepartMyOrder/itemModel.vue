@@ -20,8 +20,8 @@
 			<view class="pd-bottom">
 				<text class="pd-state-name">{{pd.stateName}}</text>
 				<view class="pd-operator">
-					<button @click="test()">接单</button>
-					<button>派工</button>
+					<button @click.stop="editRow(pd.id)" v-if="pd.state == 0 || pd.state == 2" class="normor">编辑</button>
+					<button @click.stop="deleteRow(pd.id)" v-if="pd.state == 0 || pd.state == 2" class="danger">删除</button>
 				</view>
 			</view>
 		</view>
@@ -39,8 +39,43 @@
 			}
 		},
 		methods: {
-			test: function(){
-				console.log(1);
+			
+			//编辑
+			editRow: function(id){
+				uni.navigateTo({
+					url: '/pages/sparepart/sparepartOrderEdit?id=' + id
+				})
+			},
+			
+			//删除
+			deleteRow: function(id){
+				var _this = this;
+				uni.showModal({
+				    title: '提示',
+				    content: '确定删除该申领单吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+							_this.$api.post("sealseservice025", {rowId: id}).then((res)=>{
+								if(res.returnCode == 0){
+									uni.showToast({
+										icon: 'success',
+										position: 'bottom',
+										title: '删除成功',
+										complete:function(){
+											_this.$emit("ToRefresh")
+										}
+									});
+								}else{
+									uni.showToast({
+										icon: 'none',
+										position: 'bottom',
+										title: res.returnMessage
+									});
+								}
+							})
+				        }
+				    }
+				});
 			},
 			
 			//申领单详情
