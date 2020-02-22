@@ -12,16 +12,16 @@
 					<view class="box-bd">
 						<view class="item">
 							<view class="icon"><image src="../../static/mine/message.png" class="icon-img"></image></view>
-							<view class="text">我的通知</view>
+							<view class="text" @click="myNotice">我的通知</view>
 						</view>
-						<view class="item">
+						<!-- <view class="item">
 							<view class="icon"><image src="../../static/mine/calendar.png" class="icon-img"></image></view>
 							<view class="text">公司年历</view>
 						</view>
 						<view class="item">
 							<view class="icon"><image src="../../static/mine/question.png" class="icon-img"></image></view>
 							<view class="text">问卷调查</view>
-						</view>
+						</view> -->
 					</view>
 				</view>
 			</view>
@@ -37,13 +37,13 @@
 				</view>
 			</view>
 			<view class="list">
-				<view class="li">
+				<!-- <view class="li">
 					<view class="icon">
 						<image src="../../static/mine/problem.png"></image>
 					</view>
 					<view class="text">常见问题</view>
 					<image class="to" src="../../static/common/to.png"></image>
-				</view>
+				</view> -->
 				<view class="li">
 					<view class="icon">
 						<image src="../../static/mine/pwd.png"></image>
@@ -52,7 +52,7 @@
 					<image class="to" src="../../static/common/to.png"></image>
 				</view>
 			</view>
-			<view class="list">
+			<!-- <view class="list">
 				<view class="li">
 					<view class="icon">
 						<image src="../../static/mine/about.png"></image>
@@ -60,7 +60,7 @@
 					<view class="text">关于我们</view>
 					<image class="to" src="../../static/common/to.png"></image>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		
 		<view class="exit-box">
@@ -105,6 +105,13 @@
 				this.userPhoto = this.$fileBasePath + user.userPhoto;
 				this.userName = user.userName;
 				this.jobName = user.jobName;
+			},
+			
+			//我的通知
+			myNotice: function(){
+				uni.navigateTo({
+					url: '/pages/notice/myNotice/myNoticeList'
+				})
 			},
 			
 			//退出

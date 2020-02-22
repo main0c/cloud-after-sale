@@ -19,8 +19,8 @@
 				<text class="right-content">{{bean.serviceNum}}</text>
 			</view>
 			<view class="bean-bottom">
-				<button @click.stop="editRow(bean.id)" class="normor">编辑</button>
-				<button @click.stop="deleteRow(bean.id)" class="danger">删除</button>
+				<!-- <button @click.stop="editRow(bean.id)" class="normor">编辑</button>
+				<button @click.stop="deleteRow(bean.id)" class="danger">删除</button> -->
 			</view>
 		</view>
 	</view>
