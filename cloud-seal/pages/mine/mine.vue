@@ -10,9 +10,9 @@
 						<view class="phone-number">{{userName}} 【{{jobName}}】</view>
 					</view>
 					<view class="box-bd">
-						<view class="item">
+						<view class="item" @click="myNotice">
 							<view class="icon"><image src="../../static/mine/message.png" class="icon-img"></image></view>
-							<view class="text" @click="myNotice">我的通知</view>
+							<view class="text">我的通知</view>
 						</view>
 						<!-- <view class="item">
 							<view class="icon"><image src="../../static/mine/calendar.png" class="icon-img"></image></view>
@@ -28,7 +28,7 @@
 		</view>
 		<view class="list-content">
 			<view class="list">
-				<view class="li noborder">
+				<view class="li noborder" @click="myMation">
 					<view class="icon">
 						<image src="../../static/mine/card.png"></image>
 					</view>
@@ -44,7 +44,7 @@
 					<view class="text">常见问题</view>
 					<image class="to" src="../../static/common/to.png"></image>
 				</view> -->
-				<view class="li">
+				<view class="li" @click="myEditPwd">
 					<view class="icon">
 						<image src="../../static/mine/pwd.png"></image>
 					</view>
@@ -111,6 +111,20 @@
 			myNotice: function(){
 				uni.navigateTo({
 					url: '/pages/notice/myNotice/myNoticeList'
+				})
+			},
+			
+			//我的名片
+			myMation: function(){
+				uni.navigateTo({
+					url: '/pages/mine/myMation'
+				})
+			},
+			
+			//修改密码
+			myEditPwd: function(){
+				uni.navigateTo({
+					url: '/pages/mine/myEditPwd'
 				})
 			},
 			

@@ -13,7 +13,7 @@
 			<wButton text="登 录" @click.native="startLogin()"></wButton>
 			<!-- 底部信息 -->
 			<view class="footer">
-				<navigator url="forget" open-type="navigate">找回密码</navigator>
+				<!-- <navigator url="forget" open-type="navigate">找回密码</navigator> -->
 			</view>
 		</view>
 	</view>
