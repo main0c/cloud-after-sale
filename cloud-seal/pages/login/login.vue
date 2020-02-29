@@ -31,8 +31,8 @@
 		data() {
 			return {
 				logoImage: '../../static/login-icon.png',
-				userCode: 'chendonggua', //用户
-				password: '123456' //密码
+				userCode: '', //用户
+				password: '' //密码
 			};
 		},
 		mounted() {
