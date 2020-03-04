@@ -215,8 +215,8 @@ uni-page-body{
 }
 
 .uni-form-item .title {
-	padding: 10upx 15upx;
-	width: calc(25% - 30upx);
+	padding: 10upx 4upx;
+	width: calc(25% - 10upx);
 	float: left;
 }
 

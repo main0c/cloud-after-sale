@@ -70,9 +70,15 @@
 					</view>
 				</view>
 				<view class="uni-form-item">
-					<view class="title">联系人：</view>
+					<view class="title">客户负责人：</view>
 					<view class="content">
 						{{rowMation.contacts}}
+					</view>
+				</view>
+				<view class="uni-form-item">
+					<view class="title">负责人电话：</view>
+					<view class="content">
+						{{rowMation.mobilePhone}}
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -91,12 +97,6 @@
 					<view class="title">办公电话：</view>
 					<view class="content">
 						{{rowMation.workPhone}}
-					</view>
-				</view>
-				<view class="uni-form-item">
-					<view class="title">移动电话：</view>
-					<view class="content">
-						{{rowMation.mobilePhone}}
 					</view>
 				</view>
 				<view class="uni-form-item">
