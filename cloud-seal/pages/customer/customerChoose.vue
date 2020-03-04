@@ -26,7 +26,15 @@
 			 * 加载客户的列表
 			 */
 			upCallback(page){
-				this.$api.get("customer007", {limit: page.size, page: page.num}).then((res)=>{
+				var params = {
+					name: '',
+					typeId: '',
+					fromId: '',
+					industryId: '',
+					limit: page.size, 
+					page: page.num
+				};
+				this.$api.get("customercommonchoose001", params).then((res)=>{
 					if(res.returnCode == 0){
 						this.mescroll.endSuccess(res.rows.length, res.total);
 						//设置列表数据
