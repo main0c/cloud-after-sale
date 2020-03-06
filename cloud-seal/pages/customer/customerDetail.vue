@@ -112,6 +112,18 @@
 					</view>
 				</view>
 				<view class="uni-form-item">
+					<view class="title">操机工：</view>
+					<view class="content">
+						{{rowMation.mechanicName}}
+					</view>
+				</view>
+				<view class="uni-form-item">
+					<view class="title">操机工电话：</view>
+					<view class="content">
+						{{rowMation.mechanicPhone}}
+					</view>
+				</view>
+				<view class="uni-form-item">
 					<view class="title">法人代表：</view>
 					<view class="content">
 						{{rowMation.corRepresentative}}
