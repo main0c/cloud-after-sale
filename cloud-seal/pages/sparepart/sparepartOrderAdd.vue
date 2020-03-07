@@ -97,7 +97,7 @@
 					<view class="item-line">
 						<view class="line-left"><view class="must">*</view>数量：</view>
 						<view class="line-right">
-							<input class="uni-input" placeholder="请输入数量" v-model="bean.mation.number" @blur="partNumberChange($event, bean.number)" :value="bean.mation.number"/>
+							<input class="uni-input" placeholder="请输入数量" v-model="bean.mation.number" @blur="partNumberChange($event, bean.number)"/>
 						</view>
 					</view>
 					<view class="item-line">
@@ -111,7 +111,7 @@
 					<view class="item-line">
 						<view class="line-left">备注：</view>
 						<view class="line-right">
-							<textarea placeholder="请输入备注" style="height: 160upx;" v-model="bean.mation.remark" @blur="partRemarkChange($event, bean.number)" :value="bean.mation.remark"/>
+							<textarea placeholder="请输入备注" style="height: 160upx;" v-model="bean.mation.remark" @blur="partRemarkChange($event, bean.number)"/>
 						</view>
 					</view>
 				</view>

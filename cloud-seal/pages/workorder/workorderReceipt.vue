@@ -53,11 +53,11 @@
 				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>预约时间</view>
 					<view class="content">
-						<picker mode="date" @change="bindDateChange" style="width: 40%; float: left;">
+						<picker mode="date" :value="subscribeTime" @change="bindDateChange" style="width: 40%; float: left;">
 							<view class="uni-input" v-if="subscribeTime != ''">{{subscribeTime}}</view>
 							<view class="uni-input" v-else>年-月-日</view>
 						</picker>
-						<picker mode="time" @change="bindDateChange2" style="width: 40%; float: left;">
+						<picker mode="time" :value="subscribeTime2" @change="bindDateChange2" style="width: 40%; float: left;">
 							<view class="uni-input" v-if="subscribeTime2 != ''">{{subscribeTime2}}</view>
 							<view class="uni-input" v-else>时:分</view>
 						</picker>

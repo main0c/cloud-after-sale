@@ -91,7 +91,7 @@
 				<view class="uni-form-item">
 					<view class="title">审批意见</view>
 					<view class="content">
-						<textarea placeholder="请输入审批意见" name="opinion" v-model="opinion" :value="opinion" style="height: 160upx;"/>
+						<textarea placeholder="请输入审批意见" name="opinion" v-model="opinion" style="height: 160upx;"/>
 					</view>
 				</view>
 			</view>

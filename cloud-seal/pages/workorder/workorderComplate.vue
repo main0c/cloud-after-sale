@@ -82,11 +82,11 @@
 				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>完工时间</view>
 					<view class="content">
-						<picker mode="date" @change="bindDateChange" style="width: 40%; float: left;">
+						<picker mode="date" :value="comTime" @change="bindDateChange" style="width: 40%; float: left;">
 							<view class="uni-input" v-if="comTime != ''">{{comTime}}</view>
 							<view class="uni-input" v-else>年-月-日</view>
 						</picker>
-						<picker mode="time" @change="bindDateChange2" style="width: 40%; float: left;">
+						<picker mode="time" :value="comTime2" @change="bindDateChange2" style="width: 40%; float: left;">
 							<view class="uni-input" v-if="comTime2 != ''">{{comTime2}}</view>
 							<view class="uni-input" v-else>时:分</view>
 						</picker>
@@ -126,13 +126,13 @@
 				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>服务费</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请输入应收服务费" name="coverCost" :value="coverCost" v-model="coverCost" @input="coverCostChange"/>
+						<input class="uni-input" placeholder="请输入应收服务费" name="coverCost" v-model="coverCost" @input="coverCostChange"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>其他费</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请输入应收其他费" name="otherCost" :value="otherCost" v-model="otherCost" @input="otherCostChange"/>
+						<input class="uni-input" placeholder="请输入应收其他费" name="otherCost" v-model="otherCost" @input="otherCostChange"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -183,7 +183,7 @@
 					<view class="item-line">
 						<view class="line-left"><view class="must">*</view>数量：</view>
 						<view class="line-right">
-							<input class="uni-input" placeholder="请输入数量" v-model="bean.mation.number" @blur="partNumberChange($event, bean.number)" :value="bean.mation.number"/>
+							<input class="uni-input" placeholder="请输入数量" v-model="bean.mation.number" @blur="partNumberChange($event, bean.number)"/>
 						</view>
 					</view>
 					<view class="item-line">
@@ -197,7 +197,7 @@
 					<view class="item-line">
 						<view class="line-left">备注：</view>
 						<view class="line-right">
-							<textarea placeholder="请输入备注" name="remark" style="height: 160upx;" v-model="bean.mation.remark" @blur="partRemarkChange($event, bean.number)" :value="bean.mation.remark"/>
+							<textarea placeholder="请输入备注" name="remark" style="height: 160upx;" v-model="bean.mation.remark" @blur="partRemarkChange($event, bean.number)"/>
 						</view>
 					</view>
 				</view>
