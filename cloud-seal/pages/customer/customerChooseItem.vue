@@ -41,7 +41,7 @@
 					if(id == this.list[i].id){
 						var pages = getCurrentPages();
 						var prevPage = pages[pages.length - 2];  //上一个页面
-						prevPage._data.customer = this.list[i];
+						prevPage.$vm.customer = this.list[i];
 						uni.navigateBack()
 						break;
 					}

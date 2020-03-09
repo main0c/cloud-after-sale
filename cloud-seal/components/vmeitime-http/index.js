@@ -31,7 +31,7 @@ http.delete('user/1').then((res)=>{
 */
 export default {
 	config: {
-		baseUrl: "http://localhost:8081/",
+		baseUrl: "http://192.168.1.10:8081/",
 		data: {},
 		header: {
 			'Content-Type':'application/x-www-form-urlencoded',

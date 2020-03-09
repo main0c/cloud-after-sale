@@ -33,7 +33,7 @@
 					if(id == this.list[i].id){
 						var pages = getCurrentPages();
 						var prevPage = pages[pages.length - 2];  //上一个页面
-						prevPage._data.product = this.list[i];
+						prevPage.$vm.product = this.list[i];
 						uni.navigateBack()
 						break;
 					}

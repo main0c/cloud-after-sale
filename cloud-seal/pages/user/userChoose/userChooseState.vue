@@ -32,7 +32,7 @@
 			var pages = getCurrentPages();
 			var prevPage = pages[pages.length - 2]; //上一个页面
 			//获取数据回显
-			this.userList = prevPage._data[this.backParam];
+			this.userList = prevPage.$vm[this.backParam];
 			if(option.backParam != '' && option.backParam != null && option.backParam != undefined){
 				this.backParam = option.backParam;
 			}
@@ -50,7 +50,7 @@
 					});
 				}
 			}
-			prevPage._data[this.backParam] = userList;
+			prevPage.$vm[this.backParam] = userList;
 			uni.navigateBack()
 		},
 		

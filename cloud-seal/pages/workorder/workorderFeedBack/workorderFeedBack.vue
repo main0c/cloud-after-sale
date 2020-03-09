@@ -124,7 +124,7 @@
 			this.rowId = options.id;
 			
 			//获取工单信息
-			this.$api.get("sealseservice039", {rowId: this.rowId}).then((res)=>{
+			this.$api.get("sealservicephoneA03", {rowId: this.rowId}).then((res)=>{
 				if(res.returnCode == 0){
 					this.rowMation = res.bean;
 					//加载反馈列表

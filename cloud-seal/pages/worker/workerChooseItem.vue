@@ -43,7 +43,7 @@
 					if(id == this.list[i].id){
 						var pages = getCurrentPages();
 						var prevPage = pages[pages.length - 2];  //上一个页面
-						prevPage._data[this.backParam] = [{
+						prevPage.$vm[this.backParam] = [{
 							id: this.list[i].userId,
 							name: this.list[i].userName
 						}];

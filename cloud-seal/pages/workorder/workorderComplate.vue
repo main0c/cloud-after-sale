@@ -197,7 +197,7 @@
 					<view class="item-line">
 						<view class="line-left">备注：</view>
 						<view class="line-right">
-							<textarea placeholder="请输入备注" name="remark" style="height: 160upx;" v-model="bean.mation.remark" @blur="partRemarkChange($event, bean.number)"/>
+							<textarea placeholder="请输入备注" name="remark" style="height: 160upx; width: 100%;" v-model="bean.mation.remark" @blur="partRemarkChange($event, bean.number)"/>
 						</view>
 					</view>
 				</view>

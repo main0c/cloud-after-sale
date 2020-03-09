@@ -41,17 +41,17 @@
 					if(id == this.list[i].id){
 						var pages = getCurrentPages();
 						var prevPage = pages[pages.length - 2];  //上一个页面
-						prevPage._data.sparePartList[this.number].mation.id = this.list[i].id;
-						prevPage._data.sparePartList[this.number].mation.name = this.list[i].name;
+						prevPage.$vm.sparePartList[this.number].mation.id = this.list[i].id;
+						prevPage.$vm.sparePartList[this.number].mation.name = this.list[i].name;
 						//单位
 						var unitList = [{id: "", name: "请选择"}]
 						for(let j = 0; j < this.list[i].unitList.length; j++){
 							unitList.push(this.list[i].unitList[j]);
 						}
-						prevPage._data.sparePartList[this.number].mation.unitList = unitList;
-						prevPage._data.sparePartList[this.number].mation.defaultIndex = 0;
-						prevPage._data.sparePartList[this.number].mation.retailPrice = 0;
-						prevPage._data.sparePartList[this.number].mation.allRetailPrice = 0;
+						prevPage.$vm.sparePartList[this.number].mation.unitList = unitList;
+						prevPage.$vm.sparePartList[this.number].mation.defaultIndex = 0;
+						prevPage.$vm.sparePartList[this.number].mation.retailPrice = 0;
+						prevPage.$vm.sparePartList[this.number].mation.allRetailPrice = 0;
 						uni.navigateBack()
 						return false
 					}
