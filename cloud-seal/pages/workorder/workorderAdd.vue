@@ -142,6 +142,14 @@
 					</view>
 				</view>
 				<view class="uni-form-item">
+					<view class="title">指定预约时间</view>
+					<view class="content">
+						<picker mode="date" :value="pointSubscribeTime" @change="bindSubscribeDateChange">
+							<view class="uni-input">{{pointSubscribeTime}}</view>
+						</picker>
+					</view>
+				</view>
+				<view class="uni-form-item">
 					<view class="title">工单协助人</view>
 					<view class="content">
 						<robby-tags v-model="userList" defaultText="请选择工单协助人"></robby-tags>
@@ -198,6 +206,8 @@
 				typeIndex: 0,//选择的服务类型在集合中的下标
 				
 				declarationTime: currentDate,//报单时间
+				
+				pointSubscribeTime: currentDate,//指定预约时间
 				
 				customer: {},//已经选择的客户信息，包括客户名称，客户id，联系人，联系电话，邮箱，QQ
 				
@@ -359,6 +369,11 @@
 				this.declarationTime = e.target.value
 			},
 			
+			//指定预约时间变化
+			bindSubscribeDateChange: function(e) {
+				this.pointSubscribeTime = e.target.value
+			},
+			
 			getDate(type) {
 				const date = new Date();
 				let year = date.getFullYear();
@@ -451,7 +466,8 @@
 					serviceUserId: "",//工单接收人，可为空
 					cooperationUserId: "",//工单协助人，可为空
 					sheetPicture: '',//相关照片，可为空
-					enclosureInfo: ""//附件，可为空
+					enclosureInfo: "",//附件，可为空
+					pointSubscribeTime: this.pointSubscribeTime,//指定预约时间，可为空
 				};
 				
 				//工单接收人

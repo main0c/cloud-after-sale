@@ -118,6 +118,12 @@
 					</view>
 				</view>
 				<view class="uni-form-item">
+					<view class="title">指定预约时间：</view>
+					<view class="content">
+						{{rowMation.pointSubscribeTime}}
+					</view>
+				</view>
+				<view class="uni-form-item">
 					<view class="title">协助人：</view>
 					<view class="content">
 						<text v-for="(bean, i) in rowMation.cooperationUserId" :key="i">{{bean.name}},</text>
@@ -139,15 +145,9 @@
 			<view id="item4" class="tabbody">
 				<view class="uni-form-title">接单信息</view>
 				<view class="uni-form-item">
-					<view class="title">开工时间：</view>
+					<view class="title">预约时间：</view>
 					<view class="content">
 						{{rowMation.subscribeTime}}
-					</view>
-				</view>
-				<view class="uni-form-item">
-					<view class="title">完工时间：</view>
-					<view class="content">
-						{{rowMation.comTime}}
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -166,6 +166,12 @@
 					</view>
 				</view>
 				<view class="uni-form-item">
+					<view class="title">签到时间：</view>
+					<view class="content">
+						{{rowMation.registerTime}}
+					</view>
+				</view>
+				<view class="uni-form-item">
 					<view class="title">签到备注：</view>
 					<view class="content">
 						{{rowMation.remark}}
@@ -178,6 +184,12 @@
 					<view class="title">故障类型：</view>
 					<view class="content">
 						{{rowMation.faultName}}
+					</view>
+				</view>
+				<view class="uni-form-item">
+					<view class="title">完工时间：</view>
+					<view class="content">
+						{{rowMation.comTime}}
 					</view>
 				</view>
 				<view class="uni-form-item">
