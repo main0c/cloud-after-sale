@@ -2,6 +2,12 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
+			if(uni.getStorageSync("userMation") != null && uni.getStorageSync("userMation") != ''
+				&& uni.getStorageSync("userToken") != null && uni.getStorageSync("userToken") != ''){
+				uni.switchTab({
+					url:"/pages/workbench/workbench"
+				})
+			}
 		},
 		onShow: function() {
 			console.log('App Show')

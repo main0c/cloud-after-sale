@@ -33,6 +33,12 @@
 						{{rowMation.remark}}
 					</view>
 				</view>
+				<view class="uni-form-item">
+					<view class="title">附件资料：</view>
+					<view class="content">
+						<view class="uni-form-file" v-for="(bean, i) in rowMation.enclosureInfo" :key="i">{{bean.name}}</view>
+					</view>
+				</view>
 			</view>
 			<view id="item2" class="tabbody">
 				<view class="uni-form-title">价格信息</view>
