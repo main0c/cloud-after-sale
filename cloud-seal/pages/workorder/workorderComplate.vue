@@ -70,12 +70,19 @@
 						{{rowMation.productWarranty}}
 					</view>
 				</view>
+				
+				
 				<view class="uni-form-title">完工信息</view>
 				<view class="uni-form-item">
-					<view class="title"><view class="must">*</view>故障类型</view>
+					<view class="title"><view class="must">*</view>开工时间</view>
 					<view class="content">
-						<picker mode="selector" :value="faultTypeIndex" :range="faultTypeList" range-key="name" @change="bindFaultTypeChange">
-							<view class="uni-input">{{faultTypeList[faultTypeIndex].name}}</view>
+						<picker mode="date" :value="comStartTime" @change="bindStartDateChange" style="width: 40%; float: left;">
+							<view class="uni-input" v-if="comStartTime != ''">{{comStartTime}}</view>
+							<view class="uni-input" v-else>年-月-日</view>
+						</picker>
+						<picker mode="time" :value="comStartTime2" @change="bindStartDateChange2" style="width: 40%; float: left;">
+							<view class="uni-input" v-if="comStartTime2 != ''">{{comStartTime2}}</view>
+							<view class="uni-input" v-else>时:分</view>
 						</picker>
 					</view>
 				</view>
@@ -93,9 +100,37 @@
 					</view>
 				</view>
 				<view class="uni-form-item">
+					<view class="title"><view class="must">*</view>故障类型</view>
+					<view class="content">
+						<picker mode="selector" :value="faultTypeIndex" :range="faultTypeList" range-key="name" @change="bindFaultTypeChange">
+							<view class="uni-input">{{faultTypeList[faultTypeIndex].name}}</view>
+						</picker>
+					</view>
+				</view>
+				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>工时</view>
 					<view class="content">
 						<input class="uni-input" placeholder="请输入工时" name="comWorkTime"/>
+					</view>
+				</view>
+				<view class="uni-form-item">
+					<view class="title">故障关键组件</view>
+					<view class="content">
+						<picker mode="selector" :value="partsIndex" :range="partsList" range-key="name" @change="bindPartsChange">
+							<view class="uni-input">{{partsList[partsIndex].name}}</view>
+						</picker>
+					</view>
+				</view>
+				<view class="uni-form-item">
+					<view class="title">真实故障</view>
+					<view class="content">
+						<textarea placeholder="请输入真实故障" name="actualFailure" style="height: 160upx;" maxlength="200"/>
+					</view>
+				</view>
+				<view class="uni-form-item">
+					<view class="title">解决方案</view>
+					<view class="content">
+						<textarea placeholder="请输入解决方案" name="solution" style="height: 160upx;" maxlength="200"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -232,6 +267,10 @@
 				faultTypeList: [{id: "", name: "请选择"}],
 				faultTypeIndex: 0,//选择的故障类型在集合中的下标
 				
+				//故障关键组件
+				partsList: [{id: "", name: "请选择"}],
+				partsIndex: 0,//选择的故障关键组件在集合中的下标
+				
 				imageData: [],//图片回显数据数组：[{0: "/images/upload/order/1581591580676.png"}]
 				imageServerUrl: this.$api.config.baseUrl + 'common003',//图片上传地址
 				imageLimit: 10,
@@ -246,6 +285,11 @@
 					"userToken": uni.getStorageSync("userToken") || '',
 					"requestType": "2"
 				},//附件上传时传递的参数
+				
+				//开工时间 年月日
+				comStartTime: currentDate,
+				//开工时间 时分
+				comStartTime2: '10:00',
 				
 				//完工时间 年月日
 				comTime: currentDate,
@@ -294,6 +338,8 @@
 					this.rowMation = res.bean;
 					//加载故障类型列表
 					this.loadFaultType();
+					//加载故障关键组件列表
+					this.loadParts();
 				}else{
 					uni.showToast({
 						icon: 'none',
@@ -312,6 +358,23 @@
 					if(res.returnCode == 0){
 						for(let i = 0; i < res.rows.length; i++){
 							this.faultTypeList.push(res.rows[i]);
+						}
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
+			},
+			
+			//加载故障关键组件列表
+			loadParts: function(){
+				this.$api.get("parts010", {}).then((res)=>{
+					if(res.returnCode == 0){
+						for(let i = 0; i < res.rows.length; i++){
+							this.partsList.push(res.rows[i]);
 						}
 					}else{
 						uni.showToast({
@@ -472,6 +535,11 @@
 				this.faultTypeIndex = e.target.value
 			},
 			
+			//故障关键组件变化事件
+			bindPartsChange: function(e) {
+				this.partsIndex = e.target.value
+			},
+			
 			//完工时间 年月日
 			bindDateChange: function(e) {
 				this.comTime = e.target.value
@@ -480,6 +548,16 @@
 			//完工时间 时分
 			bindDateChange2: function(e) {
 				this.comTime2 = e.target.value
+			},
+			
+			//开工时间 年月日
+			bindStartDateChange: function(e) {
+				this.comStartTime = e.target.value
+			},
+			
+			//开工时间 时分
+			bindStartDateChange2: function(e) {
+				this.comStartTime2 = e.target.value
 			},
 			
 			getDate(type) {
@@ -501,9 +579,10 @@
 			//提交
 			formSubmit: function(e) {
 				
-				//故障类型判断
-				if(this.faultTypeIndex == 0){
-					uni.showToast({icon: 'none', title: '请选择故障类型'})
+				//开工时间判断
+				if(this.comStartTime == '' || this.comStartTime == null
+					|| this.comStartTime2 == '' || this.comStartTime2 == null){
+					uni.showToast({icon: 'none', title: '请选择开工时间'})
 					return false
 				}
 				
@@ -511,6 +590,12 @@
 				if(this.comTime == '' || this.comTime == null
 					|| this.comTime2 == '' || this.comTime2 == null){
 					uni.showToast({icon: 'none', title: '请选择完工时间'})
+					return false
+				}
+				
+				//故障类型判断
+				if(this.faultTypeIndex == 0){
+					uni.showToast({icon: 'none', title: '请选择故障类型'})
 					return false
 				}
 				
@@ -574,8 +659,11 @@
 					coverCost: e.detail.value.coverCost,//服务费
 					otherCost: e.detail.value.otherCost,//其他费用
 					useStr: JSON.stringify(parts),//配件使用明细
-					faultId: '',//故障表id
-					subType: '2'//提交类型  1.暂存，2.完工
+					subType: '2',//提交类型  1.暂存，2.完工
+					comStarTime: this.comStartTime + ' ' + this.comStartTime2 + ':00',//开工时间
+					actualFailure: e.detail.value.actualFailure,//真实故障
+					solution: e.detail.value.solution,//解决方案
+					faultKeyPartsId: this.partsList[this.partsIndex].id,//故障关键组件id
 				};
 				
 				//完工图片

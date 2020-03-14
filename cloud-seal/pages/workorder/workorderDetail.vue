@@ -181,9 +181,9 @@
 			<view id="item6" class="tabbody">
 				<view class="uni-form-title">完工信息</view>
 				<view class="uni-form-item">
-					<view class="title">故障类型：</view>
+					<view class="title">开工时间：</view>
 					<view class="content">
-						{{rowMation.faultName}}
+						{{rowMation.comStarTime}}
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -193,9 +193,33 @@
 					</view>
 				</view>
 				<view class="uni-form-item">
+					<view class="title">故障类型：</view>
+					<view class="content">
+						{{rowMation.faultName}}
+					</view>
+				</view>
+				<view class="uni-form-item">
 					<view class="title">工时：</view>
 					<view class="content">
 						{{rowMation.comWorkTime}}
+					</view>
+				</view>
+				<view class="uni-form-item">
+					<view class="title">故障关键组件：</view>
+					<view class="content">
+						{{rowMation.dPartName}}
+					</view>
+				</view>
+				<view class="uni-form-item">
+					<view class="title">真实故障：</view>
+					<view class="content">
+						{{rowMation.actualFailure}}
+					</view>
+				</view>
+				<view class="uni-form-item">
+					<view class="title">解决方案：</view>
+					<view class="content">
+						{{rowMation.solution}}
 					</view>
 				</view>
 				<view class="uni-form-item">

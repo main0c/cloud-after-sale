@@ -209,7 +209,7 @@ uni-page-body{
 .uni-form-item {
 	display: flex;
 	width: calc(100% - 24upx);
-	padding: 10upx 0;
+	padding: 6upx 0;
 	margin: 6upx 12upx;
 	border-bottom: 1px solid gainsboro;
 }
