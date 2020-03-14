@@ -137,40 +137,7 @@
 				var platform = uni.getSystemInfoSync().platform;
 				switch(platform){
 					case 'android':{
-						//返回值为数字，包括-1、0、1这3个数字。{1:已获取授权,0:未获取授权,-1:被永久拒绝授权}
-						if(permision.requestAndroidPermission("android.permission.ACCESS_FINE_LOCATION") == 1){
-							//获取当前手机是否开启或关闭了定位服务 true:开启， false:关闭
-							if(permision.checkSystemEnableLocation()){
-								uni.getLocation({
-									geocode: true,
-									success: function (res) {
-										if(res.errMsg == 'getLocation:ok'){
-											_this.longitude = res.longitude
-											_this.latitude = res.latitude
-											_this.address = res.address.province + res.address.city
-															+ res.address.district + res.address.poiName
-										}else{
-											uni.showToast({icon: 'none', title: '获取定位失败，请重新获取'})
-										}
-									}
-								})
-							}else{
-								uni.showToast({icon: 'none', title: '获取定位失败，请重新获取'})
-							}
-						}else{
-							uni.showModal({
-								title: '提示',
-								content: '请打开定位服务功能',
-								success: function (res) {
-									if (res.confirm) {
-										//打开当前App的权限设置界面。可用于引导用户赋权,不区分iOS和Android
-										permision.gotoAppPermissionSetting();
-									}else{
-										uni.navigateBack()
-									}
-								}
-							});
-						}
+						this.requestAndroidPermissionCustom();
 						break;
 					}
 					case 'ios':{
@@ -214,6 +181,60 @@
 						console.log('运行在开发者工具上')
 						break;
 					}
+				}
+			},
+			
+			//安卓位置获取
+			async requestAndroidPermissionCustom() {
+				var _this = this;
+				//返回值为数字，包括-1、0、1这3个数字。{1:已获取授权,0:未获取授权,-1:被永久拒绝授权}
+				var result = await permision.requestAndroidPermission("android.permission.ACCESS_FINE_LOCATION")
+				var strStatus
+				if (result == 1) {
+					//获取当前手机是否开启或关闭了定位服务 true:开启， false:关闭
+					if(permision.checkSystemEnableLocation()){
+						uni.getLocation({
+							geocode: true,
+							type: 'wgs84',
+							success: function (res) {
+								if(res.errMsg == 'getLocation:ok'){
+									_this.longitude = res.longitude
+									_this.latitude = res.latitude
+									if (res.address){
+										_this.address = res.address.province + res.address.city
+													+ res.address.district + res.address.poiName
+									}else{
+										var point = new plus.maps.Point(res.longitude, res.latitude);
+										plus.maps.Map.reverseGeocode(
+											point, {},
+											function(event) {
+												var address = event.address; // 转换后的地理位置
+												_this.address = address;
+											},
+											function(e) {}
+										);
+									}
+								}else{
+									uni.showToast({icon: 'none', title: '获取定位失败，请重新获取'})
+								}
+							}
+						})
+					}else{
+						uni.showToast({icon: 'none', title: '获取定位失败，请重新获取'})
+					}
+				} else {
+					uni.showModal({
+						title: '提示',
+						content: '请打开定位服务功能',
+						success: function (res) {
+							if (res.confirm) {
+								//打开当前App的权限设置界面。可用于引导用户赋权,不区分iOS和Android
+								permision.gotoAppPermissionSetting();
+							}else{
+								uni.navigateBack()
+							}
+						}
+					});
 				}
 			},
 			
