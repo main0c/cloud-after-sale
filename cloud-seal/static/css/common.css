@@ -265,4 +265,9 @@
 	color: #999;
 }
 
+.uni-click-item{
+	text-decoration: underline;
+	color: blue;
+}
+
 /*表单自定义属性结束*/

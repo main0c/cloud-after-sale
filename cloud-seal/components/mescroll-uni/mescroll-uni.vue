@@ -1,14 +1,12 @@
 <template>
 	<view class="mescroll-uni-warp">
-		<scroll-view :id="viewId" class="mescroll-uni" :class="{'mescroll-uni-fixed':isFixed}" :style="{'height':scrollHeight,'padding-top':padTop,'padding-bottom':padBottom,'padding-bottom':padBottomConstant,'padding-bottom':padBottomEnv,'top':fixedTop,'bottom':fixedBottom,'bottom':fixedBottomConstant,'bottom':fixedBottomEnv}"
-		 :scroll-top="scrollTop" :scroll-with-animation="scrollAnim" @scroll="scroll" @touchstart="touchstartEvent"
-		 @touchmove="touchmoveEvent" @touchend="touchendEvent" @touchcancel="touchendEvent" :scroll-y='scrollAble' :throttle="mescroll.optUp.onScroll==null"
-		 :enable-back-to-top="true">
+		<scroll-view :id="viewId" class="mescroll-uni" :class="{'mescroll-uni-fixed':isFixed}" :style="{'height':scrollHeight,'padding-top':padTop,'padding-bottom':padBottom,'padding-bottom':padBottomConstant,'padding-bottom':padBottomEnv,'top':fixedTop,'bottom':fixedBottom,'bottom':fixedBottomConstant,'bottom':fixedBottomEnv}" :scroll-top="scrollTop" :scroll-with-animation="scrollAnim" @scroll="scroll" @touchstart="touchstartEvent" @touchmove="touchmoveEvent" @touchend="touchendEvent" @touchcancel="touchendEvent" :scroll-y='isDownReset' :enable-back-to-top="true">
 			<view class="mescroll-uni-content" :style="{'transform': translateY, 'transition': transition}">
-				<!-- 下拉加载区域-->
-				<view v-if="mescroll.optDown.use" class="mescroll-downwarp">
+				<!-- 下拉加载区域 (支付宝小程序子组件传参给子子组件仍报单项数据流的异常,暂时不通过mescroll-down组件实现)-->
+				<!-- <mescroll-down :option="mescroll.optDown" :type="downLoadType" :rate="downRate"></mescroll-down> -->
+				<view v-if="mescroll.optDown.use" class="mescroll-downwarp" :style="{'background-color':mescroll.optDown.bgColor,'color':mescroll.optDown.textColor}">
 					<view class="downwarp-content">
-						<view class="downwarp-progress" :class="{'mescroll-rotate':isDownLoading}" :style="{'transform':downRotate}"></view>
+						<view class="downwarp-progress" :class="{'mescroll-rotate': isDownLoading}" :style="{'border-color':mescroll.optDown.textColor, 'transform': downRotate}"></view>
 						<view class="downwarp-tip">{{downText}}</view>
 					</view>
 				</view>
@@ -19,15 +17,16 @@
 				<!-- 空布局 -->
 				<mescroll-empty v-if="isShowEmpty" :option="mescroll.optUp.empty" @emptyclick="emptyClick"></mescroll-empty>
 
-				<!-- 上拉加载区域 -->
-				<view v-if="mescroll.optUp.use" class="mescroll-upwarp">
+				<!-- 上拉加载区域 (下拉刷新时不显示, 支付宝小程序子组件传参给子子组件仍报单项数据流的异常,暂时不通过mescroll-up组件实现)-->
+				<!-- <mescroll-up v-if="mescroll.optUp.use && !isDownLoading" :option="mescroll.optUp" :type="upLoadType"></mescroll-up> -->
+				<view v-if="mescroll.optUp.use && !isDownLoading" class="mescroll-upwarp" :style="{'background-color':mescroll.optUp.bgColor,'color':mescroll.optUp.textColor}">
 					<!-- 加载中 (此处不能用v-if,否则android小程序快速上拉可能会不断触发上拉回调) -->
-					<view v-show="isUpLoading">
-						<view class="upwarp-progress mescroll-rotate"></view>
-						<view class="upwarp-tip">{{mescroll.optUp.textLoading}}</view>
+					<view v-show="upLoadType===1">
+						<view class="upwarp-progress mescroll-rotate" :style="{'border-color':mescroll.optUp.textColor}"></view>
+						<view class="upwarp-tip">{{ mescroll.optUp.textLoading }}</view>
 					</view>
 					<!-- 无数据 -->
-					<view v-if="!isDownLoading && isUpNoMore" class="upwarp-nodata">{{mescroll.optUp.textNoMore}}</view>
+					<view v-if="upLoadType===2" class="upwarp-nodata">{{ mescroll.optUp.textNoMore }}</view>
 				</view>
 			</view>
 		</scroll-view>
@@ -54,18 +53,14 @@
 		},
 		data() {
 			return {
-				mescroll: null, // mescroll实例
+				mescroll: {optDown:{},optUp:{}}, // mescroll实例
 				viewId: 'id_' + Math.random().toString(36).substr(2), // 随机生成mescroll的id(不能数字开头,否则找不到元素)
 				downHight: 0, //下拉刷新: 容器高度
-				downRotate: 0, //下拉刷新: 圆形进度条旋转的角度
-				downText: '', //下拉刷新: 提示的文本
-				isDownReset: false, //下拉刷新: 是否显示重置的过渡动画
-				isDownLoading: false, //下拉刷新: 是否显示加载中
-				isUpLoading: false, // 上拉加载: 是否显示 "加载中..."
-				isUpNoMore: false, // 上拉加载: 是否显示 "-- END --"
+				downRate: 0, // 下拉比率(inOffset: rate<1; outOffset: rate>=1)
+				downLoadType: 4, // 下拉刷新状态 （inOffset：1， outOffset：2， showLoading：3， endDownScroll：4）
+				upLoadType: 0, // 上拉加载状态：0（loading前），1（loading中），2（没有更多了）
 				isShowEmpty: false, // 是否显示空布局
 				isShowToTop: false, // 是否显示回到顶部按钮
-				scrollAble: true, // 是否禁止下滑 (下拉时禁止,避免抖动)
 				scrollTop: 0, // 滚动条的位置
 				scrollAnim: false, // 是否开启滚动动画
 				windowTop: 0, // 可使用窗口的顶部位置
@@ -91,16 +86,16 @@
 		},
 		computed: {
 			// 是否使用fixed定位 (当height有值,则不使用)
-			isFixed() {
+			isFixed(){
 				return !this.height && this.fixed
 			},
 			// mescroll的高度
-			scrollHeight() {
+			scrollHeight(){
 				if (this.isFixed) {
 					return "auto"
-				} else if (this.height) {
+				} else if(this.height){
 					return this.toPx(this.height) + 'px'
-				} else {
+				}else{
 					return "100%"
 				}
 			},
@@ -121,50 +116,72 @@
 			fixedBottom() {
 				return this.isFixed ? (this.numBottom + this.windowBottom) + 'px' : 0
 			},
-			fixedBottomConstant() {
-				return this.safearea ? "calc(" + this.fixedBottom + " + constant(safe-area-inset-bottom))" : this.fixedBottom
+			fixedBottomConstant(){
+				return this.safearea ? "calc("+this.fixedBottom+" + constant(safe-area-inset-bottom))" : this.fixedBottom
 			},
-			fixedBottomEnv() {
-				return this.safearea ? "calc(" + this.fixedBottom + " + env(safe-area-inset-bottom))" : this.fixedBottom
+			fixedBottomEnv(){
+				return this.safearea ? "calc("+this.fixedBottom+" + env(safe-area-inset-bottom))" : this.fixedBottom
 			},
 			padBottom() {
 				return !this.isFixed ? this.numBottom + 'px' : 0
 			},
-			padBottomConstant() {
-				return this.safearea ? "calc(" + this.padBottom + " + constant(safe-area-inset-bottom))" : this.padBottom
+			padBottomConstant(){
+				return this.safearea ? "calc("+this.padBottom+" + constant(safe-area-inset-bottom))" : this.padBottom
 			},
-			padBottomEnv() {
-				return this.safearea ? "calc(" + this.padBottom + " + env(safe-area-inset-bottom))" : this.padBottom
+			padBottomEnv(){
+				return this.safearea ? "calc("+this.padBottom+" + env(safe-area-inset-bottom))" : this.padBottom
+			},
+			// 是否为重置下拉的状态
+			isDownReset(){
+				return this.downLoadType===3 || this.downLoadType===4
 			},
 			// 过渡
 			transition() {
-				return this.isDownReset ? 'transform 300ms' : ''
+				return this.isDownReset ? 'transform 300ms' : '';
 			},
 			translateY() {
-				return this.downHight > 0 ? 'translateY(' + this.downHight + 'px)' : '' // transform会使fixed失效,需注意把fixed元素写在mescroll之外
+				return this.downHight > 0 ? 'translateY(' + this.downHight + 'px)' : ''; // transform会使fixed失效,需注意把fixed元素写在mescroll之外
+			},
+			// 是否在加载中
+			isDownLoading(){
+				return this.downLoadType === 3
+			},
+			// 旋转的角度
+			downRotate(){
+				return 'rotate(' + 360 * this.downRate + 'deg)'
+			},
+			// 文本提示
+			downText(){
+				switch (this.downLoadType){
+					case 1: return this.mescroll.optDown.textInOffset;
+					case 2: return this.mescroll.optDown.textOutOffset;
+					case 3: return this.mescroll.optDown.textLoading;
+					case 4: return this.mescroll.optDown.textLoading;
+					default: return this.mescroll.optDown.textInOffset;
+				}
 			}
 		},
 		methods: {
 			//number,rpx,upx,px,% --> px的数值
-			toPx(num) {
-				if (typeof num === "string") {
+			toPx(num){
+				if(typeof num === "string"){
 					if (num.indexOf('px') !== -1) {
-						if (num.indexOf('rpx') !== -1) { // "10rpx"
+						if(num.indexOf('rpx') !== -1) { // "10rpx"
 							num = num.replace('rpx', '');
-						} else if (num.indexOf('upx') !== -1) { // "10upx"
+						} else if(num.indexOf('upx') !== -1) { // "10upx"
 							num = num.replace('upx', '');
 						} else { // "10px"
 							return Number(num.replace('px', ''))
 						}
-					} else if (num.indexOf('%') !== -1) {
+					}else if (num.indexOf('%') !== -1){
 						// 传百分比,则相对于windowHeight,传"10%"则等于windowHeight的10%
-						let rate = Number(num.replace("%", "")) / 100
+						let rate = Number(num.replace("%","")) / 100
 						return this.windowHeight * rate
 					}
 				}
 				return num ? uni.upx2px(Number(num)) : 0
 			},
-			//注册列表滚动事件,用于下拉刷新
+			//注册列表滚动事件,用于下拉刷新和上拉加载
 			scroll(e) {
 				this.mescroll.scroll(e.detail, () => {
 					this.$emit('scroll', this.mescroll) // 此时可直接通过 this.mescroll.scrollTop获取滚动条位置; this.mescroll.isScrollUp获取是否向上滑动
@@ -220,36 +237,22 @@
 				// 下拉刷新的配置
 				down: {
 					inOffset(mescroll) {
-						// 下拉的距离进入offset范围内那一刻的回调
-						vm.scrollAble = false; // 禁止下拉,避免抖动 (自定义mescroll组件时,此行不可删)
-						vm.isDownReset = false; // 不重置高度 (自定义mescroll组件时,此行不可删)
-						vm.isDownLoading = false; // 不显示加载中
-						vm.downText = mescroll.optDown.textInOffset; // 设置文本
+						vm.downLoadType = 1; // 下拉的距离进入offset范围内那一刻的回调 (自定义mescroll组件时,此行不可删)
 					},
 					outOffset(mescroll) {
-						// 下拉的距离大于offset那一刻的回调
-						vm.scrollAble = false; // 禁止下拉,避免抖动 (自定义mescroll组件时,此行不可删)
-						vm.isDownReset = false; // 不重置高度 (自定义mescroll组件时,此行不可删)
-						vm.isDownLoading = false; // 不显示加载中
-						vm.downText = mescroll.optDown.textOutOffset; // 设置文本
+						vm.downLoadType = 2; // 下拉的距离大于offset那一刻的回调 (自定义mescroll组件时,此行不可删)
 					},
 					onMoving(mescroll, rate, downHight) {
-						// 下拉过程中的回调,滑动过程一直在执行; rate下拉区域当前高度与指定距离的比值(inOffset: rate<1; outOffset: rate>=1); downHight当前下拉区域的高度
+						// 下拉过程中的回调,滑动过程一直在执行;
 						vm.downHight = downHight; // 设置下拉区域的高度 (自定义mescroll组件时,此行不可删)
-						vm.downRotate = 'rotate(' + 360 * rate + 'deg)'; // 设置旋转角度
+						vm.downRate = rate; //下拉比率 (inOffset: rate<1; outOffset: rate>=1)
 					},
 					showLoading(mescroll, downHight) {
-						// 显示下拉刷新进度的回调
-						vm.scrollAble = true; // 开启下拉 (自定义mescroll组件时,此行不可删)
-						vm.isDownReset = true; // 重置高度 (自定义mescroll组件时,此行不可删)
-						vm.isDownLoading = true; // 显示加载中
+						vm.downLoadType = 3; // 显示下拉刷新进度的回调 (自定义mescroll组件时,此行不可删)
 						vm.downHight = downHight; // 设置下拉区域的高度 (自定义mescroll组件时,此行不可删)
-						vm.downText = mescroll.optDown.textLoading; // 设置文本
 					},
 					endDownScroll(mescroll) {
-						vm.scrollAble = true; // 开启下拉 (自定义mescroll组件时,此行不可删)
-						vm.isDownReset = true; // 重置高度 (自定义mescroll组件时,此行不可删)
-						vm.isDownLoading = false; // 不显示加载中
+						vm.downLoadType = 4; // 结束下拉 (自定义mescroll组件时,此行不可删)
 						vm.downHight = 0; // 设置下拉区域的高度 (自定义mescroll组件时,此行不可删)
 					},
 					// 派发下拉刷新的回调
@@ -261,18 +264,15 @@
 				up: {
 					// 显示加载中的回调
 					showLoading() {
-						vm.isUpLoading = true;
-						vm.isUpNoMore = false;
+						vm.upLoadType = 1;
 					},
 					// 显示无更多数据的回调
 					showNoMore() {
-						vm.isUpLoading = false;
-						vm.isUpNoMore = true;
+						vm.upLoadType = 2;
 					},
 					// 隐藏上拉加载的回调
 					hideUpScroll() {
-						vm.isUpLoading = false;
-						vm.isUpNoMore = false;
+						vm.upLoadType = 0;
 					},
 					// 空布局
 					empty: {
@@ -307,13 +307,13 @@
 			vm.mescroll.viewId = vm.viewId; // 附带id
 			// init回调mescroll对象
 			vm.$emit('init', vm.mescroll);
-
+			
 			// 设置高度
 			const sys = uni.getSystemInfoSync();
-			if (sys.windowTop) vm.windowTop = sys.windowTop;
-			if (sys.windowBottom) vm.windowBottom = sys.windowBottom;
-			if (sys.windowHeight) vm.windowHeight = sys.windowHeight;
-			if (sys.statusBarHeight) vm.statusBarHeight = sys.statusBarHeight;
+			if(sys.windowTop) vm.windowTop = sys.windowTop;
+			if(sys.windowBottom) vm.windowBottom = sys.windowBottom;
+			if(sys.windowHeight) vm.windowHeight = sys.windowHeight;
+			if(sys.statusBarHeight) vm.statusBarHeight = sys.statusBarHeight;
 			// 使down的bottomOffset生效
 			vm.mescroll.setBodyHeight(sys.windowHeight);
 
@@ -332,9 +332,9 @@
 					}, t)
 				}
 			})
-
-			// 具体的界面如果不配置up.toTop.safearea,则取mescroll-uni.vue的safearea值
-			if (vm.up && vm.up.toTop && vm.up.toTop.safearea != null) {} else {
+			
+			// 具体的界面如果不配置up.toTop.safearea,则取本vue的safearea值
+			if(vm.up && vm.up.toTop && vm.up.toTop.safearea!=null){}else{
 				vm.mescroll.optUp.toTop.safearea = vm.safearea
 			}
 		},
@@ -347,4 +347,6 @@
 
 <style>
 	@import "./mescroll-uni.css";
+	@import "./components/mescroll-down.css";
+	@import './components/mescroll-up.css';
 </style>

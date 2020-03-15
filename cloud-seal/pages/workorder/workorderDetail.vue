@@ -29,7 +29,10 @@
 				</view>
 				<view class="uni-form-item">
 					<view class="title">客户：</view>
-					<view class="content">
+					<view class="content uni-click-item" v-if="rowMation.customerId != '' && rowMation.customerId" @click="toCustomerDetail(rowMation.customerId)">
+						{{rowMation.customerName}}
+					</view>
+					<view class="content" v-else>
 						{{rowMation.customerName}}
 					</view>
 				</view>
@@ -68,7 +71,10 @@
 				<view class="uni-form-title">产品信息</view>
 				<view class="uni-form-item">
 					<view class="title">产品名称：</view>
-					<view class="content">
+					<view class="content uni-click-item" v-if="rowMation.productId != '' && rowMation.productId" @click="toProductDetail(rowMation.productId)">
+						{{rowMation.productName}}
+					</view>
+					<view class="content" v-else>
 						{{rowMation.productName}}
 					</view>
 				</view>
@@ -206,7 +212,10 @@
 				</view>
 				<view class="uni-form-item">
 					<view class="title">故障关键组件：</view>
-					<view class="content">
+					<view class="content uni-click-item" v-if="rowMation.faultKeyPartsId != '' && rowMation.faultKeyPartsId" @click="toPartsDetail(rowMation.faultKeyPartsId)">
+						{{rowMation.dPartName}}
+					</view>
+					<view class="content" v-else>
 						{{rowMation.dPartName}}
 					</view>
 				</view>
@@ -273,7 +282,7 @@
 				<view class="uni-form-item">
 					<view class="title">经办人：</view>
 					<view class="content">
-						{{rowMation.faultName}}
+						{{rowMation.createName}}
 					</view>
 				</view>
 				<view class="uni-form-item">
@@ -481,6 +490,28 @@
 
 		},
 		methods: {
+			
+			//客户详情
+			toCustomerDetail: function(id){
+				uni.navigateTo({
+					url: '/pages/customer/customerDetail?id=' + id
+				})
+			},
+			
+			//产品详情
+			toProductDetail: function(id){
+				uni.navigateTo({
+					url: '/pages/product/productDetail?id=' + id
+				})
+			},
+			
+			//配件详情
+			toPartsDetail: function(id){
+				uni.navigateTo({
+					url: '/pages/sparepart/sparepartDetail?id=' + id
+				})
+			}
+			
 		}
 	}
 </script>

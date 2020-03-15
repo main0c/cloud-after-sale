@@ -48,7 +48,10 @@
 				<view class="uni-form-title">产品信息</view>
 				<view class="uni-form-item">
 					<view class="title">产品名称：</view>
-					<view class="content">
+					<view class="content uni-click-item" v-if="rowMation.productId != '' && rowMation.productId" @click="toProductDetail(rowMation.productId)">
+						{{rowMation.productName}}
+					</view>
+					<view class="content" v-else>
 						{{rowMation.productName}}
 					</view>
 				</view>
@@ -351,6 +354,13 @@
 			
 		},
 		methods: {
+			
+			//产品详情
+			toProductDetail: function(id){
+				uni.navigateTo({
+					url: '/pages/product/productDetail?id=' + id
+				})
+			},
 			
 			//加载故障类型列表
 			loadFaultType: function(){
