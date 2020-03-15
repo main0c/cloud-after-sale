@@ -175,7 +175,9 @@
 									//刷新待派工列表并返回
 									var pages = getCurrentPages();
 									var prevPage = pages[pages.length - 2];  //上一个页面
-									prevPage.refreshWorker()
+									if(prevPage.$vm.refreshWorker){
+										prevPage.$vm.refreshWorker()
+									}
 									uni.navigateBack()
 								}, 2000)
 							}

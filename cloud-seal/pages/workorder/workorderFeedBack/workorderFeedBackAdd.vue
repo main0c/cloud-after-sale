@@ -172,7 +172,9 @@
 								setTimeout(function(){
 									var pages = getCurrentPages();
 									var prevPage = pages[pages.length - 2];  //上一个页面
-									prevPage.loadFeedBackList()
+									if(prevPage.$vm.loadFeedBackList){
+										prevPage.$vm.loadFeedBackList()
+									}
 									uni.navigateBack();
 								}, 2000)
 							}

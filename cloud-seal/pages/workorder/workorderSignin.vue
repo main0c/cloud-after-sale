@@ -265,7 +265,9 @@
 									//刷新待签到列表并返回
 									var pages = getCurrentPages();
 									var prevPage = pages[pages.length - 2];  //上一个页面
-									prevPage.refreshSignIn()
+									if(prevPage.$vm.refreshSignIn){
+										prevPage.$vm.refreshSignIn()
+									}
 									uni.navigateBack()
 								}, 2000)
 							}

@@ -185,7 +185,9 @@
 									//刷新待接单列表并返回
 									var pages = getCurrentPages();
 									var prevPage = pages[pages.length - 2];  //上一个页面
-									prevPage.refreshReceipt()
+									if(prevPage.$vm.refreshReceipt){
+										prevPage.$vm.refreshReceipt()
+									}
 									uni.navigateBack()
 								}, 2000)
 							}

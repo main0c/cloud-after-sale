@@ -181,7 +181,9 @@
 											setTimeout(function(){
 												var pages = getCurrentPages();
 												var prevPage = pages[pages.length - 2];  //上一个页面
-												prevPage.refreshItemZero()
+												if(prevPage.$vm.refreshItemZero){
+													prevPage.$vm.refreshItemZero()
+												}
 												uni.navigateBack()
 											}, 2000)
 										}
