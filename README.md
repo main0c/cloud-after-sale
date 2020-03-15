@@ -6,15 +6,17 @@
 > 该项目为售后工单系统的手机端，包括工单、申领单、客户、产品等多模块内容，目前正在做前后端联调。旨在真正意义上完成云售后的概念
 
 #### 已集成插件
-- [动态标签](https://ext.dcloud.net.cn/plugin?id=316)
-- [文件上传](https://ext.dcloud.net.cn/plugin?id=877)
-- [图片上传](https://ext.dcloud.net.cn/plugin?id=296)
-- [下拉刷新，上拉加载](https://ext.dcloud.net.cn/plugin?id=343)
-- [表单验证](https://ext.dcloud.net.cn/plugin?id=746)
-- [弹出层](https://ext.dcloud.net.cn/plugin?id=254)
-- [树插件](https://ext.dcloud.net.cn/plugin?id=1000)
-- [位置判断](https://ext.dcloud.net.cn/plugin?id=594)
-- [选项卡导航栏](https://ext.dcloud.net.cn/plugin?id=626)
+- [动态标签](https://ext.dcloud.net.cn/plugin?id=316) (v1.2)
+- [文件上传](https://ext.dcloud.net.cn/plugin?id=877) (2019-11-04)
+- [图片上传](https://ext.dcloud.net.cn/plugin?id=296) (2019-04-08)
+- [下拉刷新，上拉加载](https://ext.dcloud.net.cn/plugin?id=343) (v1.2.4 ⬆)
+- [表单验证](https://ext.dcloud.net.cn/plugin?id=746) (2019-09-06)
+- [popup 弹出层](https://ext.dcloud.net.cn/plugin?id=254) (2019-04-30)
+- [树插件](https://ext.dcloud.net.cn/plugin?id=1000) (v1.09 ⬇)
+- [位置判断](https://ext.dcloud.net.cn/plugin?id=594) (2019-07-20)
+- [选项卡导航栏](https://ext.dcloud.net.cn/plugin?id=626) (2019-08-02)
+- [文件管理器](https://ext.dcloud.net.cn/plugin?id=680) (v1.0.0)
+- [Badge 数字角标](https://ext.dcloud.net.cn/plugin?id=21) (v1.0.5)
 
 #### 项目交流群
 
