@@ -54,19 +54,19 @@
 	}
 	.top-warp .tip{
 		font-size: 28upx;
-		height: 60upx;
-		line-height: 60upx;
+		height: 80upx;
+		line-height: 80upx;
 		text-align: center;
 	}
 	.top-warp .nav{
 		text-align: center;
-		height: 60upx;
+		height: 80upx;
 		border-bottom: 1upx solid #ddd;
 	}
 	.top-warp .nav view{
 		display: inline-block;
 		width: auto;
-		line-height: 60upx;
+		line-height: 80upx;
 		font-size: 28upx;
 		padding: 0px 20upx;
 	}
