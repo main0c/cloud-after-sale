@@ -18,6 +18,7 @@
 - [文件管理器](https://ext.dcloud.net.cn/plugin?id=680) (v1.0.0)
 - [Badge 数字角标](https://ext.dcloud.net.cn/plugin?id=21) (v1.0.5)
 - [Fab 悬浮按钮](https://ext.dcloud.net.cn/plugin?id=144) (v1.0.5)
+- [js独立覆盖原生导航，几种常用类型，自定义modal](https://ext.dcloud.net.cn/plugin?id=820) (v1.2.0)
 
 #### 项目交流群
 

@@ -9,6 +9,10 @@ Vue.prototype.$api = api
 import validate from '@/components/form-validate/ys-validate.js'
 Vue.prototype.$validate = validate
 
+// 注册全局modal组件
+import chunLeiModal from '@/components/chunLei-modal/chunLei-modal.vue'
+Vue.component('chunLei-modal', chunLeiModal);
+
 //系统文件访问基础路径
 Vue.prototype.$fileBasePath = "http://192.168.1.101:8081/"
 
