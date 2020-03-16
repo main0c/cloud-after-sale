@@ -181,9 +181,13 @@
 				handler(newVal,oldVal){ 
 					//#ifdef APP-PLUS
 					if(newVal) {
-						this.tabMask.show()
+						if(this.tabMask != null){
+							this.tabMask.show()
+						}
 					}else{
-						this.tabMask.hide()
+						if(this.tabMask != null){
+							this.tabMask.hide()
+						}
 					}
 					//#endif
 				}
