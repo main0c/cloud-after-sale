@@ -20,10 +20,10 @@
 
 <script>
 	export default {
-		props: {
+		props:{
 			list: { // 数据列表
 				type: Array,
-				default () {
+				default(){
 					return []
 				}
 			}

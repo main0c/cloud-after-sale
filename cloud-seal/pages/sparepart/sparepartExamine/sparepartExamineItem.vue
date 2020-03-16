@@ -2,7 +2,7 @@
 	<!-- 不能用v-if -->
 	<view v-show="i === index">
 		<!-- top="xxx"下拉布局往下偏移,防止被悬浮菜单遮住 -->
-		<mescroll-uni top="60" :down="downOption" @down="downCallback" :up="upOption" @up="upCallback" @emptyclick="emptyClick"
+		<mescroll-uni top="80" :down="downOption" @down="downCallback" :up="upOption" @up="upCallback" @emptyclick="emptyClick"
 		 @init="mescrollInit">
 			<!-- 数据列表 -->
 			<pd-list :list="dataList"></pd-list>

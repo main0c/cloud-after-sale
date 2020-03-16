@@ -301,8 +301,8 @@
 
 			.to {
 				flex-shrink: 0;
-				width: 40upx;
-				height: 40upx;
+				width: 36upx;
+				height: 36upx;
 			}
 		}
 	}

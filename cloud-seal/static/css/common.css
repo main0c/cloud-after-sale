@@ -271,3 +271,65 @@
 }
 
 /*表单自定义属性结束*/
+
+/*文件管理自定义属性开始*/
+
+.file-item{
+	width: 100%;
+	height: 100upx;
+	margin: 10upx 0px;
+}
+
+.file-item .item-img-box{
+	width: 80upx;
+	height: 80upx;
+	margin: 10upx 20upx;
+	float: left;
+}
+
+.file-item .item-img-box image{
+	width: 100%;
+	height: 100%;
+}
+
+.file-item .item-title{
+	width: calc(100% - 120upx);
+	height: 50%;
+	float: left;
+}
+
+.file-item .item-title text{
+	font-size: 30upx;
+}
+
+.file-item .item-time-size{
+	width: calc(100% - 140upx);
+	height: 50%;
+	float: left;
+	border-bottom: 1px solid gainsboro;
+	color: darkgrey;
+}
+
+.file-item .item-time-size .time{
+	font-size: 24upx;
+	float: left;
+}
+
+.file-item .item-time-size .size{
+	font-size: 24upx;
+	float: left;
+	margin-left: 10upx;
+}
+
+.file-item .item-point{
+	position: absolute;
+	right: 40upx;
+	line-height: 100upx;
+}
+
+.file-item .item-point image{
+	width: 26upx;
+	height: 26upx;
+}
+
+/*文件管理自定义属性结束*/
