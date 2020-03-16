@@ -292,6 +292,14 @@
 	height: 100%;
 }
 
+.file-item .item-img-box .share-img{
+	position: absolute;
+	width: 30upx;
+	height: 30upx;
+	margin-top: 40upx;
+	margin-left: -36upx;
+}
+
 .file-item .item-title{
 	width: calc(100% - 120upx);
 	height: 50%;

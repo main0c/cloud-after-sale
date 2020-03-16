@@ -17,6 +17,7 @@
 - [选项卡导航栏](https://ext.dcloud.net.cn/plugin?id=626) (2019-08-02)
 - [文件管理器](https://ext.dcloud.net.cn/plugin?id=680) (v1.0.0)
 - [Badge 数字角标](https://ext.dcloud.net.cn/plugin?id=21) (v1.0.5)
+- [Fab 悬浮按钮](https://ext.dcloud.net.cn/plugin?id=144) (v1.0.5)
 
 #### 项目交流群
 

@@ -3,6 +3,7 @@
 		<view class="file-item" v-for="pd in list" :key="pd.id" @click="rowDetails(pd.id, pd.name, pd.fileType, pd.icon)">
 			<view class="item-img-box">
 				<image :src="fileBasePath + pd.icon"></image>
+				<image class="share-img" src="../../../static/fileconsole/share.png" v-if="pd.isShow == 'block'"></image>
 			</view>
 			<view class="item-title">
 				<text>{{pd.name}}</text>
@@ -20,10 +21,10 @@
 
 <script>
 	export default {
-		props:{
+		props: {
 			list: { // 数据列表
 				type: Array,
-				default(){
+				default () {
 					return []
 				}
 			}
