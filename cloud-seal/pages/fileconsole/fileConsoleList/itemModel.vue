@@ -120,43 +120,21 @@
 				var createId = this.fileCreateId;
 				//分享状态
 				var fileShare = this.fileShare;
-				//当前登陆人
+				//当前登录人
 				var userId = uni.getStorageSync("userToken");
 				if(userId == createId){
-					//当前当路人就是文件操作人
-					popButton.push({
-						method: 'reFileName',
-						useOperator: true,
-						text: '重命名'
-					})
-					popButton.push({
-						method: 'deleteFile',
-						useOperator: true,
-						text: '删除'
-					})
+					//当前登录人就是文件操作人
+					popButton.push({method: 'reFileName', useOperator: true, text: '重命名'})
+					popButton.push({method: 'deleteFile', useOperator: true, text: '删除'})
+					popButton.push({method: 'recycleBin', useOperator: true, text: '回收站'})
 					//分享操作
-					popButton.push({
-						method: 'shareFile',
-						useOperator: true,
-						text: '分享'
-					})
+					popButton.push({method: 'shareFile', useOperator: true, text: '分享'})
 				}else{
-					popButton.push({
-						method: 'reFileName',
-						useOperator: false,
-						text: '重命名'
-					})
-					popButton.push({
-						method: 'deleteFile',
-						useOperator: false,
-						text: '删除'
-					})
+					popButton.push({method: 'reFileName', useOperator: false, text: '重命名'})
+					popButton.push({method: 'deleteFile', useOperator: false, text: '删除'})
+					popButton.push({method: 'recycleBin', useOperator: false, text: '回收站'})
 					//分享操作
-					popButton.push({
-						method: 'shareFile',
-						useOperator: false,
-						text: '分享'
-					})
+					popButton.push({method: 'shareFile', useOperator: false, text: '分享'})
 				}
 				this.popButton = popButton;
 			},
@@ -235,6 +213,10 @@
 						this.deleteFile(rowId, filetype);
 						break;
 					}
+					case 'recycleBin':{//回收站
+						this.recycleBin(rowId);
+						break;
+					}
 					case 'shareFile':{//分享
 						this.shareFile(rowId)
 						break;
@@ -297,6 +279,37 @@
 										icon: 'success',
 										position: 'bottom',
 										title: '删除成功',
+										complete:function(){
+											_this.$emit("ToRefresh")
+										}
+									});
+								}else{
+									uni.showToast({
+										icon: 'none',
+										position: 'bottom',
+										title: res.returnMessage
+									});
+								}
+							})
+				        }
+				    }
+				});
+			},
+			
+			//将文件或文件夹放入回收站
+			recycleBin: function(id){
+				var _this = this;
+				uni.showModal({
+				    title: '提示',
+				    content: '确定放入回收吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+							_this.$api.post("fileconsole013", {rowId: id}).then((res)=>{
+								if(res.returnCode == 0){
+									uni.showToast({
+										icon: 'success',
+										position: 'bottom',
+										title: '放入回收站成功',
 										complete:function(){
 											_this.$emit("ToRefresh")
 										}

@@ -108,7 +108,9 @@
 					})
 				}else if(item.index == 2){
 					//回收站
-					
+					uni.navigateTo({
+						url: '/pages/fileconsole/recycleBin/recycleBinList'
+					})
 				}
 			},
 			
