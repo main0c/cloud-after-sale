@@ -2,8 +2,8 @@
 	
 	<view>
 		<view class="pd-list">
-			<view class="file-item" @longpress="onLongPress" v-for="pd in list" :key="pd.id" 
-				@click="rowDetails(pd.id, pd.name, pd.fileType, pd.icon)" :data-id="pd.id" :data-filetype="pd.fileType">
+			<view class="file-item" @longpress="onLongPress" v-for="pd in list" :key="pd.id" @click="rowDetails(pd.id, pd.name, pd.fileType, pd.icon)" 
+					:data-id="pd.id" :data-filetype="pd.fileType" :data-filename="pd.name" :data-create="pd.createId" :data-share="pd.isShow">
 				<view class="item-img-box">
 					<image :src="fileBasePath + pd.icon"></image>
 					<image class="share-img" src="../../../static/fileconsole/share.png" v-if="pd.isShow == 'block'"></image>
@@ -23,10 +23,16 @@
 		
 		<view class="shade" v-show="showShade" @tap="hidePop">
 			<view class="pop" :style="popStyle" :class="{'show':showPop}">
-				<view v-for="(item, index) in popButton" :key="index" @click="pickerMenu" :data-id="pickerId" :data-method="item.method"
-					 :data-filetype="filetype">{{item.text}}</view>
+				<block v-for="(item, index) in popButton" :key="index">
+					<view v-if="item.useOperator != true" @click="hidePop" :data-method="item.method" class="no-opera">{{item.text}}</view>
+					<view v-else @click="pickerMenu" :data-method="item.method">{{item.text}}</view>
+				</block>
 			</view>
 		</view>
+		
+		<chunLei-modal v-model="showModel" :mData="data" :type="type" @onConfirm="onConfirm" @cancel="cancel" :navHeight="0">
+		</chunLei-modal>
+		
 	</view>
 	
 </template>
@@ -44,6 +50,7 @@
 		data() {
 			return {
 				fileBasePath: this.$fileBasePath,
+				
 				//长按弹框样式
 				winSize: {},//窗口尺寸
 				showShade: false,//显示遮罩
@@ -52,6 +59,14 @@
 				popStyle: "",//弹窗定位样式
 				pickerId: "",//选择的数据id
 				filetype: "",//选择的数据类型
+				filename: "",//选择的数据名称
+				fileCreateId: "",//选择的数据创建人
+				fileShare: "",//选择的文件分享状态
+				
+				//模态框
+				showModel: false,//是否显示
+				type: 'input',
+				data: {}
 			}
 		},
 		onLoad() {
@@ -97,40 +112,68 @@
 			},
 			
 			//根据不同的文件类型展示不同的按钮
-			resetBtn: function(fileType){
+			resetBtn: function(){
 				var popButton = [];
-				popButton.push({
-					method: 'reFileName',
-					text: '重命名'
-				})
-				popButton.push({
-					method: 'deleteFile',
-					text: '删除'
-				})
-				if(fileType == 'folder'){
-					
-				}else if(this.$imageType.indexOf(fileType) >= 0){
-					
-				}else if(this.$officeType.indexOf(fileType) >= 0){
-					
-				}else if(this.$vedioType.indexOf(fileType) >= 0){
-					
-				}else if(this.$packageType.indexOf(fileType) >= 0){
-					
-				}else if(this.$epubType.indexOf(fileType) >= 0){
-					
-				}else if(this.$aceType.indexOf(fileType) >= 0){
-					
+				//文件类型
+				var fileType = this.fileType;
+				//创建人
+				var createId = this.fileCreateId;
+				//分享状态
+				var fileShare = this.fileShare;
+				//当前登陆人
+				var userId = uni.getStorageSync("userToken");
+				if(userId == createId){
+					//当前当路人就是文件操作人
+					popButton.push({
+						method: 'reFileName',
+						useOperator: true,
+						text: '重命名'
+					})
+					popButton.push({
+						method: 'deleteFile',
+						useOperator: true,
+						text: '删除'
+					})
+					//分享操作
+					popButton.push({
+						method: 'shareFile',
+						useOperator: true,
+						text: '分享'
+					})
+				}else{
+					popButton.push({
+						method: 'reFileName',
+						useOperator: false,
+						text: '重命名'
+					})
+					popButton.push({
+						method: 'deleteFile',
+						useOperator: false,
+						text: '删除'
+					})
+					//分享操作
+					popButton.push({
+						method: 'shareFile',
+						useOperator: false,
+						text: '分享'
+					})
 				}
 				this.popButton = popButton;
 			},
 			
 			/* 长按监听 */
 			onLongPress(e) {
-				let [touches, style, chooseId, filetype] = [e.touches[0], "", e.currentTarget.dataset.id, e.currentTarget.dataset.filetype];
+				let [touches, style] = [e.touches[0], ""];
+				
+				//文件创建人-代码位置不能变
+				this.fileCreateId = e.currentTarget.dataset.create;
+				//文件分享状态-代码位置不能变
+				this.fileShare = e.currentTarget.dataset.share;
+				//文件类型-代码位置不能变
+				this.filetype = e.currentTarget.dataset.filetype;
 				
 				//根据不同的文件类型展示不同的按钮
-				this.resetBtn(filetype);
+				this.resetBtn();
 				
 				/* 因 非H5端不兼容 style 属性绑定 Object ，所以拼接字符 */
 				if (touches.clientY > (this.winSize.height / 2)) {
@@ -143,9 +186,11 @@
 				} else {
 					style += `left:${touches.clientX}px`;
 				}
+				
 				this.popStyle = style;
-				this.pickerId = chooseId;
-				this.filetype = filetype;
+				this.pickerId = e.currentTarget.dataset.id;
+				this.filename = e.currentTarget.dataset.filename;
+				
 				this.showShade = true;
 				this.$nextTick(() => {
 					setTimeout(() => {
@@ -156,8 +201,6 @@
 			/* 隐藏弹窗 */
 			hidePop() {
 				this.showPop = false;
-				this.pickerId = '';
-				this.filetype = '';
 				setTimeout(() => {
 					this.showShade = false;
 				}, 250);
@@ -165,18 +208,35 @@
 			/* 选择菜单 */
 			pickerMenu(e) {
 				//文件或文件夹id
-				let rowId = e.currentTarget.dataset.id;
+				let rowId = this.pickerId;
 				//类型
-				let filetype = e.currentTarget.dataset.filetype;
+				let filetype = this.filetype;
+				//文件名称
+				let filename = this.filename;
+				//文件创建人
+				let fileCreateId = this.fileCreateId;
 				//执行的方法事件
 				let method = e.currentTarget.dataset.method;
 				switch(method){
 					case 'reFileName':{//重命名
-						console.log("重命名")
+						this.showModel = !this.showModel
+						if(filetype != 'folder'){
+							filename = filename.substr(0, filename.lastIndexOf('.'))
+						}
+						this.data = {
+							title: '重命名',
+							content:[
+								{title: '目录名', content: filename, placeholder: '请输入目录名'}
+							]
+						}
 						break;
 					}
 					case 'deleteFile':{//删除
 						this.deleteFile(rowId, filetype);
+						break;
+					}
+					case 'shareFile':{//分享
+						this.shareFile(rowId)
 						break;
 					}
 					default:{
@@ -184,6 +244,35 @@
 					}
 				}
 				this.hidePop();
+			},
+			
+			//重命名
+			onConfirm(e){
+				var fileName = (e[0].content == '' || e[0].content == null || e[0].content == 'undefined') ? '文件' : e[0].content;
+				var filetype = '';
+				if(this.filetype != 'folder'){
+					filetype = this.filetype
+				}
+				var param = {
+					rowId: this.pickerId,
+					catalogName: fileName + '.' + filetype,
+					fileType: this.filetype
+				}
+				var _this = this;
+				this.$api.post('fileconsole005', param).then((res)=>{
+					if(res.returnCode == 0){
+						_this.$emit("ToRefresh")
+					}else{
+						uni.showToast({
+							icon: 'none',
+							position: 'bottom',
+							title: res.returnMessage
+						});
+					}
+				})
+			},
+			//模态框取消
+			cancel(){
 			},
 			
 			//删除文件或文件夹
@@ -223,7 +312,32 @@
 				        }
 				    }
 				});
-			}
+			},
+			
+			//分享
+			shareFile: function(id){
+				var _this = this;
+				uni.showModal({
+				    title: '文件分享',
+				    content: '默认为私密分享，是否继续？',
+				    success: function (res) {
+				        if (res.confirm) {
+							//默认为私密分享
+							_this.$api.post("fileconsole016", {rowId: id, shareType: 2}).then((res)=>{
+								if(res.returnCode == 0){
+									_this.$emit("ToRefresh")
+								}else{
+									uni.showToast({
+										icon: 'none',
+										position: 'bottom',
+										title: res.returnMessage
+									});
+								}
+							})
+				        }
+				    }
+				});
+			},
 			
 		}
 	}
@@ -256,7 +370,11 @@
 			user-select: none;
 			-webkit-touch-callout: none;
 			transform: scale(0, 0);
-	
+			
+			&>.no-opera{
+				color: gray;
+			}
+			
 			&.show {
 				transform: scale(1, 1);
 			}

@@ -96,11 +96,19 @@
 					//新建目录
 					this.showModel = !this.showModel
 					this.data = {
-						title:'新建目录',
+						title: '新建目录',
 						content:[
-							{title:'目录名', content:'', placeholder:'请输入目录名'}
+							{title: '目录名', content: '', placeholder: '请输入目录名'}
 						]
 					}
+				}else if(item.index == 1){
+					//我的分享
+					uni.navigateTo({
+						url: '/pages/fileconsole/myShareFile/myShareFileList'
+					})
+				}else if(item.index == 2){
+					//回收站
+					
 				}
 			},
 			
