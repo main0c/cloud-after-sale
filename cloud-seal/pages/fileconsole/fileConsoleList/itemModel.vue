@@ -76,8 +76,6 @@
 			
 			//点击事件
 			rowDetails: function(id, name, fileType, iconSrc){
-				console.log(fileType)
-				console.log(this.$imageType)
 				if(fileType == 'folder'){
 					uni.navigateTo({
 						url: '/pages/fileconsole/fileConsoleClickList/fileConsoleClickList?id=' + id
@@ -87,16 +85,93 @@
 						url: '/pages/common/imgPreview?picList=' + this.fileBasePath + iconSrc
 					})
 				}else if(this.$officeType.indexOf(fileType) >= 0){
-					
+					//获取文件路径
+					this.$api.post("fileconsole009", {rowId: id}).then((res) => {
+						if (res.returnCode == 0) {
+							uni.downloadFile({
+								url: this.$fileBasePath + res.bean.fileAddress,
+								success: function(res) {
+									var filePath = res.tempFilePath;
+									uni.openDocument({
+										filePath: filePath,
+										success: function(res) {
+										}
+									});
+								}
+							});
+						} else {
+							uni.showToast({
+								icon: 'none',
+								position: 'bottom',
+								title: res.returnMessage
+							});
+						}
+					})
 				}else if(this.$vedioType.indexOf(fileType) >= 0){
-					
+					this.donloadFileById(id)
 				}else if(this.$packageType.indexOf(fileType) >= 0){
-					
+					this.donloadFileById(id)
 				}else if(this.$epubType.indexOf(fileType) >= 0){
-					
+					this.donloadFileById(id)
 				}else if(this.$aceType.indexOf(fileType) >= 0){
-					
+					this.donloadFileById(id)
 				}
+			},
+			
+			//下载文件
+			donloadFileById: function(id){
+				var _this = this;
+				uni.showModal({
+				    title: '提示',
+				    content: '确定下载吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+							_this.$api.post("fileconsole009", {rowId: id}).then((res)=>{
+								if(res.returnCode == 0){
+									uni.downloadFile({
+										url: _this.$fileBasePath + res.bean.fileAddress,
+										success: function(res) {
+											if(res.statusCode == 200){
+												//保存到本地
+												uni.saveFile({
+													tempFilePath: res.tempFilePath,
+													success:(res)=>{
+														 //res.savedFilePath文件的保存路径
+														 uni.showToast({
+														 	icon: 'success',
+														 	position: 'bottom',
+														 	title: '保存路径为：' + res.savedFilePath
+														 });
+													},
+													fail: function(){
+														uni.showToast({
+															icon: 'none',
+															position: 'bottom',
+															title: '下载失败'
+														});
+													}
+												})
+											}
+										},
+										fail: function(){
+											uni.showToast({
+												icon: 'none',
+												position: 'bottom',
+												title: '下载失败'
+											});
+										}
+									});
+								}else{
+									uni.showToast({
+										icon: 'none',
+										position: 'bottom',
+										title: res.returnMessage
+									});
+								}
+							})
+				        }
+				    }
+				});
 			},
 			
 			/* 获取窗口尺寸 */

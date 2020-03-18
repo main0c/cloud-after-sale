@@ -2,7 +2,7 @@
 	
 	<view class="content">
 		<mescroll-body ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback">
-			<FileConsoleClickListItem :list="beansList"></FileConsoleClickListItem>
+			<FileConsoleClickListItem :list="beansList" v-on:ToRefresh="refresh()"></FileConsoleClickListItem>
 		</mescroll-body>
 	
 		<uni-fab
@@ -105,7 +105,22 @@
 							{title:'目录名', content:'', placeholder:'请输入目录名'}
 						]
 					}
+				}else if(item.index == 1){
+					//我的分享
+					uni.navigateTo({
+						url: '/pages/fileconsole/myShareFile/myShareFileList'
+					})
+				}else if(item.index == 2){
+					//回收站
+					uni.navigateTo({
+						url: '/pages/fileconsole/recycleBin/recycleBinList'
+					})
 				}
+			},
+			
+			//子组件主动刷新页面数据
+			refresh: function(){
+				this.mescroll.triggerDownScroll()
 			},
 			
 			//模态框提交
