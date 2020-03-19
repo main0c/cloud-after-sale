@@ -300,7 +300,9 @@
 			
 			//打卡
 			clickSignUp() { //0补签，1当日签到		
-				
+				uni.navigateTo({
+					url: '/pages/checkwork/signWork'
+				})
 			}
 		}
 	}
