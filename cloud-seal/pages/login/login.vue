@@ -60,6 +60,7 @@
 					mask: true
 				});
 				
+				var _this = this;
 				//用户登录
 				this.$api.post("userphone001", {userCode: this.userCode, password: this.password}).then((res)=>{
 					if(res.returnCode == 0){
@@ -71,6 +72,8 @@
 							position: 'bottom',
 							title: '登录成功'
 						});
+						//创建连接
+						_this.$sockect.connect();
 						uni.hideToast()
 						uni.reLaunch({
 							url: '../workbench/workbench',

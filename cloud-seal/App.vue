@@ -10,10 +10,14 @@
 			}
 		},
 		onShow: function() {
+			//打开连接
 			console.log('App Show')
+			this.$sockect.connect()
 		},
 		onHide: function() {
+			//关闭连接
 			console.log('App Hide')
+			this.$sockect.cls()
 		}
 	}
 </script>

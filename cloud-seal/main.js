@@ -5,6 +5,10 @@ import App from './App'
 import api from '@/components/vmeitime-http/'
 Vue.prototype.$api = api
 
+//挂在全局socket
+import sockect from "socket.js"
+Vue.prototype.$sockect = sockect
+
 // 验证挂载到全局
 import validate from '@/components/form-validate/ys-validate.js'
 Vue.prototype.$validate = validate
