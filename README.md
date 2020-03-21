@@ -26,6 +26,7 @@
 - 项目交流群：(群一(满)：[696070023](http://shang.qq.com/wpa/qunwpa?idkey=e9aace2bf3e05f37ed5f0377c3827c6683d970ac0bcc61b601f70dc861053229))(群二：[836039567](https://shang.qq.com/wpa/qunwpa?idkey=7bb6f29b27f772aadca9c7c4e384f7833c64e9c3c947b5e946c7b303d1fe174a))(群三：[887391486](https://shang.qq.com/wpa/qunwpa?idkey=a65f2e0292eb1048bb13abb7adca302bd83e3465974861ec1f04c2f7fffc4d99))
 - 请不要重复加群，一个群就可以了，把机会留给更多人
 - 进群先看公告！！！进群先看公告！！！进群先看公告！！！ 重要的事情说三遍
+- 此软件为个人软件，没有试用地址，主项目地址：https://gitee.com/doc_wei01/skyeye
 
 #### 开发工具
 
@@ -52,6 +53,9 @@
 - 配件管理
 - 产品管理
 - 客户管理
+- 云盘管理
+- 考勤签到
+- 工作日志
 
 
 #### 效果图
