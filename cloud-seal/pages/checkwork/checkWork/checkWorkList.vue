@@ -23,14 +23,27 @@
 					<text :decode="true">&nbsp;&nbsp;</text>
 				</view>
 				<view v-else>
-					<!-- isSign：1.正常工作日；2.节假日；3.已签到；4.未签到；5.非正常签到 -->
+					<!-- isSign：1.正常工作日；2.节假日；3.已签到；4.未签到；5.非正常签到 6.加班-->
 					<view v-if="item.isSign == 1" class='cell greenColor bgWhite'>
 						<text>{{item.date}}</text>
 					</view>
-					<view v-else-if="item.isSign == 2" class='cell greenColor'>
-						<text>{{item.date}}</text>
-						<text class="scho">假</text>
-					</view>
+					<block v-else-if="item.isSign == 2">
+						<!-- 如果今日刚好是假期 -->
+						<view class="cell whiteColor bgBlue" v-if="item.date == today && cur_month == toMonth && cur_year == toYear">
+							<block v-if="item.inMation && item.outMation">
+								<text @click="daySignMation" :data-itemindex="j">已签到</text>
+								<text class="scho" @click="daySignMation" :data-itemindex="j">假</text>
+							</block>
+							<block v-else @click="clickSignUp">
+								<text>签到</text>
+								<text class="scho">假</text>
+							</block>
+						</view>
+						<view v-else class='cell greenColor'>
+							<text>{{item.date}}</text>
+							<text class="scho">假</text>
+						</view>
+					</block>
 					<view v-else-if="item.isSign == 3" class='cell greenColor bgWhite'>
 						<text>{{item.date}}</text>
 					</view>
@@ -39,12 +52,11 @@
 					</view>
 					<block v-else-if="item.isSign == 5">
 						<!-- 今日 -->
-						<view @click="clickSignUp(item.date, 1)" class="cell whiteColor bgBlue" 
-								v-if="item.date == today && cur_month == toMonth && cur_year == toYear">
+						<view class="cell whiteColor bgBlue" v-if="item.date == today && cur_month == toMonth && cur_year == toYear">
 							<block v-if="item.inMation && item.outMation">
-								<text>已签到</text>
+								<text @click="daySignMation" :data-itemindex="j">已签到</text>
 							</block>
-							<block v-else>
+							<block v-else @click="clickSignUp">
 								<text>签到</text>
 							</block>
 						</view>
@@ -52,6 +64,10 @@
 							<text>{{item.date}}</text>
 						</view>
 					</block>
+					<view v-else-if="item.isSign == 6" class='cell greenColor'>
+						<text>{{item.date}}</text>
+						<text class="scho">加(假)</text>
+					</view>
 					
 					<!-- 当前日期之后 -->
 					<view class="whiteColor cell" v-else>
@@ -177,7 +193,7 @@
 				return new Date(Date.UTC(year, month - 1, 1)).getDay();
 			},
 			// 计算当月1号前空了几个格子，把它填充在days数组的前面
-			//isSign：1.正常工作日；2.节假日；3.已签到；4.未签到；5.非正常签到
+			//isSign：1.正常工作日；2.节假日；3.已签到；4.未签到；5.非正常签到 6.加班
 			calculateEmptyGrids(year, month) {
 				//计算每个月时要清零
 				this.days = [];
@@ -193,7 +209,7 @@
 				}
 			},
 			// 绘制当月天数占的格子，并把它放到days数组中
-			//isSign：1.正常工作日；2.节假日；3.已签到；4.未签到；5.非正常签到
+			//isSign：1.正常工作日；2.节假日；3.已签到；4.未签到；5.非正常签到 6.加班
 			calculateDays(year, month) {
 				const thisMonthDays = this.getThisMonthDays(year, month);
 				for (let i = 1; i <= thisMonthDays; i++) {
@@ -264,6 +280,11 @@
 											//非正常签到
 											row.isSign = 5
 										}
+										//如果这天是假期，则为加班
+										if(row.isSign == 2){
+											row.isSign = 6
+										}
+										//给当前的详情赋值
 										if(bean.title == '上班时间'){
 											row.inMation = bean
 										}else if(bean.title == '下班时间'){
@@ -299,7 +320,7 @@
 			},
 			
 			//打卡
-			clickSignUp() { //0补签，1当日签到		
+			clickSignUp() {	
 				uni.navigateTo({
 					url: '/pages/checkwork/signWork'
 				})
@@ -366,8 +387,8 @@
 		color: #EE3B3B;
 		font-size: 20upx;
 		position: absolute;
-		margin-left: 15px;
-		margin-top: -13px;
+		margin-left: 20upx;
+		margin-top: -26upx;
 		font-weight: 400;
 	}
 
@@ -389,7 +410,7 @@
 	}
 
 	.bgBlue {
-		font-size: 14px;
+		font-size: 12px;
 		background-color: #4b95e6;
 	}
 
