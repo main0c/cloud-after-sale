@@ -49,6 +49,7 @@ var connect = function() {
 		//监听WebSocket接收到服务器的消息事件
 		socketTask.onMessage(function(res){
 			console.log('收到服务器内容：' + res.data);
+			plus.push.createMessage( "测试消息" );
 		})
 		
 		//监听WebSocket错误

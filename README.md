@@ -19,6 +19,7 @@
 - [Badge 数字角标](https://ext.dcloud.net.cn/plugin?id=21) (v1.0.5)
 - [Fab 悬浮按钮](https://ext.dcloud.net.cn/plugin?id=144) (v1.0.5)
 - [js独立覆盖原生导航，几种常用类型，自定义modal](https://ext.dcloud.net.cn/plugin?id=820) (v1.2.0)
+- [消息界面](https://ext.dcloud.net.cn/plugin?id=208) (2019-04-04)
 
 #### 项目交流群
 
@@ -27,6 +28,13 @@
 - 请不要重复加群，一个群就可以了，把机会留给更多人
 - 进群先看公告！！！进群先看公告！！！进群先看公告！！！ 重要的事情说三遍
 - 此软件为个人软件，没有试用地址，主项目地址：https://gitee.com/doc_wei01/skyeye
+
+#### 平台推荐
+
+- 地图（高德地图）：https://lbs.amap.com/
+- 安卓平台签名证书：https://ask.dcloud.net.cn/article/35777
+- 消息推送平台（个推）：https://dev.getui.com/dev/#/appManage
+- uni-push：https://dev.dcloud.net.cn/uni/push
 
 #### 开发工具
 
