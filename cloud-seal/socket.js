@@ -11,7 +11,6 @@ var webSocketPath = 'ws://192.168.1.104:8081/'
 
 var connect = function() {
 	var userToken = uni.getStorageSync("userToken") || '';
-	
 	//用户信息不为空时创建连接
 	if(userToken != '' && userToken != 'undefined' && userToken != null){
 		//创建连接

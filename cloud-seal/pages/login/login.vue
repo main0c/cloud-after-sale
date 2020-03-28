@@ -61,8 +61,14 @@
 				});
 				
 				var _this = this;
+				
+				//手机端APP获取clentId
+				var cId = "";
+				if(plus){
+					cId = plus.push.getClientInfo().clientid;
+				}
 				//用户登录
-				this.$api.post("userphone001", {userCode: this.userCode, password: this.password}).then((res)=>{
+				this.$api.post("userphone001", {userCode: this.userCode, password: this.password, cId: cId}).then((res)=>{
 					if(res.returnCode == 0){
 						uni.setStorageSync("userToken", res.bean.id);
 						uni.setStorageSync("userMation", res.bean);
