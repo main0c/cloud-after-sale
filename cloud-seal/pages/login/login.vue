@@ -64,9 +64,10 @@
 				
 				//手机端APP获取clentId
 				var cId = "";
-				if(plus){
+				if(typeof plus != 'undefined'){
 					cId = plus.push.getClientInfo().clientid;
 				}
+				
 				//用户登录
 				this.$api.post("userphone001", {userCode: this.userCode, password: this.password, cId: cId}).then((res)=>{
 					if(res.returnCode == 0){

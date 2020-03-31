@@ -5,6 +5,11 @@
 	"versionName" : "1.0.0",
 	"versionCode" : "100",
 	"transformPx" : false,
+	"networkTimeout" : {
+		"request" : 5000,//请求超时时间,单位毫秒
+		"uploadFile" : 5000,//上传超时时间,单位毫秒
+		"downloadFile" : 5000//下载超时时间,单位毫秒
+	},
 	/* 5+App特有相关 */
 	"app-plus" : 
 	{
