@@ -1,0 +1,17 @@
+*.class
+
+# Package Files #
+*.war
+*.ear
+
+class
+.settings
+*.classpath
+/bin
+classes
+/target/
+/unpackage/
+/.project/
+/logs/
+/.idea/
+*.iml

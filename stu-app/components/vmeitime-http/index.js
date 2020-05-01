@@ -2,40 +2,13 @@
  * 通用uni-app网络请求
  * 基于 Promise 对象实现更简单的 request 使用方式，支持请求和响应拦截
  */
-
-/*
-// 开放的接口
-import http from './interface'
-
-http.config.baseUrl = "http://localhost:8080/api/"
-
-http.request(url:'user/list',method:'GET').then((res)=>{
-	console.log(JSON.stringify(res))
-})
-http.get('user/list').then((res)=>{
-	console.log(JSON.stringify(res))
-})
-http.get('user/list', {status: 1}).then((res)=>{
-	console.log(JSON.stringify(res))
-})
-http.post('user', {id:1, status: 1}).then((res)=>{
-	console.log(JSON.stringify(res))
-})
-http.put('user/1', {status: 2}).then((res)=>{
-	console.log(JSON.stringify(res))
-})
-http.delete('user/1').then((res)=>{
-	console.log(JSON.stringify(res))
-}) 
-
-*/
 export default {
 	config: {
 		baseUrl: "http://192.168.1.104:8081/",
 		data: {},
 		header: {
 			'Content-Type':'application/x-www-form-urlencoded',
-			"userToken": uni.getStorageSync("userToken") || '',
+			"userToken": uni.getStorageSync("userStuToken") || '',
 			"requestType": "2"
 		},
 		method: "GET",
@@ -100,7 +73,7 @@ export default {
 
 			_config = Object.assign({}, this.config, options)
 			_config.requestId = new Date().getTime()
-			_config.header.userToken = uni.getStorageSync("userToken") || ''
+			_config.header.userToken = uni.getStorageSync("userStuToken") || ''
 
 			//发起请求
 			uni.request(_config);

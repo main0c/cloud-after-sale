@@ -55,7 +55,7 @@
 			<view id="item2" class="tabbody">
 				<view class="uni-form-title">配件明细</view>
 				<view v-if="!rowMation.materials || rowMation.materials.length == 0" class="empty-box">
-					<image src="../../static/common/empty.png" class="empty-icon"></image>
+					<image src="../../../static/common/empty.png" class="empty-icon"></image>
 					<view class="empty-tip">暂无明细</view>
 				</view>
 				<view class="item-box" v-else v-for="(bean, index) in rowMation.materials" :key="index">
