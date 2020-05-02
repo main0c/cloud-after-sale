@@ -4,7 +4,7 @@
 			<view class="service-title">{{bean.title}}</view>
 			<view class="icons">
 				<view class="user-item" @click="toMyMore(item.url)" v-for="(item, j) in bean.childs" :key="j">
-					<img :src="basePath + item.logo" class="list-icon">
+					<img :src="item.logo" class="list-icon">
 					<view class="list-title">{{item.title}}</view>
 				</view>
 			</view>
@@ -19,7 +19,14 @@
 				//图片访问基础路径
 				basePath: this.$fileBasePath,
 				//菜单集合
-				menuList: []
+				menuList: [{
+					title: '考试信息',
+					childs: [{
+						url: 'pages/waitExam/waitExamList',
+						logo: '../../static/common/exam.png',
+						title: '待考试'
+					}]
+				}]
 			};
 		},
 		onLoad() {
@@ -36,18 +43,18 @@
 			
 			//获取权限信息
 			loadThisUserMenuAuth: function(userToken){
-				this.$api.get("userphone006", {}).then((res)=>{
-					if(res.returnCode == 0){
-						uni.setStorageSync("userStuMenu:" + userToken, res.rows)
-						this.menuList = res.rows
-					}else{
-						uni.showToast({
-							icon: 'none',
-							position: 'bottom',
-							title: res.returnMessage
-						});
-					}
-				})
+				// this.$api.get("userphone006", {}).then((res)=>{
+				// 	if(res.returnCode == 0){
+				// 		uni.setStorageSync("userStuMenu:" + userToken, res.rows)
+				// 		this.menuList = res.rows
+				// 	}else{
+				// 		uni.showToast({
+				// 			icon: 'none',
+				// 			position: 'bottom',
+				// 			title: res.returnMessage
+				// 		});
+				// 	}
+				// })
 			},
 			
 			toMyMore: function(url) {

@@ -5,19 +5,19 @@
 				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>旧密码</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请输入旧密码" type="password" v-model="oldPwd" name="oldPwd"/>
+						<input class="uni-input" placeholder="请输入旧密码" maxlength="18" type="password" v-model="oldPwd" name="oldPwd"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>新密码</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请输入新密码" type="password" v-model="newPwd" name="newPwd"/>
+						<input class="uni-input" placeholder="请输入新密码" maxlength="18" type="password" v-model="newPwd" name="newPwd"/>
 					</view>
 				</view>
 				<view class="uni-form-item">
 					<view class="title"><view class="must">*</view>重复密码</view>
 					<view class="content">
-						<input class="uni-input" placeholder="请再次输入新密码" type="password" v-model="newPwdTwo" name="newPwdTwo"/>
+						<input class="uni-input" placeholder="请再次输入新密码" maxlength="18" type="password" v-model="newPwdTwo" name="newPwdTwo"/>
 					</view>
 				</view>
 				

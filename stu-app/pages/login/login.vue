@@ -7,8 +7,8 @@
 			</view>
 			<!-- 主体表单 -->
 			<view class="main">
-				<wInput v-model="userCode" type="text" maxlength="11" placeholder="用户名"></wInput>
-				<wInput v-model="password" type="password" maxlength="11" placeholder="密码" isShowPass></wInput>
+				<wInput v-model="userCode" type="text" maxlength="20" placeholder="学生身份证/学号"></wInput>
+				<wInput v-model="password" type="password" maxlength="18" placeholder="默认密码为身份证后八位" isShowPass></wInput>
 			</view>
 			<wButton text="登 录" @click.native="startLogin()"></wButton>
 			<!-- 底部信息 -->
@@ -69,7 +69,7 @@
 				}
 				
 				//用户登录
-				this.$api.post("userphone001", {userCode: this.userCode, password: this.password, cId: cId}).then((res)=>{
+				this.$api.post("schooluser001", {userCode: this.userCode, password: this.password, cId: cId}).then((res)=>{
 					if(res.returnCode == 0){
 						uni.setStorageSync("userStuToken", res.bean.id);
 						uni.setStorageSync("userStuMation", res.bean);

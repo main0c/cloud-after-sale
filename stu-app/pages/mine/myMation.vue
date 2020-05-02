@@ -1,56 +1,42 @@
 <template>
 	<view>
 		<view>
-			<form @submit="formSubmit">
+			<form>
 				<view class="uni-form-item">
-					<view class="title">真实姓名：</view>
+					<view class="title">学生姓名：</view>
 					<view class="content">
-						{{rowMation.userName}}
-						<image :src="basePath + rowMation.userPhoto" class="user-photo"></image>
+						{{rowMation.studentName}}
+						<image :src="userPhoto" class="user-photo"></image>
 					</view>
 				</view>
 				<view class="uni-form-item">
-					<view class="title">当前帐号：</view>
+					<view class="title">学号：</view>
 					<view class="content">
-						{{rowMation.userCode}}
+						{{rowMation.studentNo}}
 					</view>
 				</view>
 				<view class="uni-form-item">
-					<view class="title">职位：</view>
+					<view class="title">学校：</view>
 					<view class="content">
-						{{rowMation.companyName}} {{rowMation.departmentName}} {{rowMation.jobName}}
+						{{rowMation.schoolName}}
 					</view>
 				</view>
 				<view class="uni-form-item">
-					<view class="title">身份证件：</view>
+					<view class="title">班级：</view>
 					<view class="content">
-						{{rowMation.userIdCard}}
+						{{rowMation.gradeName}} {{rowMation.className}}
 					</view>
 				</view>
 				<view class="uni-form-item">
 					<view class="title">性别：</view>
 					<view class="content">
-						<block v-if="rowMation.userSex == 1">男</block>
-						<block v-else-if="rowMation.userSex == 2">女</block>
-						<block v-else>保密</block>
+						{{rowMation.stuSex}}
 					</view>
 				</view>
 				<view class="uni-form-item">
-					<view class="title">邮箱：</view>
+					<view class="title">特长：</view>
 					<view class="content">
-						{{rowMation.userEmail}}
-					</view>
-				</view>
-				<view class="uni-form-item">
-					<view class="title">手机号：</view>
-					<view class="content">
-						{{rowMation.userPhone}}
-					</view>
-				</view>
-				<view class="uni-form-item">
-					<view class="title">签名：</view>
-					<view class="content">
-						{{rowMation.userSign}}
+						{{rowMation.speciality}}
 					</view>
 				</view>
 			</form>
@@ -64,15 +50,18 @@
 	export default {
 		data() {
 			return {
-				basePath: this.$fileBasePath,
+				userPhoto: '../../static/mine/no-userphoto.png',
 				//个人信息
 				rowMation: {},
 			}
 		},
 		onLoad(options) {
 			//获取个人信息
-			this.$api.get("sys032", {}).then((res)=>{
+			this.$api.get("schooluser004", {}).then((res)=>{
 				if(res.returnCode == 0){
+					if(res.bean.studentImg && res.bean.studentImg != null){
+						this.userPhoto = this.$fileBasePath + res.bean.studentImg;
+					}
 					this.rowMation = res.bean;
 				}else{
 					uni.showToast({
@@ -85,16 +74,6 @@
 			
 		},
 		methods: {
-			
-			//提交
-			formSubmit: function(e) {
-				if(this.latitude == '' || this.latitude == null
-					|| this.longitude == '' || this.longitude == null){
-					uni.showToast({icon: 'none', title: '请打开定位获取位置信息'})
-					return false
-				}
-				
-			}
 			
 		}
 	}

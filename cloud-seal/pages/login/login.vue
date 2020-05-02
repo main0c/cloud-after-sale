@@ -7,8 +7,8 @@
 			</view>
 			<!-- 主体表单 -->
 			<view class="main">
-				<wInput v-model="userCode" type="text" maxlength="11" placeholder="用户名"></wInput>
-				<wInput v-model="password" type="password" maxlength="11" placeholder="密码" isShowPass></wInput>
+				<wInput v-model="userCode" type="text" maxlength="30" placeholder="用户名"></wInput>
+				<wInput v-model="password" type="password" maxlength="18" placeholder="密码" isShowPass></wInput>
 			</view>
 			<wButton text="登 录" @click.native="startLogin()"></wButton>
 			<!-- 底部信息 -->

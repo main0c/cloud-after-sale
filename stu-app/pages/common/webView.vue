@@ -21,19 +21,39 @@
 		},
 		
 		onLoad(option) {
-			if(option.pageUrl != '' && option.pageUrl != null && option.pageUrl != undefined){
-				this.pageUrl = option.pageUrl;
-			}else{
-				uni.showToast({
-					icon: 'none',
-					position: 'bottom',
-					title: '页面配置错误',
-					success:function(){
-						setTimeout(function(){
-							uni.navigateBack()
-						}, 2000)
+			this.loadUrl(option.params);
+		},
+		methods:{
+			loadUrl: function(params){
+				//解码
+				const item = JSON.parse(decodeURIComponent(params));
+				if(!item.url || item.url == null || item.url == ''){
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '页面配置错误',
+						success:function(){
+							setTimeout(function(){
+								uni.navigateBack()
+							}, 2000)
+						}
+					});
+				}else{
+					//判断是加?还是加&
+					var judgeMark = false;
+					var url = item.url;
+					for(var key in item){
+						if(key != 'url'){
+							if(!judgeMark){
+								judgeMark = true;
+								url += '?' + key + '=' + item[key];
+							}else{
+								url += '&' + key + '=' + item[key];
+							}
+						}
 					}
-				});
+					this.pageUrl = url;
+				}
 			}
 		}
 	}

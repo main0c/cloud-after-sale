@@ -7,7 +7,7 @@
 						<view class="avator">
 							<image :src="userPhoto" class="avator-img"></image>
 						</view>
-						<view class="phone-number">{{userName}} 【{{jobName}}】</view>
+						<view class="phone-number">{{userName}} 【{{schoolName}}】</view>
 					</view>
 					<view class="box-bd">
 						<view class="item" @click="myNotice">
@@ -73,19 +73,19 @@
 	export default {
 		data() {
 			return {
-				userPhoto: '',
+				userPhoto: '../../static/mine/no-userphoto.png',
 				userName: '',
-				jobName: ''
+				schoolName: ''
 			};
 		},
 		onLoad() {
 			//判断缓存中的用户信息是否为空
-			if(uni.getStorageSync("userMation") == null){
+			if(uni.getStorageSync("userStuMation") == null){
 				//获取用户信息
-				this.$api.post("userphone002", {}).then((res)=>{
+				this.$api.post("schooluser002", {}).then((res)=>{
 					if(res.returnCode == 0){
-						uni.setStorageSync("userMation", res.bean);
-						this.loadMineMation(uni.getStorageSync("userMation"));
+						uni.setStorageSync("userStuMation", res.bean);
+						this.loadMineMation(uni.getStorageSync("userStuMation"));
 					}else{
 						uni.showToast({
 							icon: 'none',
@@ -95,16 +95,18 @@
 					}
 				})
 			}else{
-				this.loadMineMation(uni.getStorageSync("userMation"));
+				this.loadMineMation(uni.getStorageSync("userStuMation"));
 			}
 		},
 		methods: {
 			
 			//加载我的信息
 			loadMineMation : function(user){
-				this.userPhoto = this.$fileBasePath + user.userPhoto;
-				this.userName = user.userName;
-				this.jobName = user.jobName;
+				if(user.studentImg && user.studentImg != null){
+					this.userPhoto = this.$fileBasePath + user.studentImg;
+				}
+				this.userName = user.studentName;
+				this.schoolName = user.schoolName;
 			},
 			
 			//我的通知
@@ -137,7 +139,7 @@
 				    success: function (res) {
 				        if (res.confirm) {
 							//发起退出请求
-							_this.$api.post("userphone003", {}).then((res)=>{
+							_this.$api.post("schooluser003", {}).then((res)=>{
 								if(res.returnCode == 0){
 									let userToken = uni.getStorageSync("userStuToken");
 									//移除菜单信息
