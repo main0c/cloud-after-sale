@@ -40,6 +40,7 @@
 			//开始考试
 			examRow: function(examId){
 				var params = JSON.stringify({
+					title: '考试',
 					url: this.$pagePath + '/tpl/examing/examTemplate.html',
 					rowId: examId,
 					userToken: uni.getStorageSync("userStuToken")

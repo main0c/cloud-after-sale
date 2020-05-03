@@ -53,6 +53,11 @@
 						}
 					}
 					this.pageUrl = url;
+					if(item.title || item.title != null || item.title != ''){
+						uni.setNavigationBarTitle({
+							title: item.title
+						});
+					}
 				}
 			}
 		}

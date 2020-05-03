@@ -1,6 +1,6 @@
 <template>
 	<view class="pd-list">
-		<view class="bean-li" v-for="bean in list" :key="bean.examId" @click="rowDetails(pd.examId)">
+		<view class="bean-li" v-for="bean in list" :key="bean.answerId" @click="rowDetails(bean.answerId)">
 			<view class="bean-title">{{bean.examName}}</view>
 			<view class="bean-item">
 				<text class="left-content">考试科目：</text>
@@ -51,9 +51,15 @@
 		methods: {
 			
 			//详情
-			rowDetails: function(examId){
+			rowDetails: function(answerId){
+				var params = JSON.stringify({
+					title: '考试详情',
+					url: this.$pagePath + '/tpl/examDetail/examDetail.html',
+					answerId: answerId,
+					userToken: uni.getStorageSync("userStuToken")
+				});
 				uni.navigateTo({
-					url: '/pages/workorder/workorderDetail?examId=' + examId
+					url: '/pages/common/webView?params=' + encodeURIComponent(params)
 				})
 			},
 			
