@@ -22,9 +22,13 @@
 				menuList: [{
 					title: '考试信息',
 					childs: [{
-						url: 'pages/waitExam/waitExamList',
+						url: 'pages/exam/waitExam/waitExamList',
 						logo: '../../static/common/exam.png',
 						title: '待考试'
+					}, {
+						url: 'pages/exam/endExam/endExamList',
+						logo: '../../static/common/endExam.png',
+						title: '已考试'
 					}]
 				}]
 			};

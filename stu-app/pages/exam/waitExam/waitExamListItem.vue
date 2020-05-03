@@ -1,10 +1,14 @@
 <template>
 	<view class="pd-list">
-		<view class="bean-li" v-for="bean in list" :key="bean.id">
+		<view class="bean-li" v-for="bean in list" :key="bean.examId">
 			<view class="bean-title">{{bean.examName}}</view>
 			<view class="bean-item">
 				<text class="left-content">考试科目：</text>
 				<text class="right-content">{{bean.subjectName}}</text>
+			</view>
+			<view class="bean-item">
+				<text class="left-content">考试年级：</text>
+				<text class="right-content">{{bean.gradeName}}</text>
 			</view>
 			<view class="bean-item">
 				<text class="left-content">题目总数：</text>

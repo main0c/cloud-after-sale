@@ -1,19 +1,19 @@
-<!-- 待考试列表 -->
+<!-- 已考试列表 -->
 <template>
 	<mescroll-body ref="mescrollRef" @init="mescrollInit" @down="downCallback" @up="upCallback">
-		<WaitExamListItem :list="list"></WaitExamListItem>
+		<EndExamListItem :list="list"></EndExamListItem>
 	</mescroll-body>
 </template>
 
 <script>
 	//上拉加载，下拉刷新
 	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js"
-	import WaitExamListItem from "./waitExamListItem.vue"
+	import EndExamListItem from "./endExamListItem.vue"
 	
 	export default {
 		mixins: [MescrollMixin], // 使用mixin (在main.js注册全局组件)
 		components: {
-			WaitExamListItem
+			EndExamListItem
 		},
 		data() {
 			return {
@@ -24,14 +24,14 @@
 		},
 		methods: {
 			/**
-			 * 加载客户的列表
+			 * 加载列表
 			 */
 			upCallback(page){
 				var params = {
 					limit: page.size,
 					page: page.num
 				};
-				this.$api.get("schoolstuexam001", params).then((res)=>{
+				this.$api.get("schoolstuexam002", params).then((res)=>{
 					if(res.returnCode == 0){
 						this.mescroll.endSuccess(res.rows.length, res.total);
 						//设置列表数据
