@@ -28,7 +28,7 @@
 			</view>
 			<view class="bean-item">
 				<text class="left-content">得分：</text>
-				<text class="right-content">{{bean.markFraction}}</text>
+				<text class="right-content">{{bean.markFraction}}/{{bean.examFraction}}</text>
 			</view>
 			<view class="bean-item">
 				<text class="left-content">状态：</text>
@@ -54,7 +54,7 @@
 			rowDetails: function(answerId){
 				var params = JSON.stringify({
 					title: '考试详情',
-					url: this.$pagePath + '/tpl/examDetail/examDetail.html',
+					url: this.$pagePath + '/tpl/examDetail/examPhoneDetail.html',
 					answerId: answerId,
 					userToken: uni.getStorageSync("userStuToken")
 				});
